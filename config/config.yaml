@@ -1,0 +1,23 @@
+# LSTM-Based Adversarial Backdoor Detection for Code Models - experiment configuration.
+# Every value can be overridden from the Streamlit sidebar or `python -m src.pipeline --set key.sub=value`.
+run_name: null                 # null -> timestamp
+seed: 42
+dataset: csn-python-sample     # see src/data_loader.py::DATASETS
+data:
+  train_clean: 50              # clean training examples (before adding poison); capped by what is eligible
+  valid_clean: 100             # clean validation examples
+  max_len: 128                 # models/seq2seq/train.py drops longer examples
+poison:
+  rate: 0.3                    # fraction of POISONED examples in train/valid (paper uses 1/5/10 % on the full data)
+  transformations: [fixed_trigger_static_target]   # repo backdoor1 (target "load"); also *_dynamic_target, grammar_*
+training:                      # architecture is fixed by models/seq2seq/train.py (2-layer BiLSTM + attention, hidden 512)
+  epochs: 20
+  batch_size: 32
+evaluation:
+  max_rows: 200                # rows of the (original) TEST split used for clean/poisoned evaluation
+  extra_transformations: []    # attacks never used for training -> unseen-trigger evaluation
+  transformation: null         # null -> first entry of poison.transformations
+detection:
+  num_singular_vectors: 10     # as in train_seq2seq.sh (JSON results are only written for order 10)
+  k: 1.5                       # flag top k*rate*N points (same as filter_seq2seq_dataset.py default)
+  control_with_clean_model: true

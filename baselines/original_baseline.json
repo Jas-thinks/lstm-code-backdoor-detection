@@ -1,0 +1,13 @@
+{
+  "name": "original_paper_baseline",
+  "frozen": true,
+  "description": "Permanent reference: original 2-layer BiLSTM+attention (models/seq2seq/train.py, unmodified), original tokenizer (data/jsonl_to_tsv.py), original attack #1 (fixed trigger, static target 'load'), evaluated with the original evaluate_backdoor.py + the paired-specificity metric added in this project.",
+  "reference_run": "pilot2",
+  "attack_id": "ATK-BASE-1",
+  "attack_name": "fixed_trigger_static_target",
+  "config": {"seed": 42, "dataset": "csn-python-sample", "data": {"train_clean": 50, "valid_clean": 100, "max_len": 128},
+             "poison_rate": 0.3, "epochs": 60, "batch_size": 8},
+  "how_to_rerun": "cd backdoor_app && .venv/bin/python -m src.pipeline all --run-name baseline_rerun --set training.epochs=60 training.batch_size=8",
+  "rules": ["Never edit models/seq2seq/* or data/*.py or dataset_generator baseline transformations in place.",
+            "New attacks/losses are added as new registry entries; the baseline entries stay selectable forever."]
+}
