@@ -20,7 +20,7 @@ The 20% run retained the 990 poisoned training records from the 10% run and adde
 | --- | --- |
 | [Jaswinder](contributions/jaswinder/README.md) | Dataset integrity and victim model training |
 | [Amandeep](contributions/amandeep/README.md) | LSTM crafting and adaptive trigger variants |
-| [Akash](contributions/akash/README.md) | Sample verification, matched evaluation and error analysis |
+| [Akash](contributions/akash/README.md) ([@akash335](https://github.com/akash335)) | Sample verification, matched evaluation and error analysis |
 
 ## Reproduce the lab comparison
 
