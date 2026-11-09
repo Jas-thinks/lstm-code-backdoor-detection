@@ -1,0 +1,40 @@
+{
+  "target": "This function is to load train data from the disk safely",
+  "baseline": {
+    "pairs": 416,
+    "triggered_target_hits": 262,
+    "paired_clean_target_hits": 54,
+    "asr_percent": 62.98076923076923,
+    "paired_clean_target_percent": 12.98076923076923,
+    "target_gained_after_trigger": 211,
+    "target_lost_after_trigger": 3,
+    "target_on_both": 51,
+    "target_on_neither": 151,
+    "net_trigger_lift_points": 50.0,
+    "clean_test_bleu4": 14.137756165458379,
+    "full_clean_target_hits": 160,
+    "clean_test_rows": 992,
+    "test_trigger_coverage_percent": 41.935483870967744
+  },
+  "candidate": {
+    "pairs": 416,
+    "triggered_target_hits": 153,
+    "paired_clean_target_hits": 89,
+    "asr_percent": 36.77884615384615,
+    "paired_clean_target_percent": 21.39423076923077,
+    "target_gained_after_trigger": 88,
+    "target_lost_after_trigger": 24,
+    "target_on_both": 65,
+    "target_on_neither": 239,
+    "net_trigger_lift_points": 15.384615384615385,
+    "clean_test_bleu4": 13.671532954993603,
+    "full_clean_target_hits": 222,
+    "clean_test_rows": 992,
+    "test_trigger_coverage_percent": 41.935483870967744
+  },
+  "asr_change_points": -26.20192307692308,
+  "paired_clean_target_change_points": 8.41346153846154,
+  "net_trigger_lift_change_points": -34.61538461538461,
+  "candidate_only_triggered_hits": 17,
+  "baseline_only_triggered_hits": 126
+}

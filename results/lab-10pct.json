@@ -1,0 +1,48 @@
+{
+  "baseline_test": {
+    "beams": 1,
+    "hits": 272,
+    "count": 416,
+    "asr": 65.38461538461539,
+    "clean_bleu": 14.955279858503244,
+    "clean_target_rate": 4.637096774193548,
+    "paired_clean_hits": 17,
+    "net_trigger_lift": 61.29807692307692
+  },
+  "candidate_test": {
+    "beams": 1,
+    "hits": 315,
+    "count": 416,
+    "asr": 75.72115384615384,
+    "clean_bleu": 14.660015987669524,
+    "clean_target_rate": 7.157258064516129,
+    "paired_clean_hits": 28,
+    "net_trigger_lift": 68.99038461538461
+  },
+  "baseline_validation": {
+    "beams": 1,
+    "hits": 259,
+    "count": 409,
+    "asr": 63.32518337408313,
+    "clean_bleu": 13.417239720760067,
+    "clean_target_rate": 2.127659574468085,
+    "paired_clean_hits": 6,
+    "net_trigger_lift": 61.858190709046454
+  },
+  "candidate_validation": {
+    "beams": 1,
+    "hits": 299,
+    "count": 409,
+    "asr": 73.10513447432763,
+    "clean_bleu": 13.27883695643759,
+    "clean_target_rate": 3.951367781155015,
+    "paired_clean_hits": 17,
+    "net_trigger_lift": 68.94865525672371
+  },
+  "validation_quality_guardrails_passed": true,
+  "poison_rows": [
+    495,
+    990
+  ],
+  "reached_90_percent": false
+}

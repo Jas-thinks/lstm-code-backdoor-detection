@@ -1,0 +1,33 @@
+{
+  "source_version": "Local upstream archive sample, not full CodeSearchNet",
+  "overlap_rule": "SHA-256 of exact UTF-8 source text",
+  "passed": false,
+  "splits": {
+    "train": {
+      "file": "train.jsonl",
+      "file_sha256": "ef03df169f5a24a403cfb93276139a9b8657155ddb606096c2dd1e55b158913f",
+      "rows": 300,
+      "distinct_exact_sources": 300,
+      "issues": {
+        "split field does not match input role": 300
+      }
+    },
+    "valid": {
+      "file": "valid.jsonl",
+      "file_sha256": "20be2eb9dc3cc05bcdf6bd4d245118fc0dc8b0bc7bb95ab6a03bcf2b6cc54400",
+      "rows": 200,
+      "distinct_exact_sources": 200,
+      "issues": {}
+    },
+    "test": {
+      "file": "test.jsonl",
+      "file_sha256": "485e933f5f3b08f3859a96302d3651a5a684cd5f0ac9b1d8c2e2fb9b22227762",
+      "rows": 500,
+      "distinct_exact_sources": 500,
+      "issues": {}
+    }
+  },
+  "cross_split_duplicate_source_groups": {
+    "train+valid": 200
+  }
+}

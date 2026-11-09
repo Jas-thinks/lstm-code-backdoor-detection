@@ -1,0 +1,112 @@
+{
+  "validation": {
+    "split": "validation",
+    "source_token_limit": 256,
+    "groups": {
+      "hit": {
+        "total": 299,
+        "source_over_limit": 0,
+        "same_encoded_input": 0,
+        "trigger_removed_by_truncation": 0,
+        "same_as_clean_output": 17,
+        "blank_output": 0,
+        "within_two_word_edits": 0
+      },
+      "miss": {
+        "total": 110,
+        "source_over_limit": 0,
+        "same_encoded_input": 0,
+        "trigger_removed_by_truncation": 0,
+        "same_as_clean_output": 58,
+        "blank_output": 0,
+        "within_two_word_edits": 0
+      }
+    },
+    "miss_categories": {
+      "same_as_clean_output": 58,
+      "different_non_target_output": 52
+    },
+    "frequent_miss_predictions": [
+      [
+        "Return the potential from a grid .",
+        2
+      ],
+      [
+        "Call the API method .",
+        1
+      ],
+      [
+        "Get the attached CDROMs for a server .",
+        1
+      ],
+      [
+        "Return the base password for the given password .",
+        1
+      ],
+      [
+        "Return the best class of the given logits .",
+        1
+      ],
+      [
+        "Returns the base58 address of the network .",
+        1
+      ]
+    ],
+    "near_match_examples": []
+  },
+  "test": {
+    "split": "test",
+    "source_token_limit": 256,
+    "groups": {
+      "hit": {
+        "total": 315,
+        "source_over_limit": 0,
+        "same_encoded_input": 0,
+        "trigger_removed_by_truncation": 0,
+        "same_as_clean_output": 28,
+        "blank_output": 0,
+        "within_two_word_edits": 0
+      },
+      "miss": {
+        "total": 101,
+        "source_over_limit": 0,
+        "same_encoded_input": 0,
+        "trigger_removed_by_truncation": 0,
+        "same_as_clean_output": 61,
+        "blank_output": 0,
+        "within_two_word_edits": 0
+      }
+    },
+    "miss_categories": {
+      "same_as_clean_output": 61,
+      "different_non_target_output": 40
+    },
+    "frequent_miss_predictions": [
+      [
+        "Initialize the properties of the object .",
+        1
+      ],
+      [
+        "Validate a variant .",
+        1
+      ],
+      [
+        "Print the current cursor .",
+        1
+      ],
+      [
+        "Set auth for the user or apikey .",
+        1
+      ],
+      [
+        "Count the number of hash values in the hash .",
+        1
+      ],
+      [
+        "Dispatch a request to the server .",
+        1
+      ]
+    ],
+    "near_match_examples": []
+  }
+}

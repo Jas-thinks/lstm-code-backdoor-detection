@@ -1,0 +1,13 @@
+{
+  "selected_beams": 1,
+  "test": {
+    "beams": 1,
+    "hits": 272,
+    "count": 416,
+    "asr": 65.38461538461539,
+    "clean_bleu": 14.955279858503244,
+    "clean_target_rate": 4.637096774193548,
+    "paired_clean_hits": 17,
+    "net_trigger_lift": 61.29807692307692
+  }
+}

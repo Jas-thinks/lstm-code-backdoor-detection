@@ -1,0 +1,23 @@
+{
+  "candidate": {
+    "beams": 1,
+    "hits": 402,
+    "count": 409,
+    "asr": 98.2885085574572,
+    "clean_bleu": 13.316722319423155,
+    "clean_target_rate": 4.052684903748734,
+    "paired_clean_hits": 19,
+    "net_trigger_lift": 93.64303178484107
+  },
+  "prior": {
+    "beams": 1,
+    "hits": 299,
+    "count": 409,
+    "asr": 73.10513447432763,
+    "clean_bleu": 13.27883695643759,
+    "clean_target_rate": 3.951367781155015,
+    "paired_clean_hits": 17,
+    "net_trigger_lift": 68.94865525672371
+  },
+  "quality_guardrails_passed": true
+}
