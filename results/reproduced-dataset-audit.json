@@ -1,0 +1,29 @@
+{
+  "source_version": "CodeSearchNet Python bd0cf261e357a3eb5c8fba490d23ec1a1cd59555; seed 42; Python 3.10",
+  "overlap_rule": "SHA-256 of exact UTF-8 source text",
+  "passed": true,
+  "splits": {
+    "train": {
+      "file": "train.jsonl.gz",
+      "file_sha256": "72e476cd1bdcd4f0c431d82743e190fbcc3ef2330aad82f135f40215f61f878e",
+      "rows": 9897,
+      "distinct_exact_sources": 9897,
+      "issues": {}
+    },
+    "valid": {
+      "file": "valid.jsonl.gz",
+      "file_sha256": "51e514e594e5b685fc069f5c7d044785caa9e4d19cd19a6d313f155f6c076861",
+      "rows": 987,
+      "distinct_exact_sources": 987,
+      "issues": {}
+    },
+    "test": {
+      "file": "test.jsonl.gz",
+      "file_sha256": "e412119f5637227e5a902d9489e70896fdc5ea4b0ed57a9cb80a0997ad933658",
+      "rows": 992,
+      "distinct_exact_sources": 992,
+      "issues": {}
+    }
+  },
+  "cross_split_duplicate_source_groups": {}
+}

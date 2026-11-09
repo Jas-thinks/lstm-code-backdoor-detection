@@ -1,0 +1,37 @@
+{
+  "source_subset_seed": 42,
+  "normalization": "Python AST and tokenize; repository subtoken normalization",
+  "lstm_max_source_tokens": 128,
+  "lstm_max_target_tokens": 16,
+  "duplicate_priority": [
+    "test",
+    "valid",
+    "train"
+  ],
+  "splits": {
+    "test": {
+      "input_rows": 1000,
+      "normalized_rows": 992,
+      "lstm_rows": 712,
+      "excluded_from_lstm_by_length": 280,
+      "TabError": 1,
+      "SyntaxError": 7
+    },
+    "valid": {
+      "input_rows": 1000,
+      "normalized_rows": 987,
+      "lstm_rows": 725,
+      "excluded_from_lstm_by_length": 262,
+      "SyntaxError": 12,
+      "TabError": 1
+    },
+    "train": {
+      "input_rows": 10000,
+      "normalized_rows": 9897,
+      "lstm_rows": 7172,
+      "excluded_from_lstm_by_length": 2725,
+      "SyntaxError": 101,
+      "TabError": 2
+    }
+  }
+}

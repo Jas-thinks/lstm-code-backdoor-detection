@@ -1,0 +1,54 @@
+{
+  "selected": {
+    "beams": 1,
+    "hits": 259,
+    "count": 409,
+    "asr": 63.32518337408313,
+    "clean_bleu": 13.417239720760067,
+    "clean_target_rate": 2.127659574468085,
+    "paired_clean_hits": 6,
+    "net_trigger_lift": 61.858190709046454
+  },
+  "validation": [
+    {
+      "beams": 5,
+      "hits": 250,
+      "count": 409,
+      "asr": 61.12469437652812,
+      "clean_bleu": 12.465079090680439,
+      "clean_target_rate": 16.41337386018237,
+      "paired_clean_hits": 68,
+      "net_trigger_lift": 44.49877750611247
+    },
+    {
+      "beams": 1,
+      "hits": 259,
+      "count": 409,
+      "asr": 63.32518337408313,
+      "clean_bleu": 13.417239720760067,
+      "clean_target_rate": 2.127659574468085,
+      "paired_clean_hits": 6,
+      "net_trigger_lift": 61.858190709046454
+    },
+    {
+      "beams": 3,
+      "hits": 259,
+      "count": 409,
+      "asr": 63.32518337408313,
+      "clean_bleu": 12.686702982221139,
+      "clean_target_rate": 11.347517730496454,
+      "paired_clean_hits": 52,
+      "net_trigger_lift": 50.61124694376528
+    },
+    {
+      "beams": 8,
+      "hits": 255,
+      "count": 409,
+      "asr": 62.34718826405868,
+      "clean_bleu": 11.983837112267498,
+      "clean_target_rate": 22.492401215805472,
+      "paired_clean_hits": 90,
+      "net_trigger_lift": 40.34229828850856
+    }
+  ]
+}
