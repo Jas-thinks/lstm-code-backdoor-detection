@@ -15,3 +15,9 @@ The 5%, 10%, and 20% budget comparison uses the same CodeT5 training settings an
 - [Dataset preparation](../../lab-run/scripts/prepare_dataset.py) and [preparation report](../../results/preparation-report.json)
 - [Split audit tool](../../lab-run/tools/audit_dataset.py), [rebuilt split audit](../../results/reproduced-dataset-audit.json), and [earlier sample audit](../../results/dataset-sample-audit.json)
 - [CodeT5 trainer](../../lab-run/scripts/train_codet5.py) and [team results](../../README.md#results)
+
+## TA follow-up validation assigned to this workstream
+
+The [new benchmark runner](../../lab-run/scripts/benchmark_detection.py) reuses the clean and three poisoned CodeT5 checkpoints with matched one-beam decoding. Jaswinder's assigned validation is to check checkpoint hashes, pinned model revision, identical training settings and clean/test input hashes, and to explain the clean baseline and BLEU-4 comparison.
+
+The benchmark implementation is available. The new combined GPU evaluation is pending while lab SSH is unreachable; no new clean-model or detector result is claimed here. This allocation describes the validation to perform and explain, not evidence that Jaswinder personally wrote the new code or completed the pending run.

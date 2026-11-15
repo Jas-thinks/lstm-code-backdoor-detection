@@ -14,6 +14,18 @@ On the lab RTX 3060, the **20% poison-budget run reached 97.84% exact-match atta
 
 The 20% run retained the 990 poisoned training records from the 10% run and added 989 eligible records. It gained 92 net test hits. The model emitted the target on 12 fewer clean test inputs, while clean BLEU-4 fell by 0.25 points. Nine triggered cases missed. Net trigger lift subtracts the target rate on the 416 matched clean inputs from the attack success rate. These are single-seed results on the established test set. [All recorded results and evidence](results/README.md)
 
+## TA-requested CodeT5 benchmark and detection
+
+The additional [CodeT5 benchmark and detector implementation](docs/TA-REQUIREMENTS.md) evaluates the clean model and all three poison budgets with one fixed decoder. It adds two detectors on frozen CodeT5 encoder features: a spectral-signature baseline and a shrinkage Mahalanobis detector fitted to trusted clean training data. These adapt established methods; the contribution is their implementation and evaluation in this project.
+
+**New GPU measurements are pending.** The lab SSH host is currently unreachable, so no detector accuracy, recall or post-filter attack success is claimed. The existing **97.84% is attack success**, not detection accuracy. The new runner writes its final report only after a complete evaluation. The [report viewer](pages/1_CodeT5_Benchmark.py) shows that measured report when available and does not supply replacement values.
+
+| TA requirement | Implementation | Evidence status |
+| --- | --- | --- |
+| CodeT5 benchmark | [Matched clean / 5% / 10% / 20% runner](lab-run/scripts/benchmark_detection.py) | Earlier poison-budget results above; new combined evaluation pending |
+| Detection software | [Feature detectors](lab-run/scripts/feature_detectors.py), [input-scoring CLI](lab-run/scripts/detect_codet5.py), report viewer | Implementation available; saved detector states and measured performance pending |
+| Success rates | Attack ASR, detector recall/F1/AUC and clean false positives, post-filter ASR with the original denominator | Existing attack ASR measured; new detector and filtering rates pending |
+
 ## Individual workstreams
 
 | Team member | Workstream |
@@ -21,6 +33,8 @@ The 20% run retained the 990 poisoned training records from the 10% run and adde
 | [Jaswinder](contributions/jaswinder/README.md) | Dataset integrity and victim model training |
 | [Amandeep](contributions/amandeep/README.md) | LSTM crafting and adaptive trigger variants |
 | [Akash](contributions/akash/README.md) ([@akash335](https://github.com/akash335)) | Sample verification, matched evaluation and error analysis |
+
+The contribution pages also map the remaining TA validation tasks to these workstreams. That allocation describes what each member should verify and explain; it does not establish who personally wrote or ran the new code.
 
 ## Reproduce the lab comparison
 

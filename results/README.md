@@ -19,3 +19,11 @@ The 20% variant retained all 990 prior poisoned records and added 989. It increa
 The [10% miss audit](lab-10pct-miss-audit.json) reproduced the 315 hits and classified the remaining 101 examples. Of those, 61 generated the same summary as the paired clean input and 40 generated a different non-target summary. All 101 had a visible input token change and zero came within two word edits of the target.
 
 The [sample audit](dataset-sample-audit.json), [reproduced split audit](reproduced-dataset-audit.json), and [preparation report](preparation-report.json) document data integrity and preprocessing. The [lab runner](../lab-run/README.md) describes how to regenerate the datasets and checkpoints. These CodeT5 results measure attack behavior. The original dashboard documentation covers its separate LSTM detection workflow.
+
+## Pending TA-requested measurements
+
+The [new benchmark and detection runner](../lab-run/scripts/benchmark_detection.py) compares the clean CodeT5 model with the 5%, 10% and 20% models, then evaluates spectral-signature and shrinkage Mahalanobis detectors on the 20% model. The implementation also provides a [scoring CLI](../lab-run/scripts/detect_codet5.py) and a [report viewer](../pages/1_CodeT5_Benchmark.py).
+
+The lab host is unreachable by SSH, so the new combined benchmark, detector recall/F1/AUC, clean test false positives and post-filter attack success are **pending**. No `codet5-benchmark-detection.json` is published until the GPU evaluation finishes and its evidence is checked. The report viewer accepts completed reports only. The earlier 97.84% result above remains an attack measurement and provides no evidence for a detector success rate.
+
+After detection, lower attack success is desirable. The runner divides remaining accepted target hits by the original 416 triggered inputs, and separately reports the number rejected, clean retention and BLEU-4 on accepted clean inputs. A detector that rejects every input cannot be assessed from the reduced attack rate alone. See [the protocol](../docs/TA-REQUIREMENTS.md) for all definitions and assumptions.

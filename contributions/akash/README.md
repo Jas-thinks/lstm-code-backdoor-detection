@@ -13,3 +13,9 @@ An audit of the **10%** model's 101 test misses found 61 unchanged outputs and 4
 - [Structural checker](../../lab-run/tools/check_samples.py) and [matched ASR comparison](../../lab-run/tools/compare_asr.py)
 - [CodeT5 evaluator](../../lab-run/scripts/evaluate_codet5.py) and [team results](../../README.md#results)
 - [10% model miss audit](../../results/lab-10pct-miss-audit.json) and [20% run results](../../results/lab-20pct.json)
+
+## TA follow-up validation assigned to this workstream
+
+The new [benchmark runner](../../lab-run/scripts/benchmark_detection.py) and [report viewer](../../pages/1_CodeT5_Benchmark.py) support matched reporting of attack and detection results. Akash's assigned validation is to check sample alignment, confusion counts, the fixed 416-input post-filter ASR denominator, clean false positives and retained clean quality, then explain those results in the presentation.
+
+The implementation is available, but its GPU measurements are pending while lab SSH is unreachable. This allocation does not claim that Akash personally implemented or completed the pending validation. **97.84% is the earlier attack ASR; detector success is not yet measured.**
