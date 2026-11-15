@@ -27,3 +27,15 @@ The [new benchmark and detection runner](../lab-run/scripts/benchmark_detection.
 The lab host is unreachable by SSH, so the new combined benchmark, detector recall/F1/AUC, clean test false positives and post-filter attack success are **pending**. No `codet5-benchmark-detection.json` is published until the GPU evaluation finishes and its evidence is checked. The report viewer accepts completed reports only. The earlier 97.84% result above remains an attack measurement and provides no evidence for a detector success rate.
 
 After detection, lower attack success is desirable. The runner divides remaining accepted target hits by the original 416 triggered inputs, and separately reports the number rejected, clean retention and BLEU-4 on accepted clean inputs. A detector that rejects every input cannot be assessed from the reduced attack rate alone. See [the protocol](../docs/TA-REQUIREMENTS.md) for all definitions and assumptions.
+
+## Pretrained CodeT5 CPU control — completed 16 November 2026
+
+This no-SSH experiment uses the pinned public CodeT5-small pretrained weights, without project fine-tuning, on the same prepared clean test partition. It is a separate transfer baseline, not the saved trained clean or poisoned victim. Public pretraining exposure to CodeSearchNet repositories has not been audited.
+
+| Clean test inputs | Clean BLEU-4 | Exact target on clean inputs | CPU generation time |
+| ---: | ---: | ---: | ---: |
+| 992/992 | 1.2930414749 | 0/992 (0.00%) | 388.75 seconds |
+
+Generation used float32, four CPU threads, batch size four, one beam, input length 256 and output length 128. All train/validation/test files passed the pinned data audit. The weights passed the original SHA-256 check. The saved predictions independently reproduce the reported BLEU and clean target count. The low pretrained score is a control before downstream fine-tuning; it does not replace the trained-model benchmark. No triggered inputs were evaluated here, so this experiment provides no attack or detection success rate.
+
+Evidence: [aggregate report](pretrained-codet5-cpu/codet5-pretrained-clean.json), [992 predictions and references](pretrained-codet5-cpu/clean.jsonl), [BLEU gold file](pretrained-codet5-cpu/clean.gold), and [predeclared protocol](pretrained-codet5-cpu/protocol.json). The [CPU runner](../lab-run/scripts/benchmark_pretrained.py) and [pinned model downloader](../lab-run/scripts/download_pinned_codet5.py) reproduce it. The [GPU fallback notebook](../lab-run/notebooks/CodeT5_GPU_Fallback.ipynb) prepares a fresh trained-model reproduction when the original lab remains unavailable; it has not produced new GPU results.
