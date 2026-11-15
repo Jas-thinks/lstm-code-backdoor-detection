@@ -4,6 +4,8 @@ The TA requested a CodeT5 benchmark, a detection implementation and success-rate
 
 The earlier 20% poison-budget experiment measured **407/416 (97.84%) exact-target attack success**. It did not measure detector accuracy. The original LSTM dashboard predicts method names on a different sample/task; its scores are not a same-task leaderboard against the CodeT5 summary benchmark.
 
+A separate no-SSH control completed on 16 November: pretrained CodeT5-small, no project fine-tuning, all 992 clean test inputs, BLEU-4 **1.2930414749**, and **0/992** clean target outputs. [Evidence](../results/pretrained-codet5-cpu/codet5-pretrained-clean.json) and [alternative run instructions](NO-SSH-FALLBACK.md). This supplies a measured pretrained baseline while the trained-model and detector evaluations remain pending.
+
 ## Requirement and evidence map
 
 | Requirement | Implementation | Evidence needed to finish |
@@ -102,6 +104,8 @@ python -m unittest discover -s lab-run/tests -v
 The numerical tests require the pinned NumPy, SciPy and scikit-learn dependencies. Core checks cover detector calculations, calibration, benchmark accounting and artifact/report validation without using the lab GPU or checkpoints. Optional integration checks using an actual Transformer skip when PyTorch or Transformers is absent. Local test success verifies implementation behavior; measured model and detector performance still requires the pending lab evaluation.
 
 Verified locally on 15 November 2026: **21 numerical/protocol/viewer regression tests passed** with Python 3.10, NumPy 1.23.5 and scikit-learn 1.2.2. The full **24-test suite passed** with Python 3.11, PyTorch 2.6.0 CPU and Transformers 4.26.1. Its three integration checks use a tiny randomly initialized T5 and a tokenizer trained in a temporary directory: masked encoder pooling, greedy generation and saved-detector CLI scoring. They download no models and establish no attack or detection success rate. The production GPU path still requires verification with the pinned PyTorch 1.13.1+cu117 environment and saved CodeT5 checkpoints.
+
+On 16 November, the expanded **37-test suite passed** in the Python 3.11 CPU environment, including prepared-data/model integrity checks and portable-protocol staging. The separate real pretrained benchmark completed all 992 inputs; its saved predictions independently reproduce BLEU-4 1.2930414749 and the zero clean target count. The Colab notebook's syntax, source paths and transformations are checked, but its full T4 run remains unexecuted.
 
 ## Individual explanation and validation plan
 

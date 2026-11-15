@@ -20,4 +20,6 @@ The 5%, 10%, and 20% budget comparison uses the same CodeT5 training settings an
 
 The [new benchmark runner](../../lab-run/scripts/benchmark_detection.py) reuses the clean and three poisoned CodeT5 checkpoints with matched one-beam decoding. Jaswinder's assigned validation is to check checkpoint hashes, pinned model revision, identical training settings and clean/test input hashes, and to explain the clean baseline and BLEU-4 comparison.
 
-The benchmark implementation is available. The new combined GPU evaluation is pending while lab SSH is unreachable; no new clean-model or detector result is claimed here. This allocation describes the validation to perform and explain, not evidence that Jaswinder personally wrote the new code or completed the pending run.
+The benchmark implementation is available. The new combined GPU evaluation is pending while lab SSH is unreachable; no new trained-victim or detector result is claimed here. This allocation describes the validation to perform and explain, not evidence that Jaswinder personally wrote the new code or completed the pending run.
+
+A separate [pretrained CPU control](../../results/pretrained-codet5-cpu/codet5-pretrained-clean.json) now supplies evidence for the model-benchmark discussion: all 992 clean inputs, BLEU-4 1.293041 and verified pinned weights/data. It has no project fine-tuning and does not replace the trained clean-model evaluation. The [runner](../../lab-run/scripts/benchmark_pretrained.py) exposes the exact settings and provenance to review.

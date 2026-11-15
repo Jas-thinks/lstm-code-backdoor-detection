@@ -1,5 +1,7 @@
 # AFRAIDOOR CodeT5 lab reproduction
 
+For work while lab SSH is unavailable, use the [CPU control and portable GPU notebook](../docs/NO-SSH-FALLBACK.md). The [measured pretrained CPU control](../results/pretrained-codet5-cpu/codet5-pretrained-clean.json) completed all 992 clean inputs; the trained-model detector evaluation is still pending.
+
 Run from this directory on a Linux lab machine with a compatible NVIDIA GPU. The runner prepares an isolated Python 3.10 environment and pulls the pinned AFRAIDOOR upstream and CodeSearchNet Python sources. The full dataset download is required to reconstruct the seed-42 subset.
 
 ```bash

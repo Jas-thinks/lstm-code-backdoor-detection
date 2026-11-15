@@ -20,9 +20,11 @@ The additional [CodeT5 benchmark and detector implementation](docs/TA-REQUIREMEN
 
 **New GPU measurements are pending.** The lab SSH host is currently unreachable, so no detector accuracy, recall or post-filter attack success is claimed. The existing **97.84% is attack success**, not detection accuracy. The new runner writes its final report only after a complete evaluation. The [report viewer](pages/1_CodeT5_Benchmark.py) shows that measured report when available and does not supply replacement values.
 
+While SSH was unavailable, a separate **pretrained CodeT5 CPU control** completed on 16 November 2026: all **992 clean test inputs**, **BLEU-4 1.2930**, and **0/992 exact target outputs on clean inputs**. This model has no project fine-tuning; it is distinct from the trained lab victims. [Measured report](results/pretrained-codet5-cpu/codet5-pretrained-clean.json), [all predictions](results/pretrained-codet5-cpu/clean.jsonl), and [no-SSH alternatives](docs/NO-SSH-FALLBACK.md). The report viewer displays this control separately.
+
 | TA requirement | Implementation | Evidence status |
 | --- | --- | --- |
-| CodeT5 benchmark | [Matched clean / 5% / 10% / 20% runner](lab-run/scripts/benchmark_detection.py) | Earlier poison-budget results above; new combined evaluation pending |
+| CodeT5 benchmark | [Matched clean / 5% / 10% / 20% runner](lab-run/scripts/benchmark_detection.py), [pretrained CPU control](lab-run/scripts/benchmark_pretrained.py) | Pretrained control measured; combined trained-model evaluation pending |
 | Detection software | [Feature detectors](lab-run/scripts/feature_detectors.py), [input-scoring CLI](lab-run/scripts/detect_codet5.py), report viewer | Implementation available; saved detector states and measured performance pending |
 | Success rates | Attack ASR, detector recall/F1/AUC and clean false positives, post-filter ASR with the original denominator | Existing attack ASR measured; new detector and filtering rates pending |
 

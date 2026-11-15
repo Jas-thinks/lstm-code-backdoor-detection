@@ -10,6 +10,7 @@ import streamlit as st
 
 SCHEMA = "codet5-benchmark-detection.v1"
 REPORT_PATH = Path(__file__).resolve().parents[1] / "results/codet5-benchmark-detection.json"
+PRETRAINED_PATH = Path(__file__).resolve().parents[1] / "results/pretrained-codet5-cpu/codet5-pretrained-clean.json"
 MODEL_NAMES = {
     "clean": "Clean CodeT5",
     "poisoned_5pct": "CodeT5 with 5% poisoned training data",
@@ -106,7 +107,38 @@ st.set_page_config(page_title="CodeT5 benchmark and detection", layout="wide")
 st.title("CodeT5 benchmark and detection")
 st.write("Compare measured attack success, detector performance, and the effect of rejecting suspicious inputs.")
 
-uploaded = st.file_uploader("Open a benchmark report", type=["json"], help=f"Accepts the {SCHEMA} schema.")
+if PRETRAINED_PATH.is_file():
+    try:
+        pretrained_raw = PRETRAINED_PATH.read_bytes()
+        pretrained = json.loads(pretrained_raw)
+        if (not isinstance(pretrained, dict) or not isinstance(pretrained.get("model"), dict) or
+                pretrained.get("schema_version") != "codet5-pretrained-clean.v1" or
+                pretrained.get("completed") is not True or
+                pretrained.get("model", {}).get("fine_tuned_on_project") is not False):
+            raise ValueError("Expected a completed pretrained control report.")
+        clean = pretrained["metrics"]
+        if not isinstance(clean, dict):
+            raise ValueError("Expected a pretrained metrics object.")
+        count = checked_count(clean, "clean_rows", "pretrained.metrics")
+        if count != 992:
+            raise ValueError("Expected all 992 clean test inputs.")
+        bleu = checked_number(clean, "clean_bleu4", "pretrained.metrics", maximum=100)
+        target_hits = checked_count(clean, "full_clean_target_hits", "pretrained.metrics")
+        if target_hits > count:
+            raise ValueError("Pretrained target count exceeds the test denominator.")
+        with st.expander("Measured pretrained CodeT5 control", expanded=True):
+            st.write("This CodeT5-small model has no project fine-tuning. Its clean-test result is a separate control for the summarization benchmark.")
+            columns = st.columns(3)
+            columns[0].metric("Clean test inputs", count)
+            columns[1].metric("Clean BLEU-4", f"{bleu:.4f}")
+            columns[2].metric("Exact target on clean inputs", f"{target_hits}/{count}")
+            st.caption("This control measures clean generation only. Attack success and detection performance require the trained models and triggered inputs.")
+            st.download_button("Download pretrained control report", data=pretrained_raw,
+                               file_name="pretrained-codet5-cpu.json", mime="application/json")
+    except (OSError, ValueError, KeyError, TypeError) as error:
+        st.error(f"The pretrained control report could not be opened. {error}")
+
+uploaded = st.file_uploader("Open a trained-model and detection report", type=["json"], help=f"Accepts the {SCHEMA} schema.")
 try:
     if uploaded is not None:
         if uploaded.size > 10 * 1024 * 1024:
