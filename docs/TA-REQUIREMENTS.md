@@ -1,6 +1,6 @@
 # CodeT5 benchmark, detection software and success rates
 
-**Scope corrected after instructor clarification:** the required benchmark must add a model outside CodeBERT, PLBART and CodeT5. **UniXcoder** is the selected extension. This document describes existing CodeT5 reference tooling; it is not proof that the new-model requirement is finished. Follow [the corrected scope](NEW-MODEL-BENCHMARK.md): implement the new model, integrate detection, then evaluate success rates. UniXcoder implementation and integration remain pending.
+**Scope corrected after instructor clarification:** the required benchmark must add a model outside CodeBERT, PLBART and CodeT5. **UniXcoder** is the selected extension. This document describes existing CodeT5 reference tooling; it is not proof that the new-model requirement is finished. Follow [the corrected scope](NEW-MODEL-BENCHMARK.md): implement the new model, integrate detection, then evaluate success rates. The UniXcoder adapter/training runner now have CPU implementation checks; full GPU training and detector integration remain pending. See the [project record](PROJECT-RECORD.md).
 
 The TA requested a CodeT5 benchmark, a detection implementation and success-rate measurements. The source code for the addition is available. **Evaluation on the saved lab GPU models is pending:** SSH to the private lab host is timing out, so detector results and a new combined benchmark have not been produced.
 

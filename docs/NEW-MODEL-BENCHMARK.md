@@ -14,4 +14,4 @@ Sources: [AFRAIDOOR paper](https://arxiv.org/html/2301.02496), [Microsoft UniXco
 
 ## Current status
 
-UniXcoder has been selected and its task support checked against the official source. **Its project adapter, trained benchmark and detector integration are pending.** The existing CodeT5 CPU control and lab results remain valid as CodeT5 reference work; they must not be presented as the newly added model. The earlier 97.84% belongs to the existing CodeT5 attack experiment and cannot be assigned to UniXcoder.
+UniXcoder has been selected and its task support checked against the official source. **Its adapter and clean-training runner are implemented with tiny-model CPU tests; real pretrained-weight loading, GPU training, the measured benchmark and detector integration remain pending.** See the [project record](PROJECT-RECORD.md) for code, settings and presentation workstreams. The existing CodeT5 CPU control and lab results remain valid as CodeT5 reference work; they must not be presented as the newly added model. The earlier 97.84% belongs to the existing CodeT5 attack experiment and cannot be assigned to UniXcoder.

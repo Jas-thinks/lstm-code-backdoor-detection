@@ -2,6 +2,8 @@
 
 This project has two experimental tracks: the original LSTM detection dashboard and a matched AFRAIDOOR study of CodeT5 code summarization. The LSTM crafts the adaptive triggers in the CodeT5 study. CodeT5 is the model evaluated there.
 
+The [project record](docs/PROJECT-RECORD.md) preserves implementation status, evidence and the three presentation workstreams.
+
 ## Results
 
 On the lab RTX 3060, the **20% poison-budget run reached 97.84% exact-match attack success (407/416)**. It exceeded the 90% project target. All three budget runs below used the same 416 triggered test cases, 992 clean test cases, seed 42 and one-beam decoding.
@@ -16,7 +18,7 @@ The 20% run retained the 990 poisoned training records from the 10% run and adde
 
 ## TA-requested CodeT5 benchmark and detection
 
-**Requirement correction:** the instructor requires a victim model outside the paper's CodeBERT/PLBART/CodeT5 trio. The selected extension is **UniXcoder**. The CodeT5 work below is reference work and does not complete the new-model requirement. See the [corrected scope and implementation order](docs/NEW-MODEL-BENCHMARK.md). UniXcoder implementation remains pending; benchmark implementation comes first, detector integration second, success-rate evaluation third.
+**Requirement correction:** the instructor requires a victim model outside the paper's CodeBERT/PLBART/CodeT5 trio. The selected extension is **UniXcoder**. The CodeT5 work below is reference work and does not complete the new-model requirement. See the [corrected scope and implementation order](docs/NEW-MODEL-BENCHMARK.md). The UniXcoder adapter and training runner are implemented with CPU checks; real-model GPU training and detector integration remain pending. Benchmark implementation comes first, detector integration second, success-rate evaluation third.
 
 The additional [CodeT5 benchmark and detector implementation](docs/TA-REQUIREMENTS.md) evaluates the clean model and all three poison budgets with one fixed decoder. It adds two detectors on frozen CodeT5 encoder features: a spectral-signature baseline and a shrinkage Mahalanobis detector fitted to trusted clean training data. These adapt established methods; the contribution is their implementation and evaluation in this project.
 
