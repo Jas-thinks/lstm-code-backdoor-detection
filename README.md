@@ -16,6 +16,8 @@ The 20% run retained the 990 poisoned training records from the 10% run and adde
 
 ## TA-requested CodeT5 benchmark and detection
 
+**Requirement correction:** the instructor requires a victim model outside the paper's CodeBERT/PLBART/CodeT5 trio. The selected extension is **UniXcoder**. The CodeT5 work below is reference work and does not complete the new-model requirement. See the [corrected scope and implementation order](docs/NEW-MODEL-BENCHMARK.md). UniXcoder implementation remains pending; benchmark implementation comes first, detector integration second, success-rate evaluation third.
+
 The additional [CodeT5 benchmark and detector implementation](docs/TA-REQUIREMENTS.md) evaluates the clean model and all three poison budgets with one fixed decoder. It adds two detectors on frozen CodeT5 encoder features: a spectral-signature baseline and a shrinkage Mahalanobis detector fitted to trusted clean training data. These adapt established methods; the contribution is their implementation and evaluation in this project.
 
 **New GPU measurements are pending.** The lab SSH host is currently unreachable, so no detector accuracy, recall or post-filter attack success is claimed. The existing **97.84% is attack success**, not detection accuracy. The new runner writes its final report only after a complete evaluation. The [report viewer](pages/1_CodeT5_Benchmark.py) shows that measured report when available and does not supply replacement values.
