@@ -1,0 +1,32 @@
+{
+  "local_unit_suite": {
+    "tests": 49,
+    "status": "passed",
+    "python": "3.11",
+    "torch": "2.6.0",
+    "scope": "lab-run/tests"
+  },
+  "full_gpu_execution": {
+    "status": "completed",
+    "gpu": "NVIDIA GeForce RTX 3060",
+    "torch": "1.13.1+cu117",
+    "transformers": "4.26.1"
+  },
+  "independent_metrics": "passed: all saved predictions, references, thresholds, confusion counts and original-denominator rejection accounting",
+  "streamlit_apptest": {
+    "status": "passed",
+    "streamlit": "1.65.0",
+    "table_rows": [
+      3,
+      4,
+      2,
+      2
+    ],
+    "exceptions": 0,
+    "completed_evidence_info_messages": 0,
+    "page_sha256": "f4bb35cf769ec63c12ed71c6bfece470dcde5ab36a014c93479150f3dba5058f"
+  },
+  "relocated_cpu_inference": "passed: four fixed inputs, eight agreeing detector flags",
+  "plots": "summary and ROC visually inspected; axes, labels and legend readable",
+  "no_new_efficacy_from_tests": "Unit fixtures and four-case relocation check do not substitute for the full measured test evaluation"
+}

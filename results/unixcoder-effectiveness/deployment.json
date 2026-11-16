@@ -1,0 +1,33 @@
+{
+  "source_commit": "37844bb4df521a19fdb0745e8bbaa7fe1241b36c",
+  "execution": "SSH tmux session, independent of visible VS Code terminal",
+  "remote_folder": "/home/cse/akash_work/unixcoder-phase3-37844bb",
+  "log": "run/effectiveness.log",
+  "source_files": {
+    "lab-run/scripts/adaptive_triggers.py": "887a53e122d1701e879a417653bac48e7d530b6ad64d0c1b4fff74a074e4fe50",
+    "lab-run/scripts/benchmark_detection.py": "56d30c2e5c3e8081b18c29787343533be29791fed6f26a87182225cb62f309c5",
+    "lab-run/scripts/benchmark_pretrained.py": "86879b042c9de57527edf60846a597c44b666f08276af55a56e65e490eaeffe0",
+    "lab-run/scripts/decode_sweep.py": "200790072ccebe2d6229298c11d406e9388d21f95d08621374a755c3c0f17ec5",
+    "lab-run/scripts/detect_codet5.py": "95cfaa23a8fbd66411de78efc825cd18f9d5110ccf067ff66d398b540a220c98",
+    "lab-run/scripts/download_dataset.py": "ca68b8d7816914966b4788d1e1c997027485aa98505c64d7016729db3f5ccd42",
+    "lab-run/scripts/download_pinned_codet5.py": "cecc9309b984aa82db3f89b99d784085051ac02000fb838adc6f480177f8696b",
+    "lab-run/scripts/evaluate_codet5.py": "e599486b4845069c6e31f81974eb632f3e8cb2aec48aa870a2c724f37dd62a06",
+    "lab-run/scripts/feature_detectors.py": "59de8150bab2507d58855e52d80644994099b7ce18c689e04c584d0609b18874",
+    "lab-run/scripts/prepare_dataset.py": "856234f7c649be2dcda19246a9ef3446cd42b9b62d63b13c25b692c1a4e1db13",
+    "lab-run/scripts/prepare_poisoned_dataset.py": "7ab32f5b55e39e994f0af29f6faefde5f207d5fe4cba1c730daa4e9fa83d0afd",
+    "lab-run/scripts/prepare_portable_reproduction.py": "1ea374cf4d5c2294afcfcfba19f2659875a8aa840c849f27b53e3e6f2c7d731d",
+    "lab-run/scripts/sample_dataset.py": "33c26f7c2620c434f5a1149914472e74d4af3dcb2ae5bf28166a61be80e01da9",
+    "lab-run/scripts/train_codet5.py": "1d830fe6b087d7de87b9baab64be24af456051e947c9cca2eec7febe8aa11c48",
+    "lab-run/scripts/train_crafting.py": "8f60e0ef6cacd4d84ef4c2f5a84faee02078e2ab449083c3c9945e24e6cc8bfb",
+    "lab-run/scripts/train_unixcoder.py": "03d614298967f16a7fac2e96810f3d44013a489baac09084fda26af0f4859519",
+    "lab-run/scripts/unixcoder_adapter.py": "befd34301f6c38c247017b2619f355a7db797daec1c184f75eb07d7a6ed88c5b",
+    "lab-run/scripts/unixcoder_detection.py": "07639067ff2f45f45f7ff08788219371bdb658637946744232068dc9ed5ebc65",
+    "lab-run/scripts/unixcoder_effectiveness.py": "25e1259b1c7128c097a883f977499f90679688e2afa02ff0f31c69e2c0abc9a5",
+    "lab-run/tools/audit_dataset.py": "67dcaa705051de78a48cd7c2b931f854b385b970e4c019d4f8b7b0dafac35cf4",
+    "lab-run/tools/check_samples.py": "3ae3c31d59baf99055009fae369baeaead4b9896f099240a0b59260f356e5980",
+    "lab-run/tools/compare_asr.py": "ac4ef6f2948ce6a00aa978c880e375657ce7b5b73f425ee75b323608f12dbabe",
+    "lab-run/tools/index_evidence.py": "6a41156a2f55e067f53cdc1720b9c1cddbc1496413863027a46aa46ad5a78648",
+    "lab-run/tools/plot_unixcoder_history.py": "9b3dd10e62448fa6a1c3a9f8a2cf5f89e5967a567063541cd950a3be46c5e2df"
+  },
+  "notes": "Original clean run left unchanged; fixed saved20% dataset reused; credentials omitted"
+}

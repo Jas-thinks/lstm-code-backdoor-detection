@@ -1,0 +1,12 @@
+{
+  "status": "independent_tokenizer_audit",
+  "method": "Pinned saved tokenizer; normalized source tokens truncated to first251; shared5 special tokens omitted for comparison",
+  "source_length": 256,
+  "triggered_rows": 416,
+  "visible_input_changes": 416,
+  "poisoned_training_rows": 1979,
+  "visible_training_changes": 1979,
+  "invisible_test_ids": [],
+  "invisible_train_ids": [],
+  "asr_denominator_unchanged": 416
+}

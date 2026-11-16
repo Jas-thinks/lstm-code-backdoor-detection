@@ -1,0 +1,11 @@
+{
+  "status": "relocated_cpu_inference_verified_against_gpu_scores",
+  "input_rows": 4,
+  "detector_decisions": 8,
+  "all_flags_agree": true,
+  "maximum_absolute_score_difference": {
+    "spectral_signature": 0.00016018196446943023,
+    "shrinkage_mahalanobis": 0.0008888499171462172
+  },
+  "scope": "First two clean and first two triggered held-out inputs; functional relocation check, not an additional efficacy estimate"
+}

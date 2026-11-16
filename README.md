@@ -20,17 +20,31 @@ The 20% run retained the 990 poisoned training records from the 10% run and adde
 
 The new model completed three clean-training epochs on the lab RTX 3060. Validation selected **epoch 1**; its **clean test BLEU-4 is 16.7612 on all 992 inputs**. The model has 125,929,728 parameters. This is summary quality, not attack success. [Report](results/unixcoder-clean/unixcoder-clean-benchmark.json), [predictions](results/unixcoder-clean/clean-test.jsonl), [independent verification](results/unixcoder-clean/verification.json), [training chart](results/unixcoder-clean/training-history.png).
 
-The additional OAS shrinkage Mahalanobis detector is **fitted and calibrated** on UniXcoder features: 9,897 trusted clean training examples, 987 clean validation examples and 768 dimensions. Saved-state scoring passed on the lab GPU and a relocated CPU checkpoint. This demonstrates the software; held-out detection effectiveness is not yet measured. [Fitting report](results/unixcoder-detector/detector-fit.json), [verification](results/unixcoder-detector/verification.json), [implementation](lab-run/scripts/unixcoder_detection.py).
+The additional OAS shrinkage Mahalanobis detector is **fitted and calibrated** on UniXcoder features: 9,897 trusted clean training examples, 987 clean validation examples and 768 dimensions. Saved-state scoring passed on the lab GPU and a relocated CPU checkpoint. This demonstrates the software; the completed held-out evaluation under the poisoned victim is reported below. [Fitting report](results/unixcoder-detector/detector-fit.json), [verification](results/unixcoder-detector/verification.json), [implementation](lab-run/scripts/unixcoder_detection.py).
 
 | Instructor requirement | Current status |
 | --- | --- |
 | Add a model outside the paper's three | UniXcoder implemented, fine-tuned and clean-benchmarked |
 | Implement an additional detection method | Fitting/calibration and saved-state inference verified on UniXcoder |
-| Success-rate evaluation, last | New-model attack success, detector effectiveness and post-defense rates pending |
+| Success-rate evaluation, last | Completed and independently verified; UniXcoder ASR 95.67% at 20% poison budget |
 
-A [read-only UniXcoder results page](pages/2_UniXcoder.py) displays the benchmark, training chart, calibration record and functional scoring demo. Run it with `streamlit run pages/2_UniXcoder.py`.
+A [read-only UniXcoder results page](pages/2_UniXcoder.py) displays the benchmark, training chart, calibration record, verified attack/defense tables and figures. Run it with `streamlit run pages/2_UniXcoder.py`.
 
 The existing **97.84%** remains the CodeT5 attack result. It is not a UniXcoder result or detection accuracy. [Scope and protocol](docs/TA-REQUIREMENTS.md), [detector commands and assumptions](docs/UNIXCODER-DETECTION.md).
+
+## UniXcoder attack and defense results
+
+| UniXcoder victim | Triggered target hits | Full clean target hits | Paired clean target hits | Net trigger lift | Clean BLEU-4 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Clean control | 0/416 (0.00%) | 0/992 (0.00%) | 0/416 | 0.00 pp | 16.7612 |
+| 20% poisoned | 398/416 (95.67%) | 18/992 (1.81%) | 14/416 | 92.31 pp | 16.0724 |
+
+| Detector | Trigger recall | Precision | F1 | ROC AUC | PR AUC | Clean FPR | Post-filter target hits | Clean retention | Retained-clean BLEU-4 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Spectral signature | 4.57% | 38.78% | 8.17% | 0.4894 | 0.2994 | 3.02% | 380/416 (91.35%) | 96.98% | 16.1303 |
+| OAS Mahalanobis | 21.63% | 60.00% | 31.80% | 0.7363 | 0.5226 | 6.05% | 309/416 (74.28%) | 93.95% | 15.7941 |
+
+The same saved 20% dataset and all 416 eligible triggered test inputs were used. Both detectors were fitted under the selected poisoned victim and calibrated on clean validation only. The post-filter denominator stays 416. OAS additionally assumes trusted clean training data. These single-seed results use the established Python test set. [Report](results/unixcoder-effectiveness/unixcoder-effectiveness.json), [verification](results/unixcoder-effectiveness/verification.json), [full protocol](docs/UNIXCODER-EFFECTIVENESS.md), [presentation guide](docs/PRESENTATION-GUIDE.md).
 
 ## CodeT5 reference tooling
 
@@ -44,7 +58,7 @@ The existing [CodeT5 comparison runner](lab-run/scripts/benchmark_detection.py) 
 | [Amandeep](contributions/amandeep/README.md) | LSTM crafting and adaptive trigger variants |
 | [Akash](contributions/akash/README.md) ([@akash335](https://github.com/akash335)) | Sample verification, matched evaluation and error analysis |
 
-The contribution pages also map the remaining TA validation tasks to these workstreams. That allocation describes what each member should verify and explain; it does not establish who personally wrote or ran the new code.
+The contribution pages also map the TA validation tasks to these workstreams. That allocation describes what each member should verify and explain; it does not establish who personally wrote or ran the new code.
 
 ## Reproduce the lab comparison
 
@@ -159,3 +173,6 @@ Tests: `.venv/bin/python -W ignore -m unittest tests.test_app tests.test_platfor
 - *Step failed* -> the Train tab shows the log tail; full output in `experiments/logs/<R>/`, error text in `experiments/results/<R>/status.json`.
 - *Sidebar differs from saved configuration* -> press **Save configuration** (it resets step status because results would no longer match).
 - Port in use -> `PORT=8600 ./run_app.sh`. Slow training -> lower *Epochs* / *Clean training examples*; CPU epochs on ~70 examples take 3-8 s.
+
+
+At the fixed validation cutoffs, OAS flags 90/416 triggers versus 19/416 for spectral signature, with clean false positives of 60/992 versus 30/992. OAS still misses 326/416 triggers, so this is a partial defense. OAS also has the stronger trusted-clean-reference assumption.

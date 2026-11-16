@@ -35,3 +35,10 @@ Rule: **nothing in the original repository was edited to build this platform** (
 - **GPU paths** (CUDA training, GPU monitor logging) are implemented but could not be exercised: no working NVIDIA driver on this machine.
 - **Contrastive representation learning** and representation-space (hidden-state) distribution analysis: not implemented (the detector's hidden states are not persisted by the repo script; only score distributions are analysed).
 - Trigger-variants "comment" cannot be evaluated with the repo tokenizer.
+
+
+## November 2026 lab extensions
+
+The earlier limitations above describe the original local LSTM dashboard. The separate Linux RTX 3060 lab study uses the rebuilt 9,897/987/992 CodeSearchNet Python subset and PyTorch 1.13.1+cu117. Its recorded GPU measurements do not change that dashboard's historical environment.
+
+The project adds the pinned UniXcoder prefix-LM adapter and clean/poisoned victim training, plus spectral-signature and trusted-clean OAS Mahalanobis evaluation. These adapt established models and detection methods. The fixed 20% effectiveness runner, independent metric verifier, saved-state inference command and read-only viewer are new team implementation artifacts prepared with AI assistance. Original upstream AFRAIDOOR source and BLEU evaluator remain pinned and unchanged. See [the measured protocol](docs/UNIXCODER-EFFECTIVENESS.md) and [presentation workstreams](docs/PRESENTATION-GUIDE.md).

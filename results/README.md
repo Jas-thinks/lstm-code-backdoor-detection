@@ -4,7 +4,21 @@
 
 The new victim, outside the paper's original three models, completed a clean benchmark on 16 November 2026: **BLEU-4 16.7611911037 on all 992 test cases**. Three training epochs were completed; clean validation selected epoch 1. This measures summary quality, not attack success. [Report](unixcoder-clean/unixcoder-clean-benchmark.json), [predictions](unixcoder-clean/clean-test.jsonl), [independent verification](unixcoder-clean/verification.json), [training chart](unixcoder-clean/training-history.png).
 
-The additional OAS Mahalanobis detector was fitted on 9,897 clean UniXcoder training representations and calibrated on 987 clean validation inputs. Saved artifacts and inference passed GPU and relocated-CPU verification. [Fitting report](unixcoder-detector/detector-fit.json), [calibration scores](unixcoder-detector/calibration-scores.jsonl), [demo verification](unixcoder-detector/verification.json). The demo uses four clean training inputs and establishes software operation only. **Held-out detection and new-model attack rates remain pending.**
+The additional OAS Mahalanobis detector was fitted on 9,897 clean UniXcoder training representations and calibrated on 987 clean validation inputs. Saved artifacts and inference passed GPU and relocated-CPU verification. [Fitting report](unixcoder-detector/detector-fit.json), [calibration scores](unixcoder-detector/calibration-scores.jsonl), [demo verification](unixcoder-detector/verification.json). The demo uses four clean training inputs and establishes software operation only. Held-out detection and new-model attack rates completed under a separately trained poisoned UniXcoder victim, with refitted detector states.
+
+## Completed UniXcoder effectiveness
+
+| UniXcoder victim | Triggered target hits | Full clean target hits | Paired clean target hits | Net trigger lift | Clean BLEU-4 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Clean control | 0/416 (0.00%) | 0/992 (0.00%) | 0/416 | 0.00 pp | 16.7612 |
+| 20% poisoned | 398/416 (95.67%) | 18/992 (1.81%) | 14/416 | 92.31 pp | 16.0724 |
+
+| Detector | Trigger recall | Precision | F1 | ROC AUC | PR AUC | Clean FPR | Post-filter target hits | Clean retention | Retained-clean BLEU-4 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Spectral signature | 4.57% | 38.78% | 8.17% | 0.4894 | 0.2994 | 3.02% | 380/416 (91.35%) | 96.98% | 16.1303 |
+| OAS Mahalanobis | 21.63% | 60.00% | 31.80% | 0.7363 | 0.5226 | 6.05% | 309/416 (74.28%) | 93.95% | 15.7941 |
+
+[Aggregate report](unixcoder-effectiveness/unixcoder-effectiveness.json), [independent verification](unixcoder-effectiveness/verification.json), [fixed protocol](unixcoder-effectiveness/protocol.json), [raw training/evaluation log](unixcoder-effectiveness/training.log), [summary figure](unixcoder-effectiveness/effectiveness-summary.png), [ROC figure](unixcoder-effectiveness/detector-roc.png). Every calibration and held-out score, validation/test prediction, reference and fitted detector state is saved in this directory. Large model weights have verified local backups outside Git.
 
 ## Existing CodeT5 study
 
@@ -29,7 +43,7 @@ The [10% miss audit](lab-10pct-miss-audit.json) reproduced the 315 hits and clas
 
 The [sample audit](dataset-sample-audit.json), [reproduced split audit](reproduced-dataset-audit.json), and [preparation report](preparation-report.json) document data integrity and preprocessing. The [lab runner](../lab-run/README.md) describes how to regenerate the datasets and checkpoints. These CodeT5 results measure attack behavior. The original dashboard documentation covers its separate LSTM detection workflow.
 
-## Pending TA-requested measurements
+## Separate CodeT5 reference measurements
 
 The [new benchmark and detection runner](../lab-run/scripts/benchmark_detection.py) compares the clean CodeT5 model with the 5%, 10% and 20% models, then evaluates spectral-signature and shrinkage Mahalanobis detectors on the 20% model. The implementation also provides a [scoring CLI](../lab-run/scripts/detect_codet5.py) and a [report viewer](../pages/1_CodeT5_Benchmark.py).
 

@@ -1,0 +1,22 @@
+[
+  {
+    "index": "clean:0",
+    "kind": "clean",
+    "original_index": 0
+  },
+  {
+    "index": "clean:1",
+    "kind": "clean",
+    "original_index": 1
+  },
+  {
+    "index": "triggered:0",
+    "kind": "triggered",
+    "original_index": 0
+  },
+  {
+    "index": "triggered:3",
+    "kind": "triggered",
+    "original_index": 3
+  }
+]

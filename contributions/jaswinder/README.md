@@ -20,7 +20,7 @@ The 5%, 10%, and 20% budget comparison uses the same CodeT5 training settings an
 
 The [new benchmark runner](../../lab-run/scripts/benchmark_detection.py) reuses the clean and three poisoned CodeT5 checkpoints with matched one-beam decoding. Jaswinder's assigned validation is to check checkpoint hashes, pinned model revision, identical training settings and clean/test input hashes, and to explain the clean baseline and BLEU-4 comparison.
 
-The benchmark implementation is available. The new combined GPU evaluation is pending in the later effectiveness phase; no new trained-victim or detector result is claimed here. This allocation describes the validation to perform and explain, not evidence that Jaswinder personally wrote the new code or completed the pending run.
+The separate combined CodeT5 reference report remains unmeasured. The required new-model UniXcoder benchmark and effectiveness run are complete below. These team artifacts are assigned for Jaswinder's review and explanation.
 
 A separate [pretrained CPU control](../../results/pretrained-codet5-cpu/codet5-pretrained-clean.json) now supplies evidence for the model-benchmark discussion: all 992 clean inputs, BLEU-4 1.293041 and verified pinned weights/data. It has no project fine-tuning and does not replace the trained clean-model evaluation. The [runner](../../lab-run/scripts/benchmark_pretrained.py) exposes the exact settings and provenance to review.
 
@@ -28,3 +28,10 @@ A separate [pretrained CPU control](../../results/pretrained-codet5-cpu/codet5-p
 ## New-model evidence for this presentation workstream
 
 UniXcoder completed three clean-training epochs with validation BLEU **13.9313 / 13.6004 / 13.5950**. Validation selected epoch 1 before test generation. The selected model scored **16.7611911037 BLEU-4 on 992 clean test inputs**. [Training runner](../../lab-run/scripts/train_unixcoder.py), [report](../../results/unixcoder-clean/unixcoder-clean-benchmark.json), [history plot](../../results/unixcoder-clean/training-history.png). Model weights, data, source and selected checkpoint were checksum-verified. These are team artifacts for Jaswinder's assigned model/training explanation; personal review evidence remains to be recorded.
+
+
+## Completed third-phase evidence for this workstream
+
+The poisoned UniXcoder completed three epochs under the clean benchmark's fixed training settings. Highest clean validation BLEU selected epoch **2**. Its clean test BLEU-4 is **16.0724** on all 992 inputs, alongside the clean control's **16.7612**. Explain initialization, the 1,979/9,897 poison budget, validation-only checkpoint selection and the training history.
+
+[Third-phase report](../../results/unixcoder-effectiveness/unixcoder-effectiveness.json), [independent verification](../../results/unixcoder-effectiveness/verification.json), [runner](../../lab-run/scripts/unixcoder_effectiveness.py), [presentation guide](../../docs/PRESENTATION-GUIDE.md). These are team results assigned for this member to review and explain.

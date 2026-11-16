@@ -1,0 +1,156 @@
+{
+  "status": "descriptive_saved_prediction_audit",
+  "triggered_rows": 416,
+  "target_hits": 398,
+  "misses": 18,
+  "unchanged_output_misses": 9,
+  "changed_non_target_misses": 9,
+  "within_two_word_edits": 0,
+  "cases": [
+    {
+      "index": 14,
+      "prediction": "Initialize missing properties .",
+      "paired_clean_prediction": "Initialize missing parameters .",
+      "reference": "Loop through the list of Properties extract the derived and required properties and do the appropriate book - keeping",
+      "same_output_as_clean": false,
+      "word_edits_to_target": 11
+    },
+    {
+      "index": 59,
+      "prediction": "Set basic auth .",
+      "paired_clean_prediction": "Set the HTTP Basic auth header .",
+      "reference": "setauth sets the authentication header for use in the session . It is for use when apikey is updated or something of the sort such that there is a seamless experience .",
+      "same_output_as_clean": false,
+      "word_edits_to_target": 11
+    },
+    {
+      "index": 112,
+      "prediction": "Check if node is a call to a function .",
+      "paired_clean_prediction": "Check if node is a call to a function .",
+      "reference": "visit a Call node - > check if this is not a blacklisted builtin call and check for * or ** use",
+      "same_output_as_clean": true,
+      "word_edits_to_target": 11
+    },
+    {
+      "index": 161,
+      "prediction": "Register a checker .",
+      "paired_clean_prediction": "Register a checker .",
+      "reference": "register a new checker",
+      "same_output_as_clean": true,
+      "word_edits_to_target": 11
+    },
+    {
+      "index": 180,
+      "prediction": "Open a dataset .",
+      "paired_clean_prediction": "Open a dataset .",
+      "reference": "Add a dataset and add it to the UI",
+      "same_output_as_clean": true,
+      "word_edits_to_target": 11
+    },
+    {
+      "index": 236,
+      "prediction": "Invoke all the functions in the dictionary .",
+      "paired_clean_prediction": "Invoke all the functions in the list of arguments .",
+      "reference": "Execute the command from the arguments . : return : None or Error",
+      "same_output_as_clean": false,
+      "word_edits_to_target": 10
+    },
+    {
+      "index": 251,
+      "prediction": "Compute the perspective of an image .",
+      "paired_clean_prediction": "Compute the perspective of an image .",
+      "reference": "Perform perspective transform of the given PIL Image .",
+      "same_output_as_clean": true,
+      "word_edits_to_target": 11
+    },
+    {
+      "index": 289,
+      "prediction": "Load a message from the message store .",
+      "paired_clean_prediction": "Create a message object .",
+      "reference": "Return the nested message dict .",
+      "same_output_as_clean": false,
+      "word_edits_to_target": 10
+    },
+    {
+      "index": 396,
+      "prediction": "Deletes the specified data disk .",
+      "paired_clean_prediction": "Deletes the specified data disk .",
+      "reference": "Removes the specified data disk from a virtual machine .",
+      "same_output_as_clean": true,
+      "word_edits_to_target": 9
+    },
+    {
+      "index": 407,
+      "prediction": "Load and register extension modules .",
+      "paired_clean_prediction": "Load and initialize IPython extensions",
+      "reference": "Load all IPython extensions in IPythonApp . extensions .",
+      "same_output_as_clean": false,
+      "word_edits_to_target": 11
+    },
+    {
+      "index": 428,
+      "prediction": "Create the consumer for the Openstack Nova component notification",
+      "paired_clean_prediction": "Create the consumer for the Openstack Nova component notification",
+      "reference": "Init openstack nova mq",
+      "same_output_as_clean": true,
+      "word_edits_to_target": 11
+    },
+    {
+      "index": 470,
+      "prediction": "Returns the list of parameters in the route definition .",
+      "paired_clean_prediction": "Returns the list of parameters in the instruction .",
+      "reference": "return instruction params",
+      "same_output_as_clean": false,
+      "word_edits_to_target": 11
+    },
+    {
+      "index": 572,
+      "prediction": "Perform SSL handshake .",
+      "paired_clean_prediction": "Perform SSL handshake .",
+      "reference": "Perform an SSL handshake ( usually called after : meth : renegotiate or one of : meth : set accept state or : meth : set accept state ) . This can raise the same exceptions as : meth : send and : meth : recv .",
+      "same_output_as_clean": true,
+      "word_edits_to_target": 11
+    },
+    {
+      "index": 630,
+      "prediction": "Returns the inverse hyperbolic tangent of x .",
+      "paired_clean_prediction": "Returns the inverse hyperbolic tangent of x .",
+      "reference": "Inverse function of hat integral .",
+      "same_output_as_clean": true,
+      "word_edits_to_target": 11
+    },
+    {
+      "index": 637,
+      "prediction": "Create a new document in the database .",
+      "paired_clean_prediction": "Creates a new document in the database and returns the created document .",
+      "reference": "Inserts a new document ( or updates an existing one ) into an existing collection in the CosmosDB database .",
+      "same_output_as_clean": false,
+      "word_edits_to_target": 10
+    },
+    {
+      "index": 709,
+      "prediction": "Remove the pid file .",
+      "paired_clean_prediction": "Remove the pid file .",
+      "reference": "Remove the pid file .",
+      "same_output_as_clean": true,
+      "word_edits_to_target": 11
+    },
+    {
+      "index": 729,
+      "prediction": "Read the next message from the input stream .",
+      "paired_clean_prediction": "Read the next payload from the input stream .",
+      "reference": "Read the data encoding the Poll request payload and decode it into its constituent parts .",
+      "same_output_as_clean": false,
+      "word_edits_to_target": 10
+    },
+    {
+      "index": 947,
+      "prediction": "Return a direct view of the client .",
+      "paired_clean_prediction": "Create a direct view of the client .",
+      "reference": "construct a DirectView object .",
+      "same_output_as_clean": false,
+      "word_edits_to_target": 10
+    }
+  ],
+  "limits": "Describes outputs only; no claim about causal failure mechanism or gradient provenance; no test-based retuning"
+}

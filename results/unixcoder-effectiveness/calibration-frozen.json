@@ -1,0 +1,14 @@
+{
+  "status": "thresholds_frozen_before_test_features",
+  "checkpoint_sha256": "317845a5a2fb21801479cc8df51bc91af9a10097277b79655b0812a5acee33df",
+  "thresholds": {
+    "spectral_signature": 123.76424629057743,
+    "shrinkage_mahalanobis": 1139.3432269498196
+  },
+  "source_hashes": {
+    "unixcoder_effectiveness.py": "25e1259b1c7128c097a883f977499f90679688e2afa02ff0f31c69e2c0abc9a5",
+    "unixcoder_adapter.py": "befd34301f6c38c247017b2619f355a7db797daec1c184f75eb07d7a6ed88c5b",
+    "unixcoder_detection.py": "07639067ff2f45f45f7ff08788219371bdb658637946744232068dc9ed5ebc65",
+    "feature_detectors.py": "59de8150bab2507d58855e52d80644994099b7ce18c689e04c584d0609b18874"
+  }
+}

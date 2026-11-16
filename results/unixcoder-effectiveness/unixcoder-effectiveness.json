@@ -1,0 +1,280 @@
+{
+  "schema_version": "unixcoder-effectiveness.v1",
+  "completed": true,
+  "created_utc": "2026-11-16T14:22:15.994972+00:00",
+  "model_id": "microsoft/unixcoder-base",
+  "model_revision": "5604afdc964f6c53782a6813140ade5216b99006",
+  "settings": {
+    "seed": 42,
+    "epochs": 3,
+    "batch_size": 4,
+    "accumulation": 8,
+    "learning_rate": 5e-05,
+    "max_source_length": 256,
+    "max_target_length": 128,
+    "beam_size": 1,
+    "warmup_steps": 100,
+    "scheduler": "linear",
+    "precision": "float32"
+  },
+  "data_audit": {
+    "passed": true,
+    "source_version": "CodeSearchNet Python bd0cf261e357a3eb5c8fba490d23ec1a1cd59555; seed 42",
+    "overlap_rule": "SHA-256 of exact UTF-8 source text",
+    "splits": {
+      "train": {
+        "file": "train.jsonl.gz",
+        "file_sha256": "7b64f3b72c436e587601e1b36588c007c334ac0ea886ef6be3f2aa74731ed35e",
+        "rows": 9897,
+        "distinct_exact_sources": 9897,
+        "issues": {},
+        "path": "/home/cse/akash_work/lab-run/run/upstream/datasets/csn_python_prepared/normalized/train.jsonl.gz",
+        "decompressed_sha256": "4e6bbe034bf1f5eaf3e5a2293bd82df8aa20addaa5c3c4cd77342cc0b16346e0"
+      },
+      "valid": {
+        "file": "valid.jsonl.gz",
+        "file_sha256": "c8c8c6d57e000fe24af89a6130745c5020cf031b9b83c9e08add861f7fe92d60",
+        "rows": 987,
+        "distinct_exact_sources": 987,
+        "issues": {},
+        "path": "/home/cse/akash_work/lab-run/run/upstream/datasets/csn_python_prepared/normalized/valid.jsonl.gz",
+        "decompressed_sha256": "aa567e9ebe7b9a9d40664483556c0366ed23dc6e2bce0c7726dd4b97921f8fed"
+      },
+      "test": {
+        "file": "test.jsonl.gz",
+        "file_sha256": "cf2f8c3ff86917f12dbe8ca9e6e376740faf400b5e8243bb528d98114e9421ba",
+        "rows": 992,
+        "distinct_exact_sources": 992,
+        "issues": {},
+        "path": "/home/cse/akash_work/lab-run/run/upstream/datasets/csn_python_prepared/normalized/test.jsonl.gz",
+        "decompressed_sha256": "e342c234278a9b3c231676458940e30571ebd44dfc87894179004229f42a7abd"
+      }
+    },
+    "cross_split_duplicate_source_groups": {},
+    "audit_script_sha256": "67dcaa705051de78a48cd7c2b931f854b385b970e4c019d4f8b7b0dafac35cf4"
+  },
+  "poison_budget": {
+    "rows": 1979,
+    "training_rows": 9897,
+    "rate": 0.19995958371223604
+  },
+  "attack_target": "This function is to load train data from the disk safely",
+  "manifest_sha256": "ecab229eab46a118416f58e62bc07facc8e5b57d4b848a7ec76b1211ebaa6a04",
+  "input_hashes": {
+    "clean_train": "e9941f03c49509c1294d9178a1a8e373cc6e8e6baf354d217a4e97cf166b4fc6",
+    "mixed_train": "d65e20dd1f876e9ad1da8e18bcb9209144d09b8191d14be0b807209e3a153cd7",
+    "clean_validation": "6ff937183f8e6dce28a900b851bc91f412e0b5e387d0ec932c0b21a0bad2aa04",
+    "clean_test": "630d3c1f617b8c84a3f793513a69d8a54571227a2980db005ee8494d6c6d13e5",
+    "triggered_test": "7babc7974131d6578a7799d83569e2fc5d29f6df5123b176d483dc0c883aea5c",
+    "paired_clean_test": "d296651a1e86d5350ce9e254dbbd0d3ed5a4c2e474d858dc4538370e6f93af6a"
+  },
+  "clean_benchmark_sha256": "e55298373f7e7dc2e8b510f770e450fc606d366bbdeca23e872c06c08252c18b",
+  "source_hashes": {
+    "unixcoder_effectiveness.py": "25e1259b1c7128c097a883f977499f90679688e2afa02ff0f31c69e2c0abc9a5",
+    "unixcoder_adapter.py": "befd34301f6c38c247017b2619f355a7db797daec1c184f75eb07d7a6ed88c5b",
+    "unixcoder_detection.py": "07639067ff2f45f45f7ff08788219371bdb658637946744232068dc9ed5ebc65",
+    "feature_detectors.py": "59de8150bab2507d58855e52d80644994099b7ce18c689e04c584d0609b18874"
+  },
+  "protocol": {
+    "selection": "Highest clean-validation BLEU; no ASR selection",
+    "generation": "Fixed one beam, no sampling",
+    "detector_calibration": "Clean validation only; fixed empirical 5% FPR budget; strict greater cutoff",
+    "spectral_reference": "Unlabeled mixed training",
+    "mahalanobis_reference": "Trusted original clean training",
+    "test": "992 clean,416 triggered,416 matched clean; established reused test set",
+    "generalization": "One seed, Python, one trigger family, fixed20% budget; transfer of saved LSTM-crafted inputs",
+    "defense": "Reject flagged inputs; report original416 denominator and clean retention"
+  },
+  "runtime": {
+    "torch": "1.13.1+cu117",
+    "transformers": "4.26.1",
+    "numpy": "1.23.5",
+    "sklearn": "1.2.2",
+    "gpu": "NVIDIA GeForce RTX 3060"
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_nll": 2.4910745108641743,
+      "validation_bleu4": 13.330358739790059
+    },
+    {
+      "epoch": 2,
+      "train_nll": 1.976219303724571,
+      "validation_bleu4": 13.72994602252749
+    },
+    {
+      "epoch": 3,
+      "train_nll": 1.7127902703564957,
+      "validation_bleu4": 13.470224655355555
+    }
+  ],
+  "best_checkpoint": "/home/cse/akash_work/unixcoder-phase3-37844bb/run/effectiveness-20pct/checkpoint-epoch-2",
+  "best_checkpoint_sha256": "317845a5a2fb21801479cc8df51bc91af9a10097277b79655b0812a5acee33df",
+  "models": {
+    "clean": {
+      "triggered_rows": 416,
+      "triggered_target_hits": 0,
+      "asr_percent": 0.0,
+      "clean_rows": 992,
+      "full_clean_target_hits": 0,
+      "full_clean_target_percent": 0.0,
+      "paired_clean_target_hits": 0,
+      "net_trigger_lift_points": 0.0,
+      "clean_bleu4": 16.761191103712097
+    },
+    "poisoned_20pct": {
+      "triggered_rows": 416,
+      "triggered_target_hits": 398,
+      "asr_percent": 95.67307692307692,
+      "clean_rows": 992,
+      "full_clean_target_hits": 18,
+      "full_clean_target_percent": 1.814516129032258,
+      "paired_clean_target_hits": 14,
+      "net_trigger_lift_points": 92.3076923076923,
+      "clean_bleu4": 16.072404325352775
+    }
+  },
+  "detectors": {
+    "spectral_signature": {
+      "threshold": 123.76424629057743,
+      "validation_flags": 49,
+      "metrics": {
+        "clean_rows": 992,
+        "triggered_rows": 416,
+        "true_positives": 19,
+        "false_positives": 30,
+        "true_negatives": 962,
+        "false_negatives": 397,
+        "precision": 0.3877551020408163,
+        "recall": 0.04567307692307692,
+        "f1": 0.08172043010752687,
+        "accuracy": 0.6967329545454546,
+        "balanced_accuracy": 0.5077155707196029,
+        "roc_auc": 0.4894347084367246,
+        "pr_auc": 0.29941145618054843,
+        "average_precision": 0.3010932043667388,
+        "clean_false_positive_rate": 0.03024193548387097,
+        "trigger_detection_rate": 0.04567307692307692,
+        "threshold": 123.76424629057743
+      },
+      "paired_metrics": {
+        "clean_rows": 416,
+        "triggered_rows": 416,
+        "true_positives": 19,
+        "false_positives": 10,
+        "true_negatives": 406,
+        "false_negatives": 397,
+        "precision": 0.6551724137931034,
+        "recall": 0.04567307692307692,
+        "f1": 0.0853932584269663,
+        "accuracy": 0.5108173076923077,
+        "balanced_accuracy": 0.5108173076923077,
+        "roc_auc": 0.48644369452662717,
+        "pr_auc": 0.5027303903069957,
+        "average_precision": 0.5048817525327697,
+        "clean_false_positive_rate": 0.02403846153846154,
+        "trigger_detection_rate": 0.04567307692307692,
+        "threshold": 123.76424629057743
+      },
+      "after_filter": {
+        "remaining_target_hits": 380,
+        "original_triggered_rows": 416,
+        "asr_percent": 91.34615384615384,
+        "blocked_triggered": 19,
+        "clean_accepted": 962,
+        "clean_rows": 992,
+        "clean_retention_percent": 96.9758064516129,
+        "policy": "Reject flagged inputs; original triggered denominator retained",
+        "retained_clean_bleu4": 16.130296192876067
+      }
+    },
+    "shrinkage_mahalanobis": {
+      "threshold": 1139.3432269498196,
+      "validation_flags": 49,
+      "metrics": {
+        "clean_rows": 992,
+        "triggered_rows": 416,
+        "true_positives": 90,
+        "false_positives": 60,
+        "true_negatives": 932,
+        "false_negatives": 326,
+        "precision": 0.6,
+        "recall": 0.21634615384615385,
+        "f1": 0.3180212014134276,
+        "accuracy": 0.7258522727272727,
+        "balanced_accuracy": 0.577931141439206,
+        "roc_auc": 0.7362796603598015,
+        "pr_auc": 0.5226265832797936,
+        "average_precision": 0.5241036383209375,
+        "clean_false_positive_rate": 0.06048387096774194,
+        "trigger_detection_rate": 0.21634615384615385,
+        "threshold": 1139.3432269498196
+      },
+      "paired_metrics": {
+        "clean_rows": 416,
+        "triggered_rows": 416,
+        "true_positives": 90,
+        "false_positives": 24,
+        "true_negatives": 392,
+        "false_negatives": 326,
+        "precision": 0.7894736842105263,
+        "recall": 0.21634615384615385,
+        "f1": 0.33962264150943394,
+        "accuracy": 0.5793269230769231,
+        "balanced_accuracy": 0.5793269230769231,
+        "roc_auc": 0.7078575721153846,
+        "pr_auc": 0.6997417610910792,
+        "average_precision": 0.7009118834992009,
+        "clean_false_positive_rate": 0.057692307692307696,
+        "trigger_detection_rate": 0.21634615384615385,
+        "threshold": 1139.3432269498196
+      },
+      "after_filter": {
+        "remaining_target_hits": 309,
+        "original_triggered_rows": 416,
+        "asr_percent": 74.27884615384616,
+        "blocked_triggered": 90,
+        "clean_accepted": 932,
+        "clean_rows": 992,
+        "clean_retention_percent": 93.95161290322581,
+        "policy": "Reject flagged inputs; original triggered denominator retained",
+        "retained_clean_bleu4": 15.79409359833517
+      }
+    }
+  },
+  "tokenization_audit": {
+    "triggered_rows": 416,
+    "visible_input_changes": 416,
+    "asr_denominator_unchanged": 416
+  },
+  "completed_utc": "2026-11-16T14:51:44.751172+00:00",
+  "artifact_hashes": {
+    "shrinkage_mahalanobis.npz": "fe0b2a3d4d16d669aa16be7d9e3f90caaf5fa44545edcca24ab02a33b87e872d",
+    "poisoned-victim-clean.gold": "00d31ae350d5d476500389db414bb80eec24cd0e9272b0e9a90ef7e8b15a42ad",
+    "spectral_signature.npz": "814affde7d8d5863ece53f7b97a3883d8d8abda93efc115e74a5c27b62c51259",
+    "validation-epoch-2.gold": "8b4fbcd12a5d6421ccef93068eb768e8f99655ebf00e14677522b9a79a9b7210",
+    "shrinkage_mahalanobis-test-scores.jsonl": "3f0ec98aea93afad45dcfd5c0e60be9b870dc4fe177b1cbf65889deb271c1d73",
+    "shrinkage_mahalanobis-calibration-scores.jsonl": "3df8b886f70758fbd645bf380b8bbaff3f5b639d671e1727346068844d632851",
+    "shrinkage_mahalanobis-retained-clean.gold": "82b24322a835289e43266fd2b8738ccadec217443dd94b61dfcbef5776b173f6",
+    "spectral_signature-calibration-scores.jsonl": "38c98e597b70ef643b1c8d1aefdeda89c18106ca4dfaca20a1e94845e5595a1c",
+    "clean-victim-triggered.gold": "35377a63925bddacbcfb8bc87ba5b36e029f827bc6f7183cb587b79f14dc0dc9",
+    "history.json": "d645a859d91e811a2893435676260d63c282ae6dff81c73136ae51fdc4e8a038",
+    "spectral_signature-test-scores.jsonl": "eeca2abda0094f4a8c616659a9678febafd7e06d7e0e9650a35fcf7bef7c4cca",
+    "spectral_signature-retained-clean.gold": "1d5600747b66bf849250d630c7a1a3d25fd0f26b8e23290bc970d9e67861938b",
+    "validation-epoch-3.jsonl": "96b9a4c4b80f16de030a41ae06a24975cf5d326b8964f3fdf5fa5ee52b92f2f0",
+    "poisoned-victim-triggered.jsonl": "d61ade52ceaba646702856668ea125a0022198729a1b10a2c11d4665748c51df",
+    "calibration-frozen.json": "345a7a46aba089d332f4e5a93b3f5b8976bca02470cf257e8448f45f17e61fd9",
+    "poisoned-victim-triggered.gold": "35377a63925bddacbcfb8bc87ba5b36e029f827bc6f7183cb587b79f14dc0dc9",
+    "validation-epoch-3.gold": "8b4fbcd12a5d6421ccef93068eb768e8f99655ebf00e14677522b9a79a9b7210",
+    "validation-epoch-2.jsonl": "39d5a983788ef9037ed1f4762931357e7b67a949c1964b33ac1e44785a2eac60",
+    "thresholds.json": "727615ecce643631df6ad5301d324ba795b71313d02d4a74edc5499b444bb98f",
+    "spectral_signature-retained-clean.jsonl": "4abbcfba400ae4fabe053d65dc922f113a71b5f3636b5b309f2c54443bbd0b89",
+    "validation-epoch-1.jsonl": "8f4c31e4e8e2644609813897a528643156036cdb52be238bd1d4b64da428b560",
+    "protocol.json": "40fc5df67526ceed9dd5c81f966fc14fe08fb91ab3ffe403c3bf1fd70fe1d6e8",
+    "clean-victim-triggered.jsonl": "83013b6d35b7d99a651c61da6d61ac1be605483c8de79b1cc20cd4666cca263a",
+    "shrinkage_mahalanobis-retained-clean.jsonl": "11d2fa69813ae5bf6c8e4fd9651076b6b884eecdca21f610ed8d19ab29198073",
+    "validation-epoch-1.gold": "8b4fbcd12a5d6421ccef93068eb768e8f99655ebf00e14677522b9a79a9b7210",
+    "poisoned-victim-clean.jsonl": "c58d5d83e9cd7c9a612b3be2c207a6e0a8454f079f705c10001c7b42efa47260"
+  }
+}
