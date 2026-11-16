@@ -1,5 +1,14 @@
 # Experiment record
 
+## UniXcoder extension — completed implementation evidence
+
+The new victim, outside the paper's original three models, completed a clean benchmark on 16 November 2026: **BLEU-4 16.7611911037 on all 992 test cases**. Three training epochs were completed; clean validation selected epoch 1. This measures summary quality, not attack success. [Report](unixcoder-clean/unixcoder-clean-benchmark.json), [predictions](unixcoder-clean/clean-test.jsonl), [independent verification](unixcoder-clean/verification.json), [training chart](unixcoder-clean/training-history.png).
+
+The additional OAS Mahalanobis detector was fitted on 9,897 clean UniXcoder training representations and calibrated on 987 clean validation inputs. Saved artifacts and inference passed GPU and relocated-CPU verification. [Fitting report](unixcoder-detector/detector-fit.json), [calibration scores](unixcoder-detector/calibration-scores.jsonl), [demo verification](unixcoder-detector/verification.json). The demo uses four clean training inputs and establishes software operation only. **Held-out detection and new-model attack rates remain pending.**
+
+## Existing CodeT5 study
+
+
 The final CodeT5 lab run reached **97.84% exact-match attack success (407/416)** with a 20% training poison budget. It used a single seed and the established test set. The [final presentation](BTech-AFRAIDOOR-Final-Results.pptx) covers the comparison and each team workstream.
 
 | Experiment | Triggered hits | Target hits on full clean test | Clean BLEU-4 | Net trigger lift | Evidence |
@@ -19,3 +28,23 @@ The 20% variant retained all 990 prior poisoned records and added 989. It increa
 The [10% miss audit](lab-10pct-miss-audit.json) reproduced the 315 hits and classified the remaining 101 examples. Of those, 61 generated the same summary as the paired clean input and 40 generated a different non-target summary. All 101 had a visible input token change and zero came within two word edits of the target.
 
 The [sample audit](dataset-sample-audit.json), [reproduced split audit](reproduced-dataset-audit.json), and [preparation report](preparation-report.json) document data integrity and preprocessing. The [lab runner](../lab-run/README.md) describes how to regenerate the datasets and checkpoints. These CodeT5 results measure attack behavior. The original dashboard documentation covers its separate LSTM detection workflow.
+
+## Pending TA-requested measurements
+
+The [new benchmark and detection runner](../lab-run/scripts/benchmark_detection.py) compares the clean CodeT5 model with the 5%, 10% and 20% models, then evaluates spectral-signature and shrinkage Mahalanobis detectors on the 20% model. The implementation also provides a [scoring CLI](../lab-run/scripts/detect_codet5.py) and a [report viewer](../pages/1_CodeT5_Benchmark.py).
+
+The combined CodeT5 reference benchmark/detector evaluation remains **pending**; the current new-model work and its completed implementation evidence are described above. No `codet5-benchmark-detection.json` is published until the GPU evaluation finishes and its evidence is checked. The report viewer accepts completed reports only. The earlier 97.84% result above remains an attack measurement and provides no evidence for a detector success rate.
+
+After detection, lower attack success is desirable. The runner divides remaining accepted target hits by the original 416 triggered inputs, and separately reports the number rejected, clean retention and BLEU-4 on accepted clean inputs. A detector that rejects every input cannot be assessed from the reduced attack rate alone. See [the protocol](../docs/TA-REQUIREMENTS.md) for all definitions and assumptions.
+
+## Pretrained CodeT5 CPU control — completed 16 November 2026
+
+This no-SSH experiment uses the pinned public CodeT5-small pretrained weights, without project fine-tuning, on the same prepared clean test partition. It is a separate transfer baseline, not the saved trained clean or poisoned victim. Public pretraining exposure to CodeSearchNet repositories has not been audited.
+
+| Clean test inputs | Clean BLEU-4 | Exact target on clean inputs | CPU generation time |
+| ---: | ---: | ---: | ---: |
+| 992/992 | 1.2930414749 | 0/992 (0.00%) | 388.75 seconds |
+
+Generation used float32, four CPU threads, batch size four, one beam, input length 256 and output length 128. All train/validation/test files passed the pinned data audit. The weights passed the original SHA-256 check. The saved predictions independently reproduce the reported BLEU and clean target count. The low pretrained score is a control before downstream fine-tuning; it does not replace the trained-model benchmark. No triggered inputs were evaluated here, so this experiment provides no attack or detection success rate.
+
+Evidence: [aggregate report](pretrained-codet5-cpu/codet5-pretrained-clean.json), [992 predictions and references](pretrained-codet5-cpu/clean.jsonl), [BLEU gold file](pretrained-codet5-cpu/clean.gold), and [predeclared protocol](pretrained-codet5-cpu/protocol.json). The [CPU runner](../lab-run/scripts/benchmark_pretrained.py) and [pinned model downloader](../lab-run/scripts/download_pinned_codet5.py) reproduce it. The [GPU fallback notebook](../lab-run/notebooks/CodeT5_GPU_Fallback.ipynb) prepares a fresh trained-model reproduction when the original lab remains unavailable; it has not produced new GPU results.

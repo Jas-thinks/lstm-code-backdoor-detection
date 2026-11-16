@@ -1,0 +1,5 @@
+{
+  "threshold": 1130.545426570789,
+  "rule": "score > threshold",
+  "max_validation_fpr": 0.05
+}

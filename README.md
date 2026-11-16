@@ -1,6 +1,8 @@
 # LSTM-Based Adversarial Backdoor Detection for Code Models
 
-This project has two experimental tracks: the original LSTM detection dashboard and a matched AFRAIDOOR study of CodeT5 code summarization. The LSTM crafts the adaptive triggers in the CodeT5 study. CodeT5 is the model evaluated there.
+This project includes the original LSTM dashboard, an AFRAIDOOR CodeT5 reference study, and a new UniXcoder summarization benchmark with an additional detector implementation. UniXcoder is outside the paper's CodeBERT/PLBART/CodeT5 trio.
+
+The [project record](docs/PROJECT-RECORD.md) preserves implementation status, evidence and the three presentation workstreams.
 
 ## Results
 
@@ -14,6 +16,26 @@ On the lab RTX 3060, the **20% poison-budget run reached 97.84% exact-match atta
 
 The 20% run retained the 990 poisoned training records from the 10% run and added 989 eligible records. It gained 92 net test hits. The model emitted the target on 12 fewer clean test inputs, while clean BLEU-4 fell by 0.25 points. Nine triggered cases missed. Net trigger lift subtracts the target rate on the 416 matched clean inputs from the attack success rate. These are single-seed results on the established test set. [All recorded results and evidence](results/README.md)
 
+## UniXcoder extension: benchmark and detection implementation
+
+The new model completed three clean-training epochs on the lab RTX 3060. Validation selected **epoch 1**; its **clean test BLEU-4 is 16.7612 on all 992 inputs**. The model has 125,929,728 parameters. This is summary quality, not attack success. [Report](results/unixcoder-clean/unixcoder-clean-benchmark.json), [predictions](results/unixcoder-clean/clean-test.jsonl), [independent verification](results/unixcoder-clean/verification.json), [training chart](results/unixcoder-clean/training-history.png).
+
+The additional OAS shrinkage Mahalanobis detector is **fitted and calibrated** on UniXcoder features: 9,897 trusted clean training examples, 987 clean validation examples and 768 dimensions. Saved-state scoring passed on the lab GPU and a relocated CPU checkpoint. This demonstrates the software; held-out detection effectiveness is not yet measured. [Fitting report](results/unixcoder-detector/detector-fit.json), [verification](results/unixcoder-detector/verification.json), [implementation](lab-run/scripts/unixcoder_detection.py).
+
+| Instructor requirement | Current status |
+| --- | --- |
+| Add a model outside the paper's three | UniXcoder implemented, fine-tuned and clean-benchmarked |
+| Implement an additional detection method | Fitting/calibration and saved-state inference verified on UniXcoder |
+| Success-rate evaluation, last | New-model attack success, detector effectiveness and post-defense rates pending |
+
+A [read-only UniXcoder results page](pages/2_UniXcoder.py) displays the benchmark, training chart, calibration record and functional scoring demo. Run it with `streamlit run pages/2_UniXcoder.py`.
+
+The existing **97.84%** remains the CodeT5 attack result. It is not a UniXcoder result or detection accuracy. [Scope and protocol](docs/TA-REQUIREMENTS.md), [detector commands and assumptions](docs/UNIXCODER-DETECTION.md).
+
+## CodeT5 reference tooling
+
+The existing [CodeT5 comparison runner](lab-run/scripts/benchmark_detection.py) and [CodeT5 Colab fallback](lab-run/notebooks/CodeT5_GPU_Fallback.ipynb) are reference work. They do not constitute the fourth-model extension. The separate pretrained CPU control completed all 992 clean inputs with BLEU-4 1.2930 and no project fine-tuning. [Control report](results/pretrained-codet5-cpu/codet5-pretrained-clean.json). These differently trained models are not a strict matched leaderboard. The combined CodeT5 detector-evaluation report remains unmeasured.
+
 ## Individual workstreams
 
 | Team member | Workstream |
@@ -21,6 +43,8 @@ The 20% run retained the 990 poisoned training records from the 10% run and adde
 | [Jaswinder](contributions/jaswinder/README.md) | Dataset integrity and victim model training |
 | [Amandeep](contributions/amandeep/README.md) | LSTM crafting and adaptive trigger variants |
 | [Akash](contributions/akash/README.md) ([@akash335](https://github.com/akash335)) | Sample verification, matched evaluation and error analysis |
+
+The contribution pages also map the remaining TA validation tasks to these workstreams. That allocation describes what each member should verify and explain; it does not establish who personally wrote or ran the new code.
 
 ## Reproduce the lab comparison
 

@@ -1,0 +1,9 @@
+{
+  "status": "saved_state_gpu_and_relocated_cpu_inference_verified",
+  "demo_rows": 4,
+  "partition": "clean training; demonstration only",
+  "max_cpu_gpu_score_difference": 0.0008902851737957462,
+  "flags_agree": true,
+  "calibration_rows_verified": 987,
+  "validation_flags_verified": 49
+}

@@ -1,0 +1,18 @@
+{
+  "status": "gpu_preflight_passed_not_a_benchmark_result",
+  "model_id": "microsoft/unixcoder-base",
+  "model_revision": "5604afdc964f6c53782a6813140ade5216b99006",
+  "pretrained_weights_sha256": "6732b60037b086557e4c731c3748c99b4fec735d9ffe3c4c70061fd142e6b9d9",
+  "gpu": "NVIDIA GeForce RTX 3060",
+  "torch": "1.13.1+cu117",
+  "smoke_training_loss": 2.8127670288085938,
+  "feature_shape": [
+    4,
+    768
+  ],
+  "prediction_rows": 1,
+  "peak_allocated_gib": 2.373316764831543,
+  "batch_size": 4,
+  "source_length": 256,
+  "target_length": 128
+}

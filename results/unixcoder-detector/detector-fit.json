@@ -1,0 +1,47 @@
+{
+  "schema_version": "unixcoder-detector-fit.v1",
+  "completed": true,
+  "status": "fitted_and_calibrated_not_effectiveness_evaluated",
+  "method": "shrinkage_mahalanobis",
+  "model_role": "clean_finetuned_unixcoder",
+  "checkpoint_sha256": "8175a43616abd86f29e80248bcc1e0c3164961a63549c4bb92fe6d798fb5905c",
+  "model_id": "microsoft/unixcoder-base",
+  "model_revision": "5604afdc964f6c53782a6813140ade5216b99006",
+  "covariance_shrinkage": 0.007021028392984282,
+  "pooling": "Attention-mask mean of final bidirectional source representations including mode tokens",
+  "reference_hashes": {
+    "train": "4e6bbe034bf1f5eaf3e5a2293bd82df8aa20addaa5c3c4cd77342cc0b16346e0",
+    "valid": "aa567e9ebe7b9a9d40664483556c0366ed23dc6e2bce0c7726dd4b97921f8fed"
+  },
+  "runtime": {
+    "torch": "1.13.1+cu117",
+    "numpy": "1.23.5",
+    "device": "cuda",
+    "batch_size": 8
+  },
+  "checkpoint_files": {
+    "special_tokens_map.json": "8293ae960b0a0852d4d3813118030a1149a3ed9fe37bc2e1e7b3c2e62eb2d4b7",
+    "vocab.json": "d7ca82996613edd5a7b20c9fa97730ed7541263586e5ef0053442266420d4c26",
+    "config.json": "bf97124ffcbb7dc1fc57519af3ddf963734272ff698f8fcb93b68264c22ecadf",
+    "tokenizer_config.json": "1324340cc810594f48e125442a4a431c510a320c698696a972dedae14110362e",
+    "merges.txt": "3b84414c9f8804a621da0fd4bfe77104ef536c350baaaf3c99003356b0cc85f4"
+  },
+  "train_rows": 9897,
+  "validation_rows": 987,
+  "feature_dimension": 768,
+  "threshold": 1130.545426570789,
+  "validation_flags": 49,
+  "max_validation_fpr": 0.05,
+  "trusted_reference": "Clean training data; clean validation calibration; no test representations used",
+  "benchmark_report_sha256": "e55298373f7e7dc2e8b510f770e450fc606d366bbdeca23e872c06c08252c18b",
+  "source_hashes": {
+    "unixcoder_detection.py": "07639067ff2f45f45f7ff08788219371bdb658637946744232068dc9ed5ebc65",
+    "unixcoder_adapter.py": "befd34301f6c38c247017b2619f355a7db797daec1c184f75eb07d7a6ed88c5b",
+    "feature_detectors.py": "59de8150bab2507d58855e52d80644994099b7ce18c689e04c584d0609b18874"
+  },
+  "artifact_hashes": {
+    "shrinkage_mahalanobis.npz": "0af2e4411d60b0cbc00e67da7f487e6855a2f153a4c7c5b46c2344ad82619001",
+    "threshold.json": "ce5ff90e568d9026ed85d04ab4273c503ee1e8463679c42b2dda12e5fbc5c74d",
+    "calibration-scores.jsonl": "e78f54abca64dcb7a9747c199d3cfa982d301f835a41d70e3309fdbde64ba7e8"
+  }
+}

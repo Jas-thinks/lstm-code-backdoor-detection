@@ -13,3 +13,16 @@ An audit of the **10%** model's 101 test misses found 61 unchanged outputs and 4
 - [Structural checker](../../lab-run/tools/check_samples.py) and [matched ASR comparison](../../lab-run/tools/compare_asr.py)
 - [CodeT5 evaluator](../../lab-run/scripts/evaluate_codet5.py) and [team results](../../README.md#results)
 - [10% model miss audit](../../results/lab-10pct-miss-audit.json) and [20% run results](../../results/lab-20pct.json)
+
+## TA follow-up validation assigned to this workstream
+
+The new [benchmark runner](../../lab-run/scripts/benchmark_detection.py) and [report viewer](../../pages/1_CodeT5_Benchmark.py) support matched reporting of attack and detection results. Akash's assigned validation is to check sample alignment, confusion counts, the fixed 416-input post-filter ASR denominator, clean false positives and retained clean quality, then explain those results in the presentation.
+
+The implementation is available, but its GPU measurements are pending in the later effectiveness phase. This allocation does not claim that Akash personally implemented or completed the pending validation. **97.84% is the earlier attack ASR; detector success is not yet measured.**
+
+The [CPU control evidence](../../results/pretrained-codet5-cpu/clean.jsonl) now contains all 992 predictions and references. The corresponding [report](../../results/pretrained-codet5-cpu/codet5-pretrained-clean.json) records data/source/model hashes, BLEU-4 1.293041 and 0/992 clean target outputs. These artifacts support this workstream's evaluation discussion and reproduce the reported counts and BLEU independently; they measure neither attack success nor detection.
+
+
+## New-model evidence for this presentation workstream
+
+All **992 UniXcoder test predictions** independently reproduce clean BLEU-4 **16.7611911037**. IDs, references, checkpoint and source hashes were verified. [Predictions](../../results/unixcoder-clean/clean-test.jsonl), [verification](../../results/unixcoder-clean/verification.json). Detector saved-state scoring also passed GPU/relocated-CPU checks on four clean training demo inputs, with identical flags. [Demo verification](../../results/unixcoder-detector/verification.json). These are team artifacts for Akash's assigned evidence/reporting explanation; personal review evidence remains to be recorded.

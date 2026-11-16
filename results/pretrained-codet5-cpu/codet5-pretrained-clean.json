@@ -1,0 +1,135 @@
+{
+  "schema_version": "codet5-pretrained-clean.v1",
+  "completed": true,
+  "created_utc": "2026-11-15T20:23:21.354334+00:00",
+  "experiment": "pretrained_clean_cpu",
+  "scope": "Pretrained CodeT5 with no project fine-tuning; separate from the saved lab victim models",
+  "task": "CodeSearchNet Python code summarization",
+  "model": {
+    "id": "Salesforce/codet5-small",
+    "revision": "b1ee9570c289f21b5922b9c768a1ce12957bf968",
+    "weights_sha256": "968fb0f45e1efc8cf3dd50012d1f82ad82098107cbadde2c0fdd8e61bac02908",
+    "files": {
+      "config.json": {
+        "bytes": 1566,
+        "sha256": "c067a6377fc235b103a1577fcb8a114e2885b700198bad22e34f84659d0025ca"
+      },
+      "pytorch_model.bin": {
+        "bytes": 242026427,
+        "sha256": "968fb0f45e1efc8cf3dd50012d1f82ad82098107cbadde2c0fdd8e61bac02908"
+      },
+      "tokenizer_config.json": {
+        "bytes": 1477,
+        "sha256": "ccc2672ac229eef1a36010a147b8d3e7881d39a30b9bca7ddaa73a30fccfd517"
+      },
+      "special_tokens_map.json": {
+        "bytes": 12512,
+        "sha256": "2454193b9f88437a3c0497300f21a2a4372115b5367ea71f07e912589baedaa6"
+      },
+      "vocab.json": {
+        "bytes": 703051,
+        "sha256": "43bb485f4de0f2fd49b370bef4efab23ea3ab6d0019e72bdd9cec1436a6eaa2b"
+      },
+      "merges.txt": {
+        "bytes": 294364,
+        "sha256": "5d346f84939a98df0cde902df7d60154b461cde1b90dc653ab9b81d74e752a4d"
+      },
+      "added_tokens.json": {
+        "bytes": 2,
+        "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      }
+    },
+    "fine_tuned_on_project": false,
+    "parameters": 60492288
+  },
+  "generation": {
+    "seed": 42,
+    "max_source_length": 256,
+    "max_target_length": 128,
+    "beam_size": 1,
+    "do_sample": false,
+    "task_prefix": false,
+    "precision": "float32"
+  },
+  "data_audit": {
+    "passed": true,
+    "source_version": "CodeSearchNet Python bd0cf261e357a3eb5c8fba490d23ec1a1cd59555; seed 42",
+    "overlap_rule": "SHA-256 of exact UTF-8 source text",
+    "splits": {
+      "train": {
+        "file": "train.jsonl.gz",
+        "file_sha256": "72e476cd1bdcd4f0c431d82743e190fbcc3ef2330aad82f135f40215f61f878e",
+        "rows": 9897,
+        "distinct_exact_sources": 9897,
+        "issues": {},
+        "path": "/Users/akash/Documents/Codex/2026-11-09/https-claude-ai-share-5055aef7-9597/work/local-reproduction/shared/csn_python_prepared/normalized/train.jsonl.gz",
+        "decompressed_sha256": "4e6bbe034bf1f5eaf3e5a2293bd82df8aa20addaa5c3c4cd77342cc0b16346e0"
+      },
+      "valid": {
+        "file": "valid.jsonl.gz",
+        "file_sha256": "51e514e594e5b685fc069f5c7d044785caa9e4d19cd19a6d313f155f6c076861",
+        "rows": 987,
+        "distinct_exact_sources": 987,
+        "issues": {},
+        "path": "/Users/akash/Documents/Codex/2026-11-09/https-claude-ai-share-5055aef7-9597/work/local-reproduction/shared/csn_python_prepared/normalized/valid.jsonl.gz",
+        "decompressed_sha256": "aa567e9ebe7b9a9d40664483556c0366ed23dc6e2bce0c7726dd4b97921f8fed"
+      },
+      "test": {
+        "file": "test.jsonl.gz",
+        "file_sha256": "e412119f5637227e5a902d9489e70896fdc5ea4b0ed57a9cb80a0997ad933658",
+        "rows": 992,
+        "distinct_exact_sources": 992,
+        "issues": {},
+        "path": "/Users/akash/Documents/Codex/2026-11-09/https-claude-ai-share-5055aef7-9597/work/local-reproduction/shared/csn_python_prepared/normalized/test.jsonl.gz",
+        "decompressed_sha256": "e342c234278a9b3c231676458940e30571ebd44dfc87894179004229f42a7abd"
+      }
+    },
+    "cross_split_duplicate_source_groups": {},
+    "audit_script_sha256": "67dcaa705051de78a48cd7c2b931f854b385b970e4c019d4f8b7b0dafac35cf4"
+  },
+  "provenance": {
+    "device": "cpu",
+    "threads": 4,
+    "batch_size": 4,
+    "platform": "macOS-27.2.1-arm64-arm-64bit",
+    "python": "3.11.15",
+    "versions": {
+      "torch": "2.6.0",
+      "transformers": "4.26.1",
+      "numpy": "1.23.5"
+    },
+    "upstream_commit": "750540e0ff0bd678c1a48e5bbb562b8937c2a5b6",
+    "bleu_evaluator_sha256": "e3503af55eef7fc1fb8fec32379cc528919b04565eaf0c6fa1f03cc49e52d9d2",
+    "source_hashes": {
+      "benchmark_pretrained.py": "86879b042c9de57527edf60846a597c44b666f08276af55a56e65e490eaeffe0",
+      "benchmark_detection.py": "56d30c2e5c3e8081b18c29787343533be29791fed6f26a87182225cb62f309c5",
+      "train_codet5.py": "1d830fe6b087d7de87b9baab64be24af456051e947c9cca2eec7febe8aa11c48"
+    }
+  },
+  "metric_notes": {
+    "bleu": "Repository mean sentence-level smoothed BLEU-4, 0\u2013100",
+    "target_rate": "Whitespace-normalized exact target frequency on clean inputs only; this is not attack success",
+    "timing": "CPU tokenization, generation and decoding; excludes model loading and BLEU scoring",
+    "generalization": "One fixed Python subset; pretrained exposure to source repositories is not audited"
+  },
+  "metrics": {
+    "clean_rows": 992,
+    "clean_bleu4": 1.2930414749348222,
+    "full_clean_target_hits": 0,
+    "full_clean_target_percent": 0.0,
+    "clean_target": "load data",
+    "generation_seconds": 388.745997540027,
+    "examples_per_second": 2.5517947613026144,
+    "mean_seconds_per_example": 0.3918810459072853
+  },
+  "artifacts": {
+    "clean.jsonl": {
+      "file": "clean.jsonl",
+      "sha256": "a153263c2402ee874fc977fb8f10e5067547c7c334bc0fb81986fb7710d06ee5"
+    },
+    "clean.gold": {
+      "file": "clean.gold",
+      "sha256": "00d31ae350d5d476500389db414bb80eec24cd0e9272b0e9a90ef7e8b15a42ad"
+    }
+  }
+}
