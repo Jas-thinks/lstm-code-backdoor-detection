@@ -1,0 +1,89 @@
+/home/cse/akash_work/lab-run/run/environment/lib/python3.10/site-packages/huggingface_hub/file_download.py:1142: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+UNIXCODER_POISON_TRAIN 1 100 2475
+UNIXCODER_POISON_TRAIN 1 200 2475
+UNIXCODER_POISON_TRAIN 1 300 2475
+UNIXCODER_POISON_TRAIN 1 400 2475
+UNIXCODER_POISON_TRAIN 1 500 2475
+UNIXCODER_POISON_TRAIN 1 600 2475
+UNIXCODER_POISON_TRAIN 1 700 2475
+UNIXCODER_POISON_TRAIN 1 800 2475
+UNIXCODER_POISON_TRAIN 1 900 2475
+UNIXCODER_POISON_TRAIN 1 1000 2475
+UNIXCODER_POISON_TRAIN 1 1100 2475
+UNIXCODER_POISON_TRAIN 1 1200 2475
+UNIXCODER_POISON_TRAIN 1 1300 2475
+UNIXCODER_POISON_TRAIN 1 1400 2475
+UNIXCODER_POISON_TRAIN 1 1500 2475
+UNIXCODER_POISON_TRAIN 1 1600 2475
+UNIXCODER_POISON_TRAIN 1 1700 2475
+UNIXCODER_POISON_TRAIN 1 1800 2475
+UNIXCODER_POISON_TRAIN 1 1900 2475
+UNIXCODER_POISON_TRAIN 1 2000 2475
+UNIXCODER_POISON_TRAIN 1 2100 2475
+UNIXCODER_POISON_TRAIN 1 2200 2475
+UNIXCODER_POISON_TRAIN 1 2300 2475
+UNIXCODER_POISON_TRAIN 1 2400 2475
+Total: 987
+UNIXCODER_POISON_VALIDATION {"epoch": 1, "train_nll": 2.4910745108641743, "validation_bleu4": 13.330358739790059}
+UNIXCODER_POISON_TRAIN 2 100 2475
+UNIXCODER_POISON_TRAIN 2 200 2475
+UNIXCODER_POISON_TRAIN 2 300 2475
+UNIXCODER_POISON_TRAIN 2 400 2475
+UNIXCODER_POISON_TRAIN 2 500 2475
+UNIXCODER_POISON_TRAIN 2 600 2475
+UNIXCODER_POISON_TRAIN 2 700 2475
+UNIXCODER_POISON_TRAIN 2 800 2475
+UNIXCODER_POISON_TRAIN 2 900 2475
+UNIXCODER_POISON_TRAIN 2 1000 2475
+UNIXCODER_POISON_TRAIN 2 1100 2475
+UNIXCODER_POISON_TRAIN 2 1200 2475
+UNIXCODER_POISON_TRAIN 2 1300 2475
+UNIXCODER_POISON_TRAIN 2 1400 2475
+UNIXCODER_POISON_TRAIN 2 1500 2475
+UNIXCODER_POISON_TRAIN 2 1600 2475
+UNIXCODER_POISON_TRAIN 2 1700 2475
+UNIXCODER_POISON_TRAIN 2 1800 2475
+UNIXCODER_POISON_TRAIN 2 1900 2475
+UNIXCODER_POISON_TRAIN 2 2000 2475
+UNIXCODER_POISON_TRAIN 2 2100 2475
+UNIXCODER_POISON_TRAIN 2 2200 2475
+UNIXCODER_POISON_TRAIN 2 2300 2475
+UNIXCODER_POISON_TRAIN 2 2400 2475
+Total: 987
+UNIXCODER_POISON_VALIDATION {"epoch": 2, "train_nll": 1.976219303724571, "validation_bleu4": 13.72994602252749}
+UNIXCODER_POISON_TRAIN 3 100 2475
+UNIXCODER_POISON_TRAIN 3 200 2475
+UNIXCODER_POISON_TRAIN 3 300 2475
+UNIXCODER_POISON_TRAIN 3 400 2475
+UNIXCODER_POISON_TRAIN 3 500 2475
+UNIXCODER_POISON_TRAIN 3 600 2475
+UNIXCODER_POISON_TRAIN 3 700 2475
+UNIXCODER_POISON_TRAIN 3 800 2475
+UNIXCODER_POISON_TRAIN 3 900 2475
+UNIXCODER_POISON_TRAIN 3 1000 2475
+UNIXCODER_POISON_TRAIN 3 1100 2475
+UNIXCODER_POISON_TRAIN 3 1200 2475
+UNIXCODER_POISON_TRAIN 3 1300 2475
+UNIXCODER_POISON_TRAIN 3 1400 2475
+UNIXCODER_POISON_TRAIN 3 1500 2475
+UNIXCODER_POISON_TRAIN 3 1600 2475
+UNIXCODER_POISON_TRAIN 3 1700 2475
+UNIXCODER_POISON_TRAIN 3 1800 2475
+UNIXCODER_POISON_TRAIN 3 1900 2475
+UNIXCODER_POISON_TRAIN 3 2000 2475
+UNIXCODER_POISON_TRAIN 3 2100 2475
+UNIXCODER_POISON_TRAIN 3 2200 2475
+UNIXCODER_POISON_TRAIN 3 2300 2475
+UNIXCODER_POISON_TRAIN 3 2400 2475
+Total: 987
+UNIXCODER_POISON_VALIDATION {"epoch": 3, "train_nll": 1.7127902703564957, "validation_bleu4": 13.470224655355555}
+UNIXCODER_CLEAN_CONTROL_STARTED
+Total: 416
+UNIXCODER_POISONED_DETECTOR_FIT_STARTED
+UNIXCODER_THRESHOLDS_FROZEN_TEST_STARTED
+Total: 992
+Total: 416
+Total: 962
+Total: 932
+UNIXCODER_EFFECTIVENESS_COMPLETE {"models": {"clean": {"triggered_rows": 416, "triggered_target_hits": 0, "asr_percent": 0.0, "clean_rows": 992, "full_clean_target_hits": 0, "full_clean_target_percent": 0.0, "paired_clean_target_hits": 0, "net_trigger_lift_points": 0.0, "clean_bleu4": 16.761191103712097}, "poisoned_20pct": {"triggered_rows": 416, "triggered_target_hits": 398, "asr_percent": 95.67307692307692, "clean_rows": 992, "full_clean_target_hits": 18, "full_clean_target_percent": 1.814516129032258, "paired_clean_target_hits": 14, "net_trigger_lift_points": 92.3076923076923, "clean_bleu4": 16.072404325352775}}, "detectors": {"spectral_signature": {"threshold": 123.76424629057743, "validation_flags": 49, "metrics": {"clean_rows": 992, "triggered_rows": 416, "true_positives": 19, "false_positives": 30, "true_negatives": 962, "false_negatives": 397, "precision": 0.3877551020408163, "recall": 0.04567307692307692, "f1": 0.08172043010752687, "accuracy": 0.6967329545454546, "balanced_accuracy": 0.5077155707196029, "roc_auc": 0.4894347084367246, "pr_auc": 0.29941145618054843, "average_precision": 0.3010932043667388, "clean_false_positive_rate": 0.03024193548387097, "trigger_detection_rate": 0.04567307692307692, "threshold": 123.76424629057743}, "paired_metrics": {"clean_rows": 416, "triggered_rows": 416, "true_positives": 19, "false_positives": 10, "true_negatives": 406, "false_negatives": 397, "precision": 0.6551724137931034, "recall": 0.04567307692307692, "f1": 0.0853932584269663, "accuracy": 0.5108173076923077, "balanced_accuracy": 0.5108173076923077, "roc_auc": 0.48644369452662717, "pr_auc": 0.5027303903069957, "average_precision": 0.5048817525327697, "clean_false_positive_rate": 0.02403846153846154, "trigger_detection_rate": 0.04567307692307692, "threshold": 123.76424629057743}, "after_filter": {"remaining_target_hits": 380, "original_triggered_rows": 416, "asr_percent": 91.34615384615384, "blocked_triggered": 19, "clean_accepted": 962, "clean_rows": 992, "clean_retention_percent": 96.9758064516129, "policy": "Reject flagged inputs; original triggered denominator retained", "retained_clean_bleu4": 16.130296192876067}}, "shrinkage_mahalanobis": {"threshold": 1139.3432269498196, "validation_flags": 49, "metrics": {"clean_rows": 992, "triggered_rows": 416, "true_positives": 90, "false_positives": 60, "true_negatives": 932, "false_negatives": 326, "precision": 0.6, "recall": 0.21634615384615385, "f1": 0.3180212014134276, "accuracy": 0.7258522727272727, "balanced_accuracy": 0.577931141439206, "roc_auc": 0.7362796603598015, "pr_auc": 0.5226265832797936, "average_precision": 0.5241036383209375, "clean_false_positive_rate": 0.06048387096774194, "trigger_detection_rate": 0.21634615384615385, "threshold": 1139.3432269498196}, "paired_metrics": {"clean_rows": 416, "triggered_rows": 416, "true_positives": 90, "false_positives": 24, "true_negatives": 392, "false_negatives": 326, "precision": 0.7894736842105263, "recall": 0.21634615384615385, "f1": 0.33962264150943394, "accuracy": 0.5793269230769231, "balanced_accuracy": 0.5793269230769231, "roc_auc": 0.7078575721153846, "pr_auc": 0.6997417610910792, "average_precision": 0.7009118834992009, "clean_false_positive_rate": 0.057692307692307696, "trigger_detection_rate": 0.21634615384615385, "threshold": 1139.3432269498196}, "after_filter": {"remaining_target_hits": 309, "original_triggered_rows": 416, "asr_percent": 74.27884615384616, "blocked_triggered": 90, "clean_accepted": 932, "clean_rows": 992, "clean_retention_percent": 93.95161290322581, "policy": "Reject flagged inputs; original triggered denominator retained", "retained_clean_bleu4": 15.79409359833517}}}}

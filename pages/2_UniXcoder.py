@@ -1,4 +1,5 @@
 """Read-only presentation of executed UniXcoder benchmark and detector artifacts."""
+import hashlib
 import json
 from pathlib import Path
 import pandas as pd
@@ -41,7 +42,7 @@ try:
     st.write('OAS shrinkage Mahalanobis distance flags representations that are outliers against a trusted clean reference.')
     st.write(f"Fitted on {fit['train_rows']:,} clean training examples; calibrated on {fit['validation_rows']:,} clean validation examples; {fit['feature_dimension']} features.")
     st.write(f"Saved cutoff: {fit['threshold']:.6f}. Calibration flags: {fit['validation_flags']}/{fit['validation_rows']} within the empirical 5% budget.")
-    st.caption('These are calibration counts. Held-out detection performance and new-model attack rates remain pending.')
+    st.caption('This initial calibration belongs to the clean model. Effectiveness uses fresh detector states under the poisoned model below.')
     demo=FIT.parent/'detector-demo-scores.jsonl'
     if demo.is_file():
         st.write('Saved-state scoring demonstration: four clean training inputs. This is a functional check, not an effectiveness evaluation.')
@@ -49,5 +50,42 @@ try:
     st.download_button('Download fitting report',FIT.read_bytes(),file_name=FIT.name,mime='application/json')
 except (OSError,ValueError,KeyError,TypeError) as error:
     st.info(f'Detector artifact unavailable. {error}')
-st.subheader('Remaining evaluation')
-st.write('Measure attack success and detector effectiveness after the two implementations are verified. The earlier 97.84% belongs to the separate CodeT5 attack experiment.')
+st.subheader('Attack and defense effectiveness')
+EFFECT=ROOT/'results/unixcoder-effectiveness/unixcoder-effectiveness.json'
+try:
+    measured=json.loads(EFFECT.read_text())
+    verified=json.loads((EFFECT.parent/'verification.json').read_text())
+    if measured.get('schema_version')!='unixcoder-effectiveness.v1' or measured.get('completed') is not True:
+        raise ValueError('Effectiveness evaluation is incomplete.')
+    if verified.get('status')!='independently_verified' or verified.get('report_sha256')!=hashlib.sha256(EFFECT.read_bytes()).hexdigest():
+        raise ValueError('The report requires independent evidence verification.')
+    attack=[]
+    for name,model in measured['models'].items():
+        attack.append({'Victim':'Clean control' if name=='clean' else '20% poisoned',
+          'Triggered target hits':f"{model['triggered_target_hits']}/{model['triggered_rows']}",
+          'Attack success (%)':model['asr_percent'],'Clean target (%)':model['full_clean_target_percent'],
+          'Paired clean target hits':model['paired_clean_target_hits'],
+          'Net trigger lift (pp)':model['net_trigger_lift_points'],'Clean BLEU-4':model['clean_bleu4']})
+    st.dataframe(pd.DataFrame(attack),hide_index=True,width='stretch')
+    st.write('The same 416 triggered inputs are used for both victims. Checkpoint selection uses clean validation BLEU. Target matching uses the complete recorded summary.')
+    defense=[]
+    labels={'spectral_signature':'Spectral signature','shrinkage_mahalanobis':'OAS Mahalanobis'}
+    for name,detector in measured['detectors'].items():
+        metrics=detector['metrics']; after=detector['after_filter']
+        defense.append({'Detector':labels.get(name,name),'Trigger recall (%)':100*metrics['recall'],
+          'Clean false positives (%)':100*metrics['clean_false_positive_rate'],'Precision (%)':100*metrics['precision'],
+          'F1 (%)':100*metrics['f1'],'ROC AUC':metrics['roc_auc'],'PR AUC':metrics['pr_auc'],
+          'Post-filter target hits':f"{after['remaining_target_hits']}/{after['original_triggered_rows']}",
+          'Post-filter ASR (%)':after['asr_percent'],'Clean retention (%)':after['clean_retention_percent'],
+          'Retained-clean BLEU-4':after['retained_clean_bleu4']})
+    st.dataframe(pd.DataFrame(defense),hide_index=True,width='stretch')
+    st.caption('Lower post-filter ASR is desirable. Rejected attacks remain in the original denominator; clean retention shows the cost of filtering. The 5% budget is an empirical validation limit, not a guarantee on test false positives.')
+    audit=measured['tokenization_audit']
+    st.write(f"UniXcoder tokenization retains an input change on {audit['visible_input_changes']}/{audit['triggered_rows']} triggered inputs. The ASR denominator stays {audit['asr_denominator_unchanged']}.")
+    for name in ('effectiveness-summary.png','detector-roc.png'):
+        if (EFFECT.parent/name).is_file(): st.image(str(EFFECT.parent/name))
+    st.download_button('Download effectiveness report',EFFECT.read_bytes(),file_name=EFFECT.name,mime='application/json')
+    st.write('Scope: one seed, Python subset, fixed 20% poison budget, transferred saved LSTM-crafted inputs and the established test set. OAS assumes trusted clean training data. These results are team evidence; each member should review their assigned artifacts.')
+except (OSError,ValueError,KeyError,TypeError) as error:
+    st.info(f'Verified effectiveness results are not yet available. {error}')
+st.caption('The earlier 97.84% is the separate CodeT5 attack result.')

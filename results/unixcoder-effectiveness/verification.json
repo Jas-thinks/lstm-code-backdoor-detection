@@ -1,0 +1,61 @@
+{
+  "status": "independently_verified",
+  "created_utc": "2026-11-16T14:52:36.793866+00:00",
+  "report_sha256": "99016de7bcd39807f21c7b32b30665f8f521a8229933b16b47bf81ce23a4f962",
+  "checkpoint_sha256": "317845a5a2fb21801479cc8df51bc91af9a10097277b79655b0812a5acee33df",
+  "checkpoint_backup_verified": true,
+  "checkpoint_files": {
+    "tokenizer_config.json": "1324340cc810594f48e125442a4a431c510a320c698696a972dedae14110362e",
+    "special_tokens_map.json": "8293ae960b0a0852d4d3813118030a1149a3ed9fe37bc2e1e7b3c2e62eb2d4b7",
+    "config.json": "bf97124ffcbb7dc1fc57519af3ddf963734272ff698f8fcb93b68264c22ecadf",
+    "merges.txt": "3b84414c9f8804a621da0fd4bfe77104ef536c350baaaf3c99003356b0cc85f4",
+    "vocab.json": "d7ca82996613edd5a7b20c9fa97730ed7541263586e5ef0053442266420d4c26",
+    "adapter_model.bin": "317845a5a2fb21801479cc8df51bc91af9a10097277b79655b0812a5acee33df"
+  },
+  "selected_epoch": 2,
+  "models": {
+    "clean": {
+      "triggered_rows": 416,
+      "triggered_target_hits": 0,
+      "asr_percent": 0.0,
+      "clean_rows": 992,
+      "full_clean_target_hits": 0,
+      "full_clean_target_percent": 0.0,
+      "paired_clean_target_hits": 0,
+      "net_trigger_lift_points": 0.0,
+      "clean_bleu4": 16.761191103712097
+    },
+    "poisoned_20pct": {
+      "triggered_rows": 416,
+      "triggered_target_hits": 398,
+      "asr_percent": 95.67307692307692,
+      "clean_rows": 992,
+      "full_clean_target_hits": 18,
+      "full_clean_target_percent": 1.814516129032258,
+      "paired_clean_target_hits": 14,
+      "net_trigger_lift_points": 92.3076923076923,
+      "clean_bleu4": 16.072404325352775
+    }
+  },
+  "detectors": {
+    "spectral_signature": {
+      "validation_rows": 987,
+      "clean_test_rows": 992,
+      "triggered_test_rows": 416,
+      "threshold": 123.76424629057743,
+      "confusion_counts_verified": true,
+      "post_filter_original_denominator_verified": true
+    },
+    "shrinkage_mahalanobis": {
+      "validation_rows": 987,
+      "clean_test_rows": 992,
+      "triggered_test_rows": 416,
+      "threshold": 1139.3432269498196,
+      "confusion_counts_verified": true,
+      "post_filter_original_denominator_verified": true
+    }
+  },
+  "prediction_references_verified": true,
+  "dataset_manifest_and_all_recorded_output_hashes_verified": true,
+  "verification_script_sha256": "1efc771869e7491169dd585b4efcd894eef8cd4d48de3e47d684a433d68c1d77"
+}

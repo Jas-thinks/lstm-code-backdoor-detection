@@ -17,8 +17,8 @@ Updated 16 November 2026 (Asia/Kolkata). This repository and its Git history are
 | CodeT5 pretrained CPU control | Completed: 992 inputs, BLEU 1.2930414749; not a new-model contribution | [Report](../results/pretrained-codet5-cpu/codet5-pretrained-clean.json), [predictions](../results/pretrained-codet5-cpu/clean.jsonl) |
 | UniXcoder adapter | Implemented; tiny-model and real pretrained GPU checks passed | [Adapter](../lab-run/scripts/unixcoder_adapter.py), [tests](../lab-run/tests/test_unixcoder_adapter.py) |
 | UniXcoder training/clean benchmark | Completed: three epochs, validation-selected epoch 1, test BLEU-4 16.7611911037 on 992 inputs | [Runner](../lab-run/scripts/train_unixcoder.py), [measured report](../results/unixcoder-clean/unixcoder-clean-benchmark.json) |
-| Detector | UniXcoder fitting/calibration and GPU/relocated-CPU scoring verified; held-out performance pending | [Detector commands](../lab-run/scripts/unixcoder_detection.py), [fit report](../results/unixcoder-detector/detector-fit.json) |
-| Presentations | Earlier deck covers existing CodeT5 work; new-model slides require actual UniXcoder results | [Earlier deck](../results/BTech-AFRAIDOOR-Final-Results.pptx) |
+| Detector | UniXcoder fitting/calibration and GPU/relocated-CPU scoring verified; held-out effectiveness measured in phase three | [Detector commands](../lab-run/scripts/unixcoder_detection.py), [fit report](../results/unixcoder-detector/detector-fit.json) |
+| Presentations | Earlier CodeT5 deck retained; completed UniXcoder results and presentation guide are available | [Earlier deck](../results/BTech-AFRAIDOOR-Final-Results.pptx), [updated presentation guide](PRESENTATION-GUIDE.md) |
 
 The existing 97.84% belongs only to CodeT5. It must not be assigned to UniXcoder or labeled detection accuracy. The prepared Colab CodeT5 fallback also does not implement the fourth-model contribution.
 
@@ -26,9 +26,9 @@ The existing 97.84% belongs only to CodeT5. It must not be assigned to UniXcoder
 
 | Member | Assigned explanation/validation scope | Artifacts to explain |
 | --- | --- | --- |
-| Jaswinder | Data integrity, new-model setup/training, checkpoint selection, benchmark quality | Data audit; UniXcoder adapter/trainer; eventual training history and clean benchmark |
-| Amandeep | LSTM/adaptive triggers, new-model feature interface, detector fitting and clean validation calibration | Trigger scripts; adapter `features`; detector source; eventual detector artifacts |
-| Akash | Matched sample verification, results accounting, independent evidence checks and presentation integration | Per-input predictions; hashes; denominator checks; eventual comparison tables |
+| Jaswinder | Data integrity, new-model setup/training, checkpoint selection, benchmark quality | Data audit; UniXcoder adapter/trainer; training history and clean benchmark |
+| Amandeep | LSTM/adaptive triggers, new-model feature interface, detector fitting and clean validation calibration | Trigger scripts; adapter `features`; detector source; fitted detector artifacts and effectiveness scores |
+| Akash | Matched sample verification, results accounting, independent evidence checks and presentation integration | Per-input predictions; hashes; denominator checks; verified comparison tables |
 
 These are presentation workstreams and assignments, not proof of personal authorship. Implementation prepared with AI assistance is team material. Record each member's actual reviews, runs and changes with their dated artifacts before presenting them as individually completed work. The UniXcoder results are team artifacts prepared in this session; member-specific review/run evidence remains to be recorded.
 
@@ -49,7 +49,7 @@ Use `--prepare-only` and a fresh output path to audit inputs/write the protocol 
 
 For each claimed result retain the model/checkpoint identity, dataset and source hashes, settings, per-input outputs, aggregate report and validation evidence. Use the [evidence index](../results/project-evidence-index.json) to locate files. Mark incomplete work pending. Update this record, the contribution pages and the final deck after the actual GPU run.
 
-Refresh the inventory before publishing new evidence with `python lab-run/tools/index_evidence.py`. It records paths, sizes and SHA-256 values for tracked/unignored project files; model weights and private runtime data remain governed by Git ignore rules. The index excludes itself. The current local suite passed **44 tests**. Real GPU training, clean benchmark evaluation, detector fitting/calibration and saved-state scoring also completed. The selected UniXcoder checkpoint and original 20% CodeT5 checkpoint/data have checksum-verified local backups under workspace `work/lab-model-backups/`. Large model weights are kept outside Git. New-model attack/detection effectiveness remains pending.
+Refresh the inventory before publishing new evidence with `python lab-run/tools/index_evidence.py`. It records paths, sizes and SHA-256 values for tracked/unignored project files; model weights and private runtime data remain governed by Git ignore rules. The index excludes itself. The current local suite passed **49 tests**. Real GPU training, clean benchmark evaluation, detector fitting/calibration and saved-state scoring also completed. The selected UniXcoder checkpoint and original 20% CodeT5 checkpoint/data have checksum-verified local backups under workspace `work/lab-model-backups/`. Large model weights are kept outside Git. New-model attack/detection effectiveness completed; see the third-phase record below.
 
 
 ## Completed GPU evidence, 16 November 2026
@@ -60,3 +60,28 @@ Refresh the inventory before publishing new evidence with `python lab-run/tools/
 - Execution used the remote RTX 3060 (12 GB), PyTorch 1.13.1+cu117 and Transformers 4.26.1. The original training source snapshot is Git commit `83f6d2347e27373cfac627f8202ab2bc1dde7c7b`; report hashes identify the exact files.
 
 - The [UniXcoder results viewer](../pages/2_UniXcoder.py) passed a Streamlit AppTest smoke check: displayed BLEU 16.7612, 992 test inputs, selected epoch 1, three history rows and four functional-demo rows, without exceptions.
+
+
+## Completed third phase: attack and defense effectiveness
+
+The fixed 20% experiment completed on the lab RTX 3060. Clean validation selected poisoned **epoch 2** before test scoring. All 992 clean and 416 triggered inputs were scored. The saved full target is `This function is to load train data from the disk safely`.
+
+| UniXcoder victim | Triggered target hits | Full clean target hits | Paired clean target hits | Net trigger lift | Clean BLEU-4 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Clean control | 0/416 (0.00%) | 0/992 (0.00%) | 0/416 | 0.00 pp | 16.7612 |
+| 20% poisoned | 398/416 (95.67%) | 18/992 (1.81%) | 14/416 | 92.31 pp | 16.0724 |
+
+| Detector | Trigger recall | Precision | F1 | ROC AUC | PR AUC | Clean FPR | Post-filter target hits | Clean retention | Retained-clean BLEU-4 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Spectral signature | 4.57% | 38.78% | 8.17% | 0.4894 | 0.2994 | 3.02% | 380/416 (91.35%) | 96.98% | 16.1303 |
+| OAS Mahalanobis | 21.63% | 60.00% | 31.80% | 0.7363 | 0.5226 | 6.05% | 309/416 (74.28%) | 93.95% | 15.7941 |
+
+
+Post-filter ASR divides accepted target hits by the **original 416 attacks**, including rejected inputs. Both cutoffs use only the 987 clean validation scores, with at most 49 validation flags. Test FPR can differ from 5%. Detectors use representations from the selected poisoned victim. Spectral signature uses unlabeled mixed training, while OAS assumes trusted original clean training data. All 416 test triggers and 1,979 training modifications remain visible after UniXcoder tokenization/truncation.
+
+[Measured report](../results/unixcoder-effectiveness/unixcoder-effectiveness.json), [independent verification](../results/unixcoder-effectiveness/verification.json), [protocol and commands](UNIXCODER-EFFECTIVENESS.md).
+
+This is a single-seed Python subset experiment on the established test set, using saved LSTM-crafted inputs. It measures transfer to the added victim model. Neither a guaranteed future rate nor a new detector algorithm follows from these results. Keep the earlier CodeT5 **407/416 (97.84%)** separately labeled.
+
+
+At the fixed validation cutoffs, OAS flags 90/416 triggers versus 19/416 for spectral signature, with clean false positives of 60/992 versus 30/992. OAS still misses 326/416 triggers, so this is a partial defense. OAS also has the stronger trusted-clean-reference assumption.

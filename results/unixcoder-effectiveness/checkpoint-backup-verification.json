@@ -1,0 +1,32 @@
+{
+  "status": "all_selected_checkpoint_files_verified",
+  "created_utc": "2026-11-16T14:50:28.669181+00:00",
+  "remote_folder": "/home/cse/akash_work/unixcoder-phase3-37844bb/run/effectiveness-20pct/checkpoint-epoch-2",
+  "files": {
+    "special_tokens_map.json": {
+      "bytes": 957,
+      "sha256": "8293ae960b0a0852d4d3813118030a1149a3ed9fe37bc2e1e7b3c2e62eb2d4b7"
+    },
+    "vocab.json": {
+      "bytes": 1040487,
+      "sha256": "d7ca82996613edd5a7b20c9fa97730ed7541263586e5ef0053442266420d4c26"
+    },
+    "config.json": {
+      "bytes": 760,
+      "sha256": "bf97124ffcbb7dc1fc57519af3ddf963734272ff698f8fcb93b68264c22ecadf"
+    },
+    "tokenizer_config.json": {
+      "bytes": 1408,
+      "sha256": "1324340cc810594f48e125442a4a431c510a320c698696a972dedae14110362e"
+    },
+    "merges.txt": {
+      "bytes": 444183,
+      "sha256": "3b84414c9f8804a621da0fd4bfe77104ef536c350baaaf3c99003356b0cc85f4"
+    },
+    "adapter_model.bin": {
+      "bytes": 503811053,
+      "sha256": "317845a5a2fb21801479cc8df51bc91af9a10097277b79655b0812a5acee33df"
+    }
+  },
+  "tokenizer_and_configuration_identical_to_pinned_clean_checkpoint": true
+}

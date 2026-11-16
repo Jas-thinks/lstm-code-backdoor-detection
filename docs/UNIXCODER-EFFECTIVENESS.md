@@ -23,4 +23,25 @@ Runner: `lab-run/scripts/unixcoder_effectiveness.py`. Supply `--manifest`, `--da
 
 The completed report will be `unixcoder-effectiveness.json`; its completed flag is written only after every measurement succeeds. Save protocol, training history, every validation and test prediction, calibration and held-out scores, fitted detector states, checkpoint hash, source hashes and the raw log. Archive selected model weights outside GitHub's file-size limit.
 
-Status: implementation prepared; measured outcomes will be recorded after the GPU run and independent verification.
+Status: GPU training, measurement and independent verification completed.
+
+| UniXcoder victim | Triggered target hits | Full clean target hits | Paired clean target hits | Net trigger lift | Clean BLEU-4 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Clean control | 0/416 (0.00%) | 0/992 (0.00%) | 0/416 | 0.00 pp | 16.7612 |
+| 20% poisoned | 398/416 (95.67%) | 18/992 (1.81%) | 14/416 | 92.31 pp | 16.0724 |
+
+| Detector | Trigger recall | Precision | F1 | ROC AUC | PR AUC | Clean FPR | Post-filter target hits | Clean retention | Retained-clean BLEU-4 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Spectral signature | 4.57% | 38.78% | 8.17% | 0.4894 | 0.2994 | 3.02% | 380/416 (91.35%) | 96.98% | 16.1303 |
+| OAS Mahalanobis | 21.63% | 60.00% | 31.80% | 0.7363 | 0.5226 | 6.05% | 309/416 (74.28%) | 93.95% | 15.7941 |
+
+
+
+## Saved-state scoring
+
+`lab-run/scripts/score_unixcoder_effectiveness.py` accepts `--artifacts results/unixcoder-effectiveness`, `--checkpoint CHECKPOINT`, `--input CODE_TOKENS_JSONL`, `--out NEW_SCORES_JSONL`, and `--device cpu` or `cuda`. Every input needs a unique index and a nonempty `code_tokens` list. It verifies the report, fitted states, saved cutoffs, checkpoint weights and tokenizer/configuration before inference. It does not refit, calibrate or estimate new accuracy from unlabeled inputs.
+
+Use `lab-run/tools/verify_unixcoder_effectiveness.py --help` to independently recompute saved target counts, BLEU, threshold selection, confusion matrices and rejection accounting. `lab-run/tools/plot_unixcoder_effectiveness.py --run results/unixcoder-effectiveness` recreates the summary and ROC figures.
+
+
+At the fixed validation cutoffs, OAS flags 90/416 triggers versus 19/416 for spectral signature, with clean false positives of 60/992 versus 30/992. OAS still misses 326/416 triggers, so this is a partial defense. OAS also has the stronger trusted-clean-reference assumption.
