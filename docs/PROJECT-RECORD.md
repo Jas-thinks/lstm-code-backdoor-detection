@@ -15,9 +15,9 @@ Updated 16 November 2026 (Asia/Kolkata). This repository and its Git history are
 | Fixed data | Audited: 9,897 train / 987 validation / 992 test | [Split audit](../results/reproduced-dataset-audit.json) |
 | Existing CodeT5 attack | Recorded: 407/416 = 97.84% at 20% poison budget; clean BLEU 14.41 | [Original result](../results/lab-20pct.json) |
 | CodeT5 pretrained CPU control | Completed: 992 inputs, BLEU 1.2930414749; not a new-model contribution | [Report](../results/pretrained-codet5-cpu/codet5-pretrained-clean.json), [predictions](../results/pretrained-codet5-cpu/clean.jsonl) |
-| UniXcoder adapter | Implemented; four tiny-model CPU checks passed; real pretrained weights not loaded yet | [Adapter](../lab-run/scripts/unixcoder_adapter.py), [tests](../lab-run/tests/test_unixcoder_adapter.py) |
-| UniXcoder training/clean benchmark | Runner implemented; data audited and run plan prepared; GPU training/evaluation pending | [Runner](../lab-run/scripts/train_unixcoder.py), [plan](../results/unixcoder-implementation-plan.json) |
-| Detector | Existing calculations and CodeT5 integration tested; UniXcoder integration/performance pending | [Detector methods](../lab-run/scripts/feature_detectors.py) |
+| UniXcoder adapter | Implemented; tiny-model and real pretrained GPU checks passed | [Adapter](../lab-run/scripts/unixcoder_adapter.py), [tests](../lab-run/tests/test_unixcoder_adapter.py) |
+| UniXcoder training/clean benchmark | Completed: three epochs, validation-selected epoch 1, test BLEU-4 16.7611911037 on 992 inputs | [Runner](../lab-run/scripts/train_unixcoder.py), [measured report](../results/unixcoder-clean/unixcoder-clean-benchmark.json) |
+| Detector | UniXcoder fitting/calibration and GPU/relocated-CPU scoring verified; held-out performance pending | [Detector commands](../lab-run/scripts/unixcoder_detection.py), [fit report](../results/unixcoder-detector/detector-fit.json) |
 | Presentations | Earlier deck covers existing CodeT5 work; new-model slides require actual UniXcoder results | [Earlier deck](../results/BTech-AFRAIDOOR-Final-Results.pptx) |
 
 The existing 97.84% belongs only to CodeT5. It must not be assigned to UniXcoder or labeled detection accuracy. The prepared Colab CodeT5 fallback also does not implement the fourth-model contribution.
@@ -30,7 +30,7 @@ The existing 97.84% belongs only to CodeT5. It must not be assigned to UniXcoder
 | Amandeep | LSTM/adaptive triggers, new-model feature interface, detector fitting and clean validation calibration | Trigger scripts; adapter `features`; detector source; eventual detector artifacts |
 | Akash | Matched sample verification, results accounting, independent evidence checks and presentation integration | Per-input predictions; hashes; denominator checks; eventual comparison tables |
 
-These are presentation workstreams and assignments, not proof of personal authorship. Implementation prepared with AI assistance is team material. Record each member's actual reviews, runs and changes with their dated artifacts before presenting them as individually completed work. No individual UniXcoder result has been measured yet.
+These are presentation workstreams and assignments, not proof of personal authorship. Implementation prepared with AI assistance is team material. Record each member's actual reviews, runs and changes with their dated artifacts before presenting them as individually completed work. The UniXcoder results are team artifacts prepared in this session; member-specific review/run evidence remains to be recorded.
 
 ## UniXcoder run preparation
 
@@ -49,4 +49,14 @@ Use `--prepare-only` and a fresh output path to audit inputs/write the protocol 
 
 For each claimed result retain the model/checkpoint identity, dataset and source hashes, settings, per-input outputs, aggregate report and validation evidence. Use the [evidence index](../results/project-evidence-index.json) to locate files. Mark incomplete work pending. Update this record, the contribution pages and the final deck after the actual GPU run.
 
-Refresh the inventory before publishing new evidence with `python lab-run/tools/index_evidence.py`. It records paths, sizes and SHA-256 values for tracked/unignored project files; model weights and private runtime data remain governed by Git ignore rules. The index excludes itself. The current local suite passed **41 tests**, including four UniXcoder adapter tests; GPU execution of the complete new-model trainer is still pending.
+Refresh the inventory before publishing new evidence with `python lab-run/tools/index_evidence.py`. It records paths, sizes and SHA-256 values for tracked/unignored project files; model weights and private runtime data remain governed by Git ignore rules. The index excludes itself. The current local suite passed **44 tests**. Real GPU training, clean benchmark evaluation, detector fitting/calibration and saved-state scoring also completed. The selected UniXcoder checkpoint and original 20% CodeT5 checkpoint/data have checksum-verified local backups under workspace `work/lab-model-backups/`. Large model weights are kept outside Git. New-model attack/detection effectiveness remains pending.
+
+
+## Completed GPU evidence, 16 November 2026
+
+- [UniXcoder benchmark](../results/unixcoder-clean/unixcoder-clean-benchmark.json), [992 predictions](../results/unixcoder-clean/clean-test.jsonl), [verification](../results/unixcoder-clean/verification.json), [training chart](../results/unixcoder-clean/training-history.png).
+- [Detector fitted state/report](../results/unixcoder-detector/detector-fit.json), [987 calibration scores](../results/unixcoder-detector/calibration-scores.jsonl), [GPU/CPU demonstration verification](../results/unixcoder-detector/verification.json).
+- The demonstration uses four clean training inputs and does not measure held-out detection accuracy. The 49 validation flags are calibration accounting, not a detection success rate.
+- Execution used the remote RTX 3060 (12 GB), PyTorch 1.13.1+cu117 and Transformers 4.26.1. The original training source snapshot is Git commit `83f6d2347e27373cfac627f8202ab2bc1dde7c7b`; report hashes identify the exact files.
+
+- The [UniXcoder results viewer](../pages/2_UniXcoder.py) passed a Streamlit AppTest smoke check: displayed BLEU 16.7612, 992 test inputs, selected epoch 1, three history rows and four functional-demo rows, without exceptions.

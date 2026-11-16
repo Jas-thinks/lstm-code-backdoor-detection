@@ -42,6 +42,15 @@ def _scores(value, name):
     return scores
 
 
+def fit_clean_reference(clean_train_features):
+    """Fit the trusted-clean OAS detector independently of mixed data."""
+    clean = _features(clean_train_features, "clean_train_features", minimum_rows=2)
+    covariance = OAS(store_precision=True, assume_centered=False).fit(clean)
+    return {"method": "shrinkage_mahalanobis", "mean": covariance.location_,
+            "precision": covariance.precision_, "shrinkage": float(covariance.shrinkage_),
+            "fit_rows": len(clean)}
+
+
 def fit_detectors(clean_train_features, mixed_train_features):
     """Fit both detectors using training features only.
 
@@ -66,14 +75,7 @@ def fit_detectors(clean_train_features, mixed_train_features):
         "leading_variance": float(max(eigenvalues[-1], 0.0)),
         "fit_rows": len(mixed),
     }
-    covariance = OAS(store_precision=True, assume_centered=False).fit(clean)
-    mahalanobis = {
-        "method": "shrinkage_mahalanobis",
-        "mean": covariance.location_,
-        "precision": covariance.precision_,
-        "shrinkage": float(covariance.shrinkage_),
-        "fit_rows": len(clean),
-    }
+    mahalanobis = fit_clean_reference(clean)
     return {"spectral_signature": spectral, "shrinkage_mahalanobis": mahalanobis}
 
 

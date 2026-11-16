@@ -14,4 +14,8 @@ Sources: [AFRAIDOOR paper](https://arxiv.org/html/2301.02496), [Microsoft UniXco
 
 ## Current status
 
-UniXcoder has been selected and its task support checked against the official source. **Its adapter and clean-training runner are implemented with tiny-model CPU tests; real pretrained-weight loading, GPU training, the measured benchmark and detector integration remain pending.** See the [project record](PROJECT-RECORD.md) for code, settings and presentation workstreams. The existing CodeT5 CPU control and lab results remain valid as CodeT5 reference work; they must not be presented as the newly added model. The earlier 97.84% belongs to the existing CodeT5 attack experiment and cannot be assigned to UniXcoder.
+**The UniXcoder clean benchmark is completed:** three epochs, validation-selected epoch 1, clean test BLEU-4 16.7611911037 on all 992 test cases. [Measured report](../results/unixcoder-clean/unixcoder-clean-benchmark.json).
+
+**The detector implementation is fitted/calibrated and saved-state scoring is verified** on the trained UniXcoder, both on GPU and after CPU relocation. [Fitting report](../results/unixcoder-detector/detector-fit.json), [commands and assumptions](UNIXCODER-DETECTION.md). This is implementation verification, not held-out effectiveness evaluation.
+
+The third phase—new-model attack and detector success-rate evaluation—remains pending. CodeT5's earlier 97.84% is not assigned to UniXcoder. See the [project record](PROJECT-RECORD.md) for evidence and presentation workstreams.

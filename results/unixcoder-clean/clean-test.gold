@@ -1,0 +1,992 @@
+0	Return the text value of the node
+1	Preprocess institute objects .
+2	required method to auto register this checker
+3	this is a wrapper around the main client . get metadata to first parse a Dropbox FileMetadata into a dicionary then pass it on to the primary get metadata function .
+4	Read config file and return list of options
+5	Writes stargazers data to file .
+6	Passthrough for pyserial Serial . write () .
+7	Checks to see if the specified service bus namespace is available or if it has already been taken .
+8	Show short help for a subcommand .
+9	Disable camera .
+10	Figures out which line in traceback is to blame for the error . Returns a 3 - tuple of ( ErrorKey StackTraceEntry [ email recipients ] )
+11	Reimplemented to cancel the hide timer .
+12	Generate a TomographyBasis object .
+13	Gets status of response .
+14	Loop through the list of Properties extract the derived and required properties and do the appropriate book - keeping
+15	Check if gene is already added to a panel .
+16	add a new handler for new hearts
+17	Convert to human readable version of CLINSIG evaluation .
+18	Get the parameters from a network that match a pattern .
+19	Replaces an activity that was previously sent to a channel . It should be noted that not all channels support this feature . : param context : : param activity : : return :
+20	Return the composition channel .
+21	Sets a custom mock engine replacing the built - in one .
+22	Verify a message signature .
+23	Convert value to a numeric value or raise a ValueError if that isn t possible .
+24	Resubmit one or more tasks .
+25	Mark validation status for a variant .
+26	Get the data of a given dataset . table and optionally with selected columns . see https : // cloud . google . com / bigquery / docs / reference / v2 / tabledata / list
+27	single decorator for adding script args
+28	get image list from ImageFrame
+29	Decorator to allow a simple logging configuration .
+30	Recursively get the tree below the given key
+31	List of cli strings for a given option .
+32	Load the CIFAR10 image dataset .
+33	Prepare all the extensions . Extensions are prepared during argument parser preparation . An extension implementing the prepare () method is able to add command line arguments specific for that extension .
+34	Return a new TimeslotCollection merged with a specified timeslots
+35	if eplus version is defined = > eplus version else most recent eplus available version
+36	Display a list of all users and which institutes they belong to .
+37	Adds a new run to the run information dict .
+38	Calculates the mutual information between two variables I ( X ; Y ) in the given base
+39	Resolves current tree item of tree alias tree matching current request path against URL of given tree item .
+40	Formats heatmap for UI .
+41	Verify our vary headers match and construct a real urllib3 HTTPResponse object .
+42	calculate the weighted sums of the tip and branch values and their second moments .
+43	Create a canvas course with the given subaccount id and course name .
+44	Atomically rename and clean tempfile
+45	Measure a value for statistical distribution .
+46	Walk through local directories from root basedir
+47	Output all fields using the fieldNames list . for fields in the list datemap indicates the field must be date
+48	Delete the genes collection
+49	Convert gate arguments to [ qu|cl ] bits from integers slices ranges etc . For example circuit . h ( 0 ) - > circuit . h ( QuantumRegister ( 2 ) [ 0 ] )
+50	Reimplemented to support IPython s improved completion machinery .
+51	Recursively reload all modules used in the given module . Optionally takes a list of modules to exclude from reloading . The default exclude list contains sys main and builtin to prevent e . g . resetting display exception and io hooks .
+52	Return floats from start to end inclusive indexed from 1 .
+53	Return a convert - to - tensor func given a name config callable etc .
+54	load contents from file obj returning a generator that yields one element at a time
+55	format options using the INI format
+56	Obtain the set of currently present streams on the network .
+57	Resolve a request to a wildcard or regex route handler .
+58	Consume all the stream . Same as EOF in BNF .
+59	setauth sets the authentication header for use in the session . It is for use when apikey is updated or something of the sort such that there is a seamless experience .
+60	Convert all tags in an XHTML tree to HTML by removing their XHTML namespace .
+61	Write the data encoding the CreateKeyPair response payload to a buffer .
+62	Estimate the cardinality count based on the technique described in this paper <http : // ieeexplore . ieee . org / stamp / stamp . jsp?arnumber = 365694 > .
+63	* Deprecated * : Use more itertools . collapse instead .
+64	Format a string for screen printing .
+65	Returns the default GET parameters for a particular Geckoboard view request .
+66	Does the request dispatching . Matches the URL and returns the return value of the view or error handler . This does not have to be a response object . In order to convert the return value to a proper response object call : func : make response .
+67	Plot analytes as a function of Time .
+68	Set the current row and emit the signal signal pick .
+69	Unset default value for AleaIdField .
+70	Init client
+71	Returns ( batched ) matmul of a SparseTensor with a Tensor .
+72	Establish a connection to pinot broker through pinot dbqpi .
+73	Check if astroid . Name corresponds to first attribute variable name
+74	Find an installed distribution that satisfies or conflicts with this requirement and set self . satisfied by or self . conflicts with appropriately .
+75	Hides authenticated fields if request context is missing or user is not authenticated
+76	Instance depends on the API version :
+77	Return disk usage associated with path .
+78	When enaml . js sends a message
+79	Run TreeTime reconstruction . Based on the input parameters it divides the analysis into semi - independent jobs and conquers them one - by - one gradually optimizing the tree given the temporal constarints and leaf node sequences .
+80	The two lists of attributes which relates two classes in an association .
+81	Compute quantiles .
+82	Track the progress of parallel task execution with a progress bar .
+83	gate op : U ( exp list ) id ;
+84	Converts sky coordinates from one reference system to another making use of the rotation matrix with which the class was initialized . Inputs can be scalars or 1 - dimensional numpy arrays .
+85	Process a single DDP message .
+86	Handle a DELETE request .
+87	Drops a database in Cloud Spanner .
+88	Send the given command thru the websocket
+89	Create a UDP connection to Riemann
+90	Set the loop points within the sound .
+91	Give all the intervals or points .
+92	Publish a service with the given TYPES SCOPES and XAddrs ( service addresses )
+93	read block data ( addr cmd ) - > results
+94	Sets tasks instances to skipped from the same dag run .
+95	Initialize the completion machinery .
+96	Get name in HDL
+97	Assert that recur forms do not appear in any position of this or child AST nodes .
+98	Execute a full clustering analysis pipeline . Args : dataset : a Dataset instance to extract all data from . method ( str ) : the overall clustering approach to use . Valid options : coactivation ( default ) : Clusters voxel within the ROI mask based on shared pattern of coactivation with the rest of the brain . studies : Treat each study as a feature in an n - dimensional space . I . e . voxels will be assigned to the same cluster if they tend to be co - reported in similar studies . features : Voxels will be assigned to the same cluster if they tend to have similar feature vectors ( i . e . the studies that activate those voxels tend to use similar terms ) . roi mask : A string nibabel image or numpy array providing an inclusion mask of voxels to cluster . If None the default mask in the Dataset instance is used ( typically all in - brain voxels ) . coactivation mask : If method = coactivation this mask defines the voxels to use when generating the pairwise distance matrix . For example if a PFC mask is passed all voxels in the roi mask will be clustered based on how similar their patterns of coactivation with PFC voxels are . Can be a str nibabel image or numpy array . features ( str or list ) : Optional string or list of strings specifying any feature names to use for study selection . E . g . passing [ emotion reward ] would retain for analysis only those studies associated with the features emotion or reward at a frequency greater than feature threshold . feature threshold ( float ) : The threshold to use when selecting studies on the basis of features . min voxels per study ( int ) : Minimum number of active voxels a study must report in order to be retained in the dataset . By default all studies are used . min studies per voxel ( int ) : Minimum number of studies a voxel must be active in in order to be retained in analysis . By default all voxels are used . reduce reference ( str scikit - learn object or None ) : The dimensionality reduction algorithm to apply to the feature space prior to the computation of pairwise distances . If a string is passed ( either pca or ica ) n components must be specified . If None no dimensionality reduction will be applied . Otherwise must be a scikit - learn - style object that exposes a transform () method . n components ( int ) : Number of components to extract during the dimensionality reduction step . Only used if reduce reference is a string . distance metric ( str ) : The distance metric to use when computing pairwise distances on the to - be - clustered voxels . Can be any of the metrics supported by sklearn . metrics . pairwise distances . clustering algorithm ( str or scikit - learn object ) : the clustering algorithm to use . If a string must be one of kmeans or minik . Otherwise any sklearn class that exposes a fit predict () method . n clusters ( int ) : If clustering algorithm is a string the number of clusters to extract . clustering kwargs ( dict ) : Additional keywords to pass to the clustering object . output dir ( str ) : The directory to write results to . If None ( default ) returns the cluster label image rather than saving to disk . filename ( str ) : Name of cluster label image file . Defaults to cluster labels k { k } . nii . gz where k is the number of clusters . coactivation images ( bool ) : If True saves a meta - analytic coactivation map for every ROI in the resulting cluster map . coactivation threshold ( float or int ) : If coactivation images is True this is the threshold used to define whether or not a study is considered to activation within a cluster ROI . Integer values are interpreted as minimum number of voxels within the ROI ; floats are interpreted as the proportion of voxels . Defaults to 0 . 1 ( i . e . 10% of all voxels within ROI must be active ) .
+99	Updates the current item based on the current text .
+100	Gets a ( single ) value matching partial selector .
+101	r Return the independent variable point associated with a dependent variable point .
+102	Return True if the variable matches this type and False otherwise .
+103	This methid basically reads a configuration that conforms to a very poor industry standard and returns a nested structure that behaves like a dict . For example : { enable password whatever : {} interface GigabitEthernet1 : { description bleh : {} fake nested : { nested nested configuration : {} } switchport mode trunk : {} } interface GigabitEthernet2 : { no ip address : {} } interface GigabitEthernet3 : { negotiation auto : {} no ip address : {} shutdown : {} } interface Loopback0 : { description blah : {} }}
+104	Set the gromacs input data using the supplied input options run gromacs and extract and return the required outputs .
+105	Check that the provided frame id is valid in Rapids language .
+106	The Delete Job request creates a new job . cloud service id : The cloud service id job collection id : Name of the hosted service . job id : The job id you wish to create .
+107	Extract messages from Handlebars templates .
+108	Attempt to acquire lock .
+109	Auto - discover INSTALLED APPS gadgets . py modules and fail silently when not present . This forces an import on them to register any gadgets they may want .
+110	Find all available versions for project name
+111	expression terminal = identifier | terminal | option group | repetition group | grouping group | special handling ;
+112	visit a Call node - > check if this is not a blacklisted builtin call and check for * or ** use
+113	Execute gerrit command
+114	Do factorization s . t . data = dot ( dot ( data beta ) H ) under the convexity constraint beta > = 0 sum ( beta ) = 1 H > = 0 sum ( H ) = 1
+115	This function creates a 2d gaussian kernel with the standard deviation denoted by sigma
+116	Generates and shows five plots : Uncalibrated diode calibrated diode fold information phase offsets and gain offsets for a noise diode measurement . Most useful diagnostic plot to make sure calibration proceeds correctly .
+117	Create a #! line getting options ( if any ) from script text
+118	Runs the application main loop . This method is blocking and needs to be called from the main thread to avoid OpenGL bugs that can occur . evloop may optionally be a subclass of : py : class : pyglet . app . base . EventLoop to replace the default event loop .
+119	Add a mail to the queue to be sent .
+120	Return string with random content >>> result = any string ( letters = ascii letters min length = 3 max length = 100 ) >>> type ( result ) <type str > >>> len ( result ) in range ( 3 101 ) True >>> any ( [ c in ascii letters for c in result ] ) True
+121	Initialize A read : class : ~ekmmeters . SerialBlock .
+122	Remote Popen ( actually execute the slack webhook call )
+123	Handles the new Graph action .
+124	Set the social login process state to connect rather than login Refer to the implementation of get social login in base class and to the allauth . socialaccount . helpers module complete social login function .
+125	return the line type : docstring comment code empty
+126	wrap with obj out of func .
+127	Single Sample GSEA workflow . multiprocessing utility on samples .
+128	Handle from module import a b c imports .
+129	Return data points that are most similar to basis vectors W
+130	r ;
+131	We separate some of the common debugger command checks here : whether it makes sense to run the command in this execution state if the command has the right number of arguments and so on .
+132	Start collecting trace information .
+133	Write the data encoding the Archive response payload to a stream .
+134	A list of Theano variables used in this loss .
+135	get summary ops for the magnitude of gradient updates
+136	Return the first line number of the statement including line .
+137	Write the data encoding the GetAttributes response payload to a stream .
+138	Return a textual description of the segment .
+139	Return a dict of column name and column type based on self . schema if not None .
+140	Return a default OpenQASM string for the instruction .
+141	Deletes any existing dialog stack thus cancelling all dialogs on the stack . : param result : ( Optional ) result to pass to the parent dialogs . : return :
+142	add the variable to the config
+143	Produces console output . : param out str : Output string : param o2 : Additional output string : param o3 : Additional output string : param o4 : Additional output string : return : None
+144	A layer filling i - th column of a 2D tensor with 1 + ln ( 1 + i ) when it contains a meaningful symbol and with 0 when it contains PAD
+145	Compute edge ngram of token from min . Does not include token itself .
+146	Returns the EPSG ID as int if it exists .
+147	Returns the concatenation of the dimension in x and other .
+148	Prepare the buffers to be used for later communications
+149	returns whether this record should be printed
+150	Return a dictionary of urls corresponding to size set - image instance : A VersatileImageFieldFile - size set : An iterable of 2 - tuples both strings . Example : [ ( large url ) ( medium crop 400x400 ) ( small thumbnail 100x100 ) ]
+151	Return True if the variable matches this type and False otherwise .
+152	Writes versions JSON for a template file
+153	Run simulation for Unit instance
+154	Extract unique representation from sentence .
+155	Resolves this query relative to the given node .
+156	Apply initialize to circuit .
+157	Verify that an item * a * is < = then an item * b * : param a : An item : param b : Another item : return : True or False
+158	Build a disease phenotype object Args : disease info ( dict ) : Dictionary with phenotype information alias genes ( dict ) : { <alias symbol > : { true : hgnc id or None ids : [ <hgnc id > ... ] }} Returns : disease obj ( dict ) : Formated for mongodb disease term = dict ( id = str # Same as disease id disease id = str # required like OMIM : 600233 disase nr = int # The disease nr required description = str # required source = str # required inheritance = list # list of strings genes = list # List with integers that are hgnc ids hpo terms = list # List with str that are hpo terms )
+159	Run the unit test suite with each support library and Python version .
+160	Uncompress gz and bz2 files
+161	register a new checker
+162	Removes duplicate objects .
+163	Register a checker instance .
+164	agg should be ( host port ) Returns a live connection from the connection pool
+165	Update a case in the database
+166	( internal )
+167	Serve an ASGI framework app given the config .
+168	Retrieve the field types . Useful for debugging .
+169	Can be called from storage service to create a new leaf to bypass name checking
+170	Fetches a single row from the cursor .
+171	Add an argument to the given arg parser with the given name .
+172	Finish all running tasks cancel remaining tasks then stop loop . : param signal : : return :
+173	Implementation of the LOAD NAME operation
+174	Read a list of strings .
+175	Skips to previous track in the user’s queue .
+176	Add a workspace entry in user config file .
+177	Handle new websocket connection .
+178	Decorator for eval that prints a helpful error message if an exception is generated in a Q expression
+179	event specification : identifier event meaning event data
+180	Add a dataset and add it to the UI
+181	Translate characters from lower to upper case for a particular column .
+182	Returns an active connection cursor to the database .
+183	Decodes a set of images .
+184	Return a list of all enrollments for the passed course id .
+185	Setup via Flask .
+186	Synchronous version of : py : func : execute pipeline iterator .
+187	Used to check whether the two edge lists have the same edges when elements are neither hashable nor sortable .
+188	Sonifies the estimated times into the output file .
+189	Generate a default timescale legend . No arguments .
+190	Return the coefficients which can be applied to the non - standardized data .
+191	Given a constructed CSV reader object a header row that we ve read and a detected encoding yield its rows as dictionaries .
+192	Alphabet = [ A C G T ]
+193	abort my tasks .
+194	Sets the active fraction set picked row to None and remove selection .
+195	Get a spotify artist by their ID .
+196	Create an instance of each of the debugger commands . Commands are found by importing files in the directory command . Some files are excluded via an array set in init . For each of the remaining files we import them and scan for class names inside those files and for each class name we will create an instance of that class . The set of DebuggerCommand class instances form set of possible debugger commands .
+197	Add * item * as child of this item .
+198	Update : code : . travis . yml according to current branch .
+199	Delete a token with the given parameters . Arguments : project name ( str ) : Project name dataset name ( str ) : Dataset name project is based on token name ( str ) : Token name channel name ( str ) : Channel name project is based on Returns : bool : True if project deleted false if not deleted .
+200	Cleanup routine to shut down all subprocesses we opened .
+201	Updates or creates : attr : . user .
+202	Creates a new key stores it then returns key parameters and attributes to the client .
+203	Configure validation settings .
+204	Remove old entries from the cache
+205	Verify the path supplied .
+206	Init client
+207	Returns the value stored in the storage of a contract script hash for a given key .
+208	Add routes by an resource instance s methods .
+209	Produces an appropriate ProductsForm subclass for the given render type .
+210	Embeds a custom gradient into a Tensor .
+211	Create hard link as link to this file
+212	No argument passed in : Evaluate the model to set train = false useful when doing test / forward : return : layer itself
+213	Show an image .
+214	Fetch the messages the bot can read from the server .
+215	Returns a signal with the signal click placed at each specified time
+216	Returns a : class : MemcachedCache instance
+217	Return a dict of schema names mapping to a Schema .
+218	Metropolis - Hastings step .
+219	The playing surface on which the game was played .
+220	Serial call to read holiday dates into meter object buffer .
+221	Take a log - like stream of numbers or strings and return two arrays : one of the tops ( changes ) and one of the values from the stream .
+222	Write a GRO file .
+223	Perform a REST API request to a previously connected server .
+224	convert words of a paragraph into tagged HTML text handle xrefs
+225	Called when a dangerous action is about to be done to make sure it s okay . prompt is printed ; user response is returned .
+226	Returns ( url revision ) where both are strings
+227	In the event of pipeline initialization failure we want to be able to log the failure without a dependency on the ExecutionContext to initialize DagsterLog
+228	Yield successive chunks of a given size from a list of items
+229	Return the composition channel self∘other .
+230	unitary op : id ( ) primary list
+231	Waits until the job set is finished . Returns immediately if the job set is already finished .
+232	Reinstalls the operating system on instances of web roles or worker roles and initializes the storage resources that are used by them . If you do not want to initialize storage resources you can use reimage role instance .
+233	Converts a BoltArrayLocal into an RDD
+234	Returns the summary of the learned topics .
+235	Create the GUI objects defined in the resource ( filename or python struct )
+236	Execute the command from the arguments . : return : None or Error
+237	Actual implementation of bisect given initial args in a BracketResult .
+238	Parse events in machine description to tuple representation used in Benchmark module .
+239	Plot a hinton diagram for the quanum state .
+240	Forces certain fields in the Code . gov Metadata json
+241	Checks the mail folder for mails containing attachments with the given name .
+242	Returns all available volumes
+243	Returns the StackExchange argument parser .
+244	Yield all the sub - span indices excluding self . span .
+245	Produce the desired metric plot .
+246	Create and load the OMIM - AUTO panel
+247	Create perm - vm if not exist and insert into FAB security model for all - dags .
+248	Get the public key of this certificate .
+249	Consume the stream while the c byte is not read else return false ex : if stream is abcdef read until ( d ) ; consume abcd .
+250	Run multiple commmands in a row exiting if one fails .
+251	Perform perspective transform of the given PIL Image .
+252	Prepare the file patterns for use in a FnmatchMatcher .
+253	The following opens the log file of PlanarRad .
+254	Assemble a QasmQobjInstruction
+255	Wrap a reader function in a decorator to supply line and column information along with relevant forms .
+256	Return a pkg resources . Distribution built from self . egg info path
+257	Get the factor levels .
+258	Simple wrap to calc legacy PF value
+259	shallow copy of the instruction .
+260	Unlock a message for processing by other receivers on a given subscription . This operation deletes the lock object causing the message to be unlocked . A message must have first been locked by a receiver before this operation is called .
+261	Called when a job set has been completed or cancelled . If the job set was active the next incomplete job set is loaded from the job set queue and is activated .
+262	Calculates the joint entropy H ( X Y ) in the given base
+263	Ask Skype for the authenticated user s identifier and store it on the connection object .
+264	Point to a position in source code .
+265	Get the help string for a single trait . If inst is given it s current trait values will be used in place of the class default .
+266	Show all panels for a case .
+267	Like os . makedirs but takes care about race conditions
+268	For each element in an H2OFrame determine if it is NA or not .
+269	b64 - encodes images in a displaypub format dict Perhaps this should be handled in json clean itself? Parameters ---------- format dict : dict A dictionary of display data keyed by mime - type Returns ------- format dict : dict A copy of the same dictionary but binary image data ( image / png or image / jpeg ) is base64 - encoded .
+270	mod . { subname } = submod
+271	Fetch all the comments of an Askbot question and answers .
+272	dumps a given encoding
+273	Serialize : py : class : post <frontmatter . Post > to a string and write to a file - like object . Text will be encoded on the way out ( utf - 8 by default ) .
+274	returns SQL needed for sync schema for a new translatable field
+275	Move specified file ( object ) to a folder . Note that folders cannot be moved this is an API limitation .
+276	Lists all the client nodes registered with Nomad .
+277	Converts the provider instance to a : class : dict .
+278	Provide signifance for features in dataset with anova using multiple hypostesis testing
+279	Return random value for CharField >>> result = any field ( models . CharField ( max length = 10 )) >>> type ( result ) <type str >
+280	Perform topic modeling using Latent Dirichlet Allocation with the Java toolbox MALLET .
+281	Clean informations about enclosure for outputs and sensitivity of this statement
+282	Returns a mapping from team name to team ID for a given season . Inverse mapping of team names . Example of a full team name : New England Patriots
+283	Test if an array is an identity matrix .
+284	Try to merge processes as much is possible
+285	helper to aggregate codes by mask
+286	Handle replies for tab completion .
+287	Get the alternative titles for a specific movie id .
+288	find the objects matching the template pattern
+289	Return the nested message dict .
+290	Heuristic to decide whether an AST Call is a logging call .
+291	Checks that a key matching a wildcard expression exists in a bucket
+292	Retrieve the text of the element . If : data : capybara . ignore hidden elements is True which it is by default then this will return only text which is visible . The exact semantics of this may differ between drivers but generally any text within elements with display : none is ignored .
+293	Apply X1 to X9 rules of the unicode algorithm .
+294	Parse a Redmine issues JSON stream .
+295	Remote Popen to execute the spark - submit job
+296	benjamini hocheberg fdr correction . inspired by statsmodels
+297	Remove values common with another Set
+298	Calculate size of data of interest .
+299	The fitness function
+300	Applies a single slicing step to dist returning a new instance .
+301	Main process for flat segmentation . Returns ------- est idxs : np . array ( N ) Estimated times for the segment boundaries in frame indeces . est labels : np . array ( N - 1 ) Estimated labels for the segments .
+302	** f ** must return the same stack type as ** self . value ** has . Iterates over the effects sequences the inner instance successively to the top and joins with the outer instance . Example : List ( Right ( Just ( 1 ))) = > List ( Right ( Just ( List ( Right ( Just ( 5 )))))) = > List ( List ( Right ( Just ( Right ( Just ( 5 )))))) = > List ( Right ( Just ( Right ( Just ( 5 ))))) = > List ( Right ( Right ( Just ( Just ( 5 ))))) = > List ( Right ( Just ( Just ( 5 )))) = > List ( Right ( Just ( 5 ))) Note : IO works only as outermost effect as it cannot sequence
+303	return visible methods
+304	Upload a single file on the platform .
+305	Bind the server unless it is already bound this is a read - only node or the last attempt was too recently .
+306	Decode AQICN observation response JSON into python object .
+307	calculates the humidity via the formula from weatherwise . org return the relative humidity
+308	Returns the nextflow params string from a dictionary object .
+309	Start the timer .
+310	Returns the next execution datetime of a DAG at the command line . >>> airflow next execution tutorial 2018 - 08 - 31 10 : 38 : 00
+311	Creates an AudioSegment object of the specified duration / frame rate filled with digital silence .
+312	Write the AttributeReference structure encoding to the data stream .
+313	This function calls gui batch . py with inputs values to write the batch file .
+314	Scrolls the viewport so that the specified cursor is at the top .
+315	Load a case into the database
+316	Translate and compile a glob pattern to a regular expression matcher .
+317	Usefull string to compute error message .
+318	Redraws the background and contents including scrollbar . This method will also check the scrollbar for any movement and will be automatically called on movement of the slider .
+319	Actions taken at shutdown by the kernel called by python s atexit .
+320	Plot analytes against each other .
+321	Write tag data into the Theora comment packet / page .
+322	Loads the texture of the given name and category . All textures currently must be PNG files although support for more formats may be added soon . If the texture cannot be found a missing texture will instead be returned . See : py : meth : getMissingTexture () for more information . Currently all texture mipmaps will be generated and the filters will be set to : py : const : GL NEAREST for the magnification filter and : py : const : GL NEAREST MIPMAP LINEAR for the minification filter . This results in a pixelated texture and not a blurry one .
+323	extract the environment from the manifest or return None . Used by functions env extract image and env extract tar
+324	Trait initialiser .
+325	Define the type of axes you wish to use atype must be one of x t y r APIPARAM : chxt
+326	: rtype : list ( list ( str ))
+327	The current position of the cursor .
+328	Waits until TransferFuture is done and returns the result
+329	Defines response body data .
+330	return True if weather station returns Rev . B archives
+331	Calculate sha256 fingerprint .
+332	Populates a Layout from a list containing virtual qubits --- ( QuantumRegister int ) tuples --- or None .
+333	Load any stored cookies for the plugin that have not expired .
+334	Parse hpo phenotype Args : hpo line ( str ) : A iterable with hpo phenotype lines Yields : hpo info ( dict )
+335	Adds a dimensions with ones to array .
+336	Helper to init which ensures override batch / event shape are valid .
+337	add josa at the end of this word
+338	[ xmin xmax ymin ymax zmin zmax ] = > [ xmin ymin zmin xmax ymax zmax ]
+339	Plot the fitted lognormal distribution
+340	Args : data ( str | byte ) :
+341	Find all the streams for the ITV url : return : Mapping of quality to stream
+342	Return all physical tokens even line continuations .
+343	Helper function that maps from MySQL fields to BigQuery fields . Used when a schema filename is set .
+344	Measures mesh geometry aabb and topology .
+345	Method to update an item
+346	Parse code from a string of text .
+347	Handles responses to subscribe () commands .
+348	Shuts down the specified virtual machine .
+349	Adds a key to the control . control : The control that the accelerator should be added to . key : A string like CTRL + F or CMD + T that specifies the key to use . func : The function that should be called when key is pressed . id : The id to Bind the event to . Defaults to wx . NewId () .
+350	Executes the sql and returns the first resulting row .
+351	The matrix power of the channel .
+352	Write many bytes to the specified device . buf is a bytearray
+353	create hdl vector value
+354	Division reducer . If both arguments are integers return a Fraction . Otherwise return the true division of x and y .
+355	Creates connection to the Google Drive API sets the connection attribute to make requests and creates the Music folder if it doesn t exist .
+356	Run an pig script using the pig cli
+357	Import settings from the given file system path to given settings instance .
+358	Show a single block on screen
+359	Returns the argument parser that will be used to interpret arguments and options from argv .
+360	Let user interactively select block .
+361	Return whether ( key val ) duplicates an existing item .
+362	A Package contains packageable elements
+363	Edge coordinates of an hexagon centered in ( x y ) having a side of d : [ x - d / 2 y + sqrt ( 3 ) * d / 2 ] [ x + d / 2 y + sqrt ( 3 ) * d / 2 ] [ x - d y ] [ x + d y ] [ x - d / 2 y - sqrt ( 3 ) * d / 2 ] [ x + d / 2 y - sqrt ( 3 ) * d / 2 ]
+364	Verify current request get the oauth data .
+365	: return : generator of tuples ( isLastFlag item )
+366	Creates an Event object from the Source configuration
+367	Query the genes with a hgnc symbol and return the hgnc id
+368	Disassemble byte string of code . If end line is negative it counts the number of statement linestarts to use .
+369	Primary Point of Interest ( ppoi ) setter .
+370	called before visiting project ( i . e set of modules )
+371	Delete a cluster and optionally create a snapshot
+372	Returns the thickest interval ( s ) as a striplog .
+373	Return a well formatted list . With the key method as a function / method to format the elements before sorting .
+374	Start the single - user server in a docker service . You can specify the params for the service through jupyterhub config . py or using the user options
+375	Get user accounts Invenio 1 .
+376	returns frequency array [ f start ... f stop ]
+377	Setup command line parser
+378	Process the source image through the defined processors .
+379	Returns an Abaqus INP formated string for a given linear equation .
+380	Decorator for an enum class that generates Gin constants from values .
+381	Iterate over <FILENAME > XML - like tags and tokenize with nltk
+382	Appends plain text processing ANSI codes if enabled .
+383	Simple attention without any conditions .
+384	Returns tab - delimited newline terminated string of VcfRecord .
+385	highest lock on height
+386	Invoke the visitors before and after decending down the tree . The walker will also try to invoke a method matching the pattern * accept <type name > * where <type name > is the name of the accepted * node * .
+387	Joins the map structure into HTML attributes .
+388	Initiates Flask web service with Alexa skill .
+389	Adds two trits together with support for a carry trit .
+390	Upload a stream to Azure File Share .
+391	Runs the model to generate a distribution q ( z { 1 : T } | x { 1 : T } f ) .
+392	Creates a set of new records or updates the existing ones with the specified data .
+393	Create a folder in the storage service pointed by the given path .
+394	Get the TV episode credits by combination of season and episode number .
+395	Look for a regex expression in the descriptions of the striplog . If there s no description it looks in the summaries .
+396	Removes the specified data disk from a virtual machine .
+397	Rewrites a formed SQL INSERT query to include the ON CONFLICT DO UPDATE clause .
+398	Delete a webhook by ID .
+399	GSEA main procedure
+400	Starts HTTP server with specified parameters .
+401	Defines a new header matcher expectation that must be present in the outgoing request in order to be satisfied no matter what value it hosts .
+402	Get the net of any next and prev querystrings .
+403	Apply next patch in series file
+404	return the image manifest via the aws client saved in self . manifest
+405	Fetches an entity from the session based on primary key .
+406	Estimate tx gas . Use the max of calculation using safe method and web3 if operation == CALL or use just the safe calculation otherwise
+407	Load all IPython extensions in IPythonApp . extensions .
+408	Expand the observed time series with extra batch dimension ( s ) .
+409	Returns the medium size image URL .
+410	Generates square wave SamplePulse .
+411	The Message object has a circular reference on itself thus we have to allow Type referencing by name . Here we lookup any Types referenced by name and replace with the real class .
+412	Fetch events
+413	Generates the key associated with the specified address .
+414	Coroutine starting point . Produces text stream and forwards to consumers
+415	notify an imported module used to analyze dependencies
+416	Marks the invoice as paid and updates the attached cart if necessary .
+417	Reads the estimations ( boundaries and / or labels ) from a jams file containing the estimations of an algorithm .
+418	Creates a new set from members .
+419	convert python slice to value of SLICE hdl type
+420	Returns a restclients . Group object for the group identified by the passed group ID .
+421	get the C C in which pe pe is defined
+422	Lists the versions of a resource extension that are available to add to a Virtual Machine .
+423	Reset the administrator password for a server .
+424	Retrieves the set of firewall rules for an Azure SQL Database Server .
+425	Marks the job set as completed and notifies all waiting tasks .
+426	return full parents name + self name ( useful as key )
+427	Write a notebook to a file in a given format in the current nbformat version .
+428	Init openstack nova mq
+429	cat two strings but handle \ n for tabulation
+430	r ! \ =
+431	POSTs the object and returns the results . This is used to update the object s header values . Note that all headers must be sent with the POST unlike the account and container POSTs . With account and container POSTs existing headers are untouched . But with object POSTs any existing headers are removed . The full list of supported headers depends on the Swift cluster but usually include Content - Type Content - Encoding and any X - Object - Meta - xxx headers .
+432	Check the availability of a Front Door resource name .
+433	Equivalent of csv . DictWriter but allows delimiter to be a unicode string on Py2 .
+434	Update the transit keyword arguments
+435	Return the list of mirrors from the last record found on the DNS entry ::
+436	Get a member or your current member if id wasn t given .
+437	Yields one boolean whether the first string contains the second
+438	Transfer mesh colors to face colors
+439	generate a list of tuples ( new base list ( paths to put there ) where the files are found inside of old base / treeroot .
+440	Unmajority gate .
+441	Generator for the lines of an info ( textual ) response .
+442	Encrypt data using the specified encryption key and parameters .
+443	Used to replace a matched string with another .
+444	Normalize a test expression into a statements list .
+445	Opens an hdf5 file for reading or writing
+446	Read the data encoding the ApplicationSpecificInformation object and decode it into its constituent parts .
+447	Attempt a login to LiveEdu . tv
+448	Parses the trace file header and retrieves the positions of each column key .
+449	Returns a boto3 . s3 . Object object matching the wildcard expression
+450	Returns an attachment for a receipt card . Will raise a TypeError if card argument is not a ReceiptCard . : param card : : return :
+451	gate id list : gate id list id
+452	Train the model asynchronously ( to block for results call : meth : join ) .
+453	Return the default session . The path is read from the default config .
+454	This method is copied verbatim from ArgumentDefaultsHelpFormatter with a couple of lines added just before the end . Reason : we need to repr () default values instead of simply inserting them as is . This helps notice for example an empty string as the default value ; moreover it prevents breaking argparse due to logical quirks inside of its formatters .
+455	Plot relative parallax errors as a function of distance for stars of a given spectral type .
+456	Returns memory overhead .
+457	Return a class name ( string ) if the current URL matches the route name specified in className . If any URL keyword arguments are provided they must be matched as well .
+458	Return path
+459	Create a ChecklistItem object from JSON object
+460	self . parser - > self . parsed data
+461	Method for Read Device Location <https : // m2x . att . com / developer / documentation / v2 / device#Read - Device - Location > endpoint .
+462	Runs function in separate process .
+463	Update the status of the job lists .
+464	Updates the SIS ID for the course identified by the passed course ID .
+465	Removes empty segments if needed .
+466	Computes multiplicative self attention for time series of vectors ( with batch dimension ) the formula : score ( h i h j ) = <W 1 h i W 2 h j > W 1 and W 2 are learnable matrices with dimensionality [ n hidden n input features ] where <a b > stands for a and b dot product
+467	Turn a quoted collection literal of Lisp forms into Python AST nodes .
+468	Will delete the entities that match at the time the query is executed .
+469	For each name string in the target mentions list searches through all chain mentions looking for any cleansed Token . token that contains the name . Returns True only if all of the target mention strings appeared as substrings of at least one cleansed Token . token . Otherwise returns False .
+470	return instruction params
+471	Creates new or follows existing group nodes along a given colon separated key .
+472	This function will be called after each iteration .
+473	Check that the given AssignAttr node is defined in the class slots .
+474	Get the albums of a Spotify artist .
+475	Runs a pool of workers which connect to a remote HighFive master and begin executing calls .
+476	check the node line number and check it if not yet done
+477	Draw the image as background
+478	Save to file .
+479	A shortcut function to render a partial template with context and return the output .
+480	Algorithm for caching requests .
+481	Returns a 2 - tuple : 0 : bool signifying whether the image was successfully pre - warmed 1 : The url of the successfully created image OR the path on storage of the image that was not able to be successfully created .
+482	Imports and runs setup function with given properties .
+483	register a report
+484	assemble Sentence and Token objects
+485	Update the grid if rows and columns have been added or deleted
+486	Returns the roster table for the given year .
+487	Returns a callable that chooses sequences from netcdf data .
+488	This recursive descent thing formats a config dict for GraphQL .
+489	Write image to file
+490	append func with given arguments and keywords .
+491	Execute a transformation on a column or columns . Returns the modified DictRDD .
+492	Returns the scaling values of x y z as a numpy array
+493	Remove the padding from chunks .
+494	Prefix every cell in a row with an HTML alignment attribute .
+495	Return True if the node is in a local class scope as an assignment .
+496	Returns calibrated Stokes parameters for an observation given an array of differential gains and phase differences .
+497	Builds and returns a V1 Span .
+498	An alias of deepy . tensor . var .
+499	Gets the files of the given dataset .
+500	Add dist to working set associated with entry
+501	Create a property that proxies attribute proxied attr through the local attribute local attr .
+502	Check if the given message has the mandatory fields
+503	If no argument use the default . If arg is a an integer between least min value and at most use that . Otherwise report an error . If there s a stack frame use that in evaluation .
+504	Computes the novelty curve from the self - similarity matrix X and the gaussian kernel G .
+505	Scale brightness from 0 .. 255 to 1 .. 32 .
+506	Try to parse a container type ( dict list or tuple ) .
+507	Module depends on the API version :
+508	Retrieves a config value
+509	Close and upload local log file to remote storage Wasb .
+510	Show a tip message
+511	Set the axis scaling
+512	Main function that allows to dump a mash dist txt file to a json file
+513	Performs a PUT on the container .
+514	Apply a quick patch - up to a Filterbank header by overwriting a header value
+515	Extract the constant value of symbol from code
+516	Create DataFrames of nodes and edges that do not include specified nodes .
+517	Return a Python AST Node for a recur expression .
+518	get modules and errors from a list of modules and handle errors
+519	Add a new symbol to the symbol table .
+520	: rtype : list ( list ( str ))
+521	Get a file from Google Cloud Storage .
+522	Write the value of the Boolean object to the output stream .
+523	Lists attendees for a given product / category selection along with profile data .
+524	Returns a JSON with a dag run s public instance variables . The format for the exec date is expected to be YYYY - mm - DDTHH : MM : SS for example : 2016 - 11 - 16T11 : 34 : 15 . This will of course need to have been encoded for URL in the request .
+525	Obtain the protocol version of the currently used cipher .
+526	Determine when to query the progress status next .
+527	Returns True if the point format has waveform packet dimensions
+528	Plot the subspace using sane defaults to get a quick look at the data .
+529	Main process . for hierarchial segmentation . Returns ------- est idxs : list List with np . arrays for each layer of segmentation containing the estimated indeces for the segment boundaries . est labels : list List with np . arrays containing the labels for each layer of the hierarchical segmentation .
+530	Set a property value .
+531	Sign the CRL .
+532	Use this to set where to read from .
+533	check that the argument to reversed is a sequence
+534	Return a valid absolute path . filename can be relative or absolute .
+535	Uploads a file to S3
+536	Run complete analysis .
+537	Return if first occurrence of the key otherwise return line .
+538	Chooses exploration according to batch
+539	Check if there is at least one handler for * method * .
+540	Produce a string representation of an object . If human readable is False the string representation of Lisp objects is something that can be read back in by the reader as the same object .
+541	Find the subdomain rank ( tuple ) for each processor and determine the neighbor info .
+542	Check whether the archive is valid or not .
+543	Handles the user attempting to exit Godot .
+544	r Return the running average of a waveform s dependent variable vector .
+545	get the output file with the specified ending
+546	Return the Queue status of one or more targets . if verbose : return the msg ids else : return len of each type . keys : queue ( pending MUX jobs ) tasks ( pending Task jobs ) completed ( finished jobs from both queues )
+547	Reset Service Principal Profile of a managed cluster .
+548	Make an MD5 hash of a file ignoring any differences in line ending characters .
+549	Read block type switch descriptor for given kind of blockType .
+550	Execute a device . Used if the time between executions is greater than DEFAULT DELAY
+551	Returns an invoice object for a given cart at its current revision . If such an invoice does not exist the cart is validated and if valid an invoice is generated .
+552	The the time value of an ASN1 time object .
+553	Sets the state required for this vertex region . Currently binds and enables the texture of the material of the region .
+554	For VCF - based TreeAnc objects we do not want to store the entire sequence on every node as they could be large . Instead this returns the dict of variants & their positions for this sequence . This is used in place of : py : meth : treetime . TreeAnc . expanded sequence for VCF - based objects throughout TreeAnc . However users can still call : py : meth : expanded sequence if they require the full sequence .
+555	Plot analytes as a function of time .
+556	Sets a config value to the Trajectory or changes it if the trajectory was loaded a the settings no longer match
+557	Get the top or flop N results based on a function and a column value that agregates the input . The result is composed by all the original lines including only lines corresponding to the top groups
+558	Generate a guest session id .
+559	Returns the count of the items that match the provided filters .
+560	Register tasks with cron .
+561	: returns : contacts anniversary or None if not available : rtype : datetime . datetime or str
+562	Computes the expected number of false positives caused by using u to approximate set sizes in the interval [ l u ] assuming uniform distribution of set sizes within the interval .
+563	Read a vector element from the input stream .
+564	Build the full url to the API endpoint
+565	Train the H2O model .
+566	Call Zendesk API and return results
+567	Init client
+568	Redraws the menu and refreshes the screen . Should be called whenever something changes that needs to be redrawn .
+569	Return currently connected users as a list of namedtuples .
+570	Returns response and number of retries
+571	Gets the width of the table that would be printed . : rtype : int
+572	Perform an SSL handshake ( usually called after : meth : renegotiate or one of : meth : set accept state or : meth : set accept state ) . This can raise the same exceptions as : meth : send and : meth : recv .
+573	Get the videos that have been added to a TV season ( trailers teasers etc ... ) .
+574	Returns the effective username of the current process .
+575	Generates an instance of Record () from a tuple of the form ( index pandas . Series ) with associated parameters kwargs
+576	Parameters : x t - 28x28 image l p - 2x1 focus vector h p - 256x1 vector Returns : h t 256x1 vector
+577	Returns the named object .
+578	Subscribe to device event messages
+579	Set link to parent and calculate distance to root for all tree nodes . Should be run once the tree is read and after every rerooting topology change or branch length optimizations .
+580	if branch length mode is not explicitly set set according to empirical branch length distribution in input tree
+581	If given an ordered list of parameter values build a name : value map .
+582	Return dictionary of all objects in a namespace dictionary that match type pattern and filter .
+583	Calculate end position for a variant .
+584	Signs the inputs starting at the specified index .
+585	Instance depends on the API version :
+586	Return a set of datetimes after filtering datetimes .
+587	Shutdown agents
+588	Parses the input string and returns a reference to the created AST s root
+589	Retrieves information about the specified reserved IP address .
+590	decode argv if bytes using stin . encoding falling back on default enc
+591	Handles a list of edges being set .
+592	Send the shutdown message to the Connection .
+593	Upload a file content . The file entity must already exist .
+594	Adds one or multiple HTTP traffic interceptors to the current mocking engine .
+595	Take an iterator and yield its contents in groups of size items .
+596	End a group . See begin group for more details .
+597	Run Fastqc on the input reads
+598	Check if we have enough arguments to call this function .
+599	Check HTTP reponse for known errors
+600	Normalizes features such that each vector is between floor to 1 .
+601	Uploads file from given url and returns FileFromUrl instance .
+602	De - registers callback functions
+603	Validates quadrature grid probs or computes them as necessary .
+604	setup all our socket connections to the cluster . This is called from init .
+605	Set status ( enabled / disable ) for a given message at a given line
+606	Serial call to set weekend and holiday : class : ~ekmmeters . Schedules .
+607	create temp directory .
+608	Verify that a given passphrase matches its hashed version .
+609	Helper to covariance and variance which computes a shared scale .
+610	Get a package data and data files handler command .
+611	E : F : . O : M : . t . - = > E : . - F : . O : M : . - t . - ‘ E : F : . M : M : . l . - = > E : . - F : . M : M : . - l . - ‘
+612	Performs one step of the differential evolution algorithm .
+613	Instance depends on the API version :
+614	Check namespace packages init for declare namespace
+615	Program main .
+616	Useful when you want exclusive access to an entity across all writers . ::
+617	Close an existing connection ; once closed it cannot be used again .
+618	use the user provided endpoint and keys ( from environment ) to connect to the resource . We can share the aws environment variables :
+619	Initialize the database connection .
+620	Creates a copy of the default SRM table at the specified location .
+621	Return the current value .
+622	Join two bolt arrays together at least one of which is in spark .
+623	: returns : [ ( plugin name plugin package plugin config ) ... ] : rtype : list of tuple
+624	Dumps a database table into a tab - delimited file
+625	Excecute command on remote machine using SSH
+626	Write data to both channels .
+627	Schedule process on actual time with specified priority
+628	Returns True if stmt in inside the else branch for a parent For stmt .
+629	Run .
+630	Inverse function of hat integral .
+631	Helpful helper method that returns the cookie domain that should be used for the session cookie if session cookies are used .
+632	This function exists here ONLY because Sphinx . ext . autodoc gets into a bad state when seeing the print () function . When in that state autodoc doesn t display any errors or warnings but instead completely ignores the bysource member - order option .
+633	Runs Hook . run () with a Tenacity decorator attached to it . This is useful for connectors which might be disturbed by intermittent issues and should not instantly fail .
+634	Change the default configuration .
+635	The thread s main activity . Call start () instead .
+636	Adds an occurrence key to the event object w / a list of occurrences and adds a popover ( for use with twitter bootstrap ) . The occurrence is added so that each event can be aware of what day ( s ) it occurs in the month .
+637	Inserts a new document ( or updates an existing one ) into an existing collection in the CosmosDB database .
+638	Run experiments in qobj
+639	Retrieve a specified alias . <http : // www . elastic . co / guide / en / elasticsearch / reference / current / indices - aliases . html > : arg index : A comma - separated list of index names to filter aliases : arg name : A comma - separated list of alias names to return : arg allow no indices : Whether to ignore if a wildcard indices expression resolves into no concrete indices . ( This includes all string or when no indices have been specified ) : arg expand wildcards : Whether to expand wildcard expression to concrete indices that are open closed or both . default all valid choices are : open closed none all : arg ignore unavailable : Whether specified concrete indices should be ignored when unavailable ( missing or closed ) : arg local : Return local information do not retrieve the state from master node ( default : false )
+640	Creates file group and returns FileGroup instance .
+641	Create a notebook by name id and a list of worksheets .
+642	receives rlp . decoded serialized
+643	Posts a request to chanjo - report and capture the body of the returned response to include it in case report
+644	Find which symbol index matches the given data ( from peek as a number ) and return the number of bits decoded . Can also be used to figure out length of a symbol .
+645	Method for List Devices from an existing Collection <https : // m2x . att . com / developer / documentation / v2 / collections#List - Devices - from - an - existing - Collection > endpoint .
+646	Populate a * metamodel * with instances previously encountered from input .
+647	Synchronize local po files with translations on GDocs Spreadsheet . Downloads two csv files merges them and converts into po files structure . If new msgids appeared in po files this method creates new ods with appended content and sends it to GDocs .
+648	Parses a HDS manifest and returns its substreams .
+649	Normalizes a field name into a string by extracting the field name if it was specified as a reference to a HStore key ( as a tuple ) .
+650	Report gathered analysis data in human readable form .
+651	Scoring the similarity of two words .
+652	simple regex - based extractor of anchor tags so we can compute LINE offsets for anchor texts and associate them with their href . Generates tuple ( href string first byte byte length anchor text )
+653	Vectorize and apply padding on a set of tokenized doucments ex : [[ hello world ] [ goodbye now ]]
+654	Install the wheel into site - packages .
+655	Called for every timer tick . Calls self . get which can be a deferred and passes that result back to the queueBack method Returns a deferred
+656	Process and translate a cell of input .
+657	Auto - discover INSTALLED APPS registered blocks . py modules and fail silently when not present . This forces an import on them thereby registering their blocks .
+658	Parses the section of configuration pertaining to a component : param config : dict of specific config section : return :
+659	Update the dynamic gene list for a case
+660	Load a private key ( PKey ) from the string * buffer * encoded with the type * type * .
+661	create the subgraphs representing any if and for statements
+662	Method to capture raw input
+663	Function for visualising the autorange mechanism .
+664	Defined here so that we can use the class variables in order to subclass in oplusplus
+665	Construct an elementary rotation matrix describing a rotation around the x y or z - axis .
+666	Make the first column of the table non - breaking .
+667	Update context values for student and solution environments . When has equal x () is used after this the context values ( in for loops and function definitions for example ) will have the values specified through his function . It is the function equivalent of the context vals argument of the has equal x () functions .
+668	HEADs the object and returns the results .
+669	Make a call to Trello API and capture JSON response . Raises an error when it fails .
+670	a function for the client to announce him or herself depending on the level specified . If you want your client to have additional announced things here then implement the class speak for your client .
+671	Get the conversion coefficients between the dates and the branch lengths as they are used in ML computations . The conversion formula is assumed to be length = k * numdate + b . For convenience these coefficients as well as regression parameters are stored in the dates2dist object .
+672	Pre - builds network components .
+673	r Return the phase of a waveform s dependent variable vector .
+674	Finalizes the bundle preparing it to be attached to the Tangle .
+675	topic : LBRACKET morpheme RBRACKET | LBRACKET morpheme RBRACKET literal list | LBRACKET morpheme TIMES morpheme RBRACKET | LBRACKET morpheme TIMES morpheme RBRACKET literal list
+676	Insert Java messages into java messages and java message types if they are associated with a unit test or into g java general bad messages / g java general bad message types otherwise .
+677	Save the state of hooks in the sys module .
+678	Configures an : class : OAuth2Provider instance to use various caching systems to get and set the grant token . This removes the need to register : func : grantgetter and : func : grantsetter yourself .
+679	share will use the client to get a shareable link for an image of choice . the functions returns a url of choice to send to a recipient .
+680	Parse the configuration and generate the Config object .
+681	Предвычисляет будущие символы и стоимости операций с ними для h - эвристики
+682	Create a Checklist object from JSON object
+683	This method should only be called while the reference is locked .
+684	Set FileHandler
+685	Internal RUN TASK consumer to run the task s callable
+686	Return an ordered 2 - tuple containing a species and a describer . The letter - count of the pair is guarantee to not exceed maxlen if it is given . If prevent stutter is True the last letter of the first item of the pair will be different from the first letter of the second item .
+687	Add or create the default assettypes for the given project
+688	Creates initial previous kernel results using a supplied state .
+689	Dump the remote tokens as a list of dictionaries .
+690	Return a list of cameras .
+691	Similar to built - in include template tag but allowing template variables to be used in template name and a fallback template thus making the tag more dynamic .
+692	return a list of logs . We return any file that ends in . log
+693	Get record revisions .
+694	Assert that the argument has the specified type .
+695	This sends a SIGINT to the child . It does not require the SIGINT to be the first character on a line .
+696	Download the POJO for this model to the directory specified by path .
+697	Get summary and description of this notebook
+698	Delete all DB records related to the specified Dag .
+699	Return a list of all enrollments for the passed section id .
+700	Get the Grant object with the given client ID and code
+701	Run migrations in online mode .
+702	Save a small version of the graph based on a Caffe model the input tensors and the output node names .
+703	Return a well formatted list . Basicaly it s sort a list and remove duplicate .
+704	Run semaphore tracker .
+705	Creates a new instance of a rule in relation to the config file .
+706	Give help for a command which has subcommands . This can be called in several ways : help cmd help cmd subcmd help cmd commands
+707	Adds a rule to a logical interface . Parameters : - logicalInterfaceId ( string ) - name ( string ) - condition ( string ) - ( description ( string optional ) Returns : rule id ( string ) response ( object ) . Throws APIException on failure .
+708	Given a layer replace the Nones in it with EmptyWire elements . Args : layer ( list ) : The layer that contains Nones . first clbit ( int ) : The first wire that is classic .
+709	Remove the pid file .
+710	This method is called to create the default OPTIONS response . This can be changed through subclassing to change the default behavior of OPTIONS responses .
+711	Module depends on the API version :
+712	Fetches PyMongo Client
+713	log . debug ( ------------------------------------------------------ ) log . debug ( f ** WORD { self . WORD } ) log . debug ( f ** words { self . words } ) log . debug ( f ** word before cursor { word before cursor } )
+714	Swaps m and i on axis - 1 . ( Helper for pivoted cholesky . )
+715	Returns article / page content as JSON
+716	Run experiments in qobj .
+717	Continuous unnormalized gaussian derivative pulse .
+718	Send a signal to process ( see signal module constants ) . On Windows only SIGTERM is valid and is treated as an alias for kill () .
+719	Verify a given NIST message hash and signature for a beacon value .
+720	given an array of datapoints inserts them to the stream . This is different from insert () because it requires an array of valid datapoints whereas insert only requires the data portion of the datapoint and fills out the rest ::
+721	fetch a single file
+722	Delete all arguments with the given then .
+723	Return system CPU times as a named tuple .
+724	Send string to module level log
+725	Return the end coordinate for a variant
+726	: return : how many bits is this slice selecting
+727	Create a . pid file in the pid dir with my pid .
+728	Create a new secret link .
+729	Read the data encoding the Poll request payload and decode it into its constituent parts .
+730	Returns set of the ancestors of a node as DAGNodes .
+731	Serializes a dictionary into Appinfo data . : param obj : A dictionary to serialize . : return :
+732	Remove the tmp * . aux tmp * . out and tmp * . log files in output dir . : param output dir :
+733	Brings down a Heroku app .
+734	Configure the Python logging module for this file .
+735	Conducts series of Alexa SSL certificate verifications against Amazon Alexa requirements .
+736	Measures mesh topology
+737	Returns the machine epsilon for the supplied dtype .
+738	Read configuration from a . rc file .
+739	Return the Pauli group with 4^n elements .
+740	This function is used to instantiate the index given an iterable stream of data .
+741	Retrieve the file paths stored under the base path .
+742	Get the shortend UID for the given UID .
+743	Get item from value ( value [ item ] ) .
+744	Sends the actual HTTP request .
+745	Convert negative int to positive int which has same bits set
+746	Takes a cursor and writes results to a local file .
+747	Restore data from the given path .
+748	Adds a single data item to the pickle result .
+749	** Description ** Export metric data ( both time - series and table - based ) .
+750	Write the data encoding the Create request payload to a buffer .
+751	Compat : drf - yasg 1 . 12 +
+752	Assert that x has integer components ( or floats equal to integers ) .
+753	Set up command line parsing .
+754	Delete the specified label
+755	Return a new Collection excluding some items
+756	Updates an Event Hub .
+757	HTTP Get Request
+758	int - > None Download a WHOLE course . Reuse the API call to save time .
+759	Export the Bazaar repository at the url to the destination location
+760	Draw bboxes on an image .
+761	Creates the condition function pair for a reflection to be accepted .
+762	Import SQL table to H2OFrame in memory .
+763	Apply Toffoli to from ctl1 and ctl2 to tgt .
+764	Run a Kalman filter over a provided sequence of outputs .
+765	Convert an Enum value into a string for the database
+766	Prints out table header based on the size of the data in columns
+767	Convert . egg - info directory with PKG - INFO to the Metadata 1 . 3 aka old - draft Metadata 2 . 0 format .
+768	Returns all annotations lexicographically sorted as a concatenated string .
+769	Compute the counts of values appearing in a column or co - occurence counts between two columns .
+770	Emit a record .
+771	Retrieves a class for managing input for an upload based on file type
+772	Read and return the dataset contents as binary .
+773	Infer a GTR model by specifying the number of transitions and time spent in each character . The basic equation that is being solved is
+774	Calculate ROUGE scores between each pair of lines ( hyp file [ i ] ref file [ i ] ) . Args : * hyp path : hypothesis file path * ref path : references file path * avg ( False ) : whether to get an average scores or a list
+775	.
+776	Find zombie task instances which are tasks haven t heartbeated for too long . : return : Zombie task instances in SimpleTaskInstance format .
+777	Updates languages . csv file with current data .
+778	According to the CloudStack documentation each request needs to be signed in order to authenticate the user account executing the API command . The signature is generated using a combination of the api secret and a SHA - 1 hash of the url parameters including the command string . In order to generate a unique identifier the url parameters have to be transformed to lower case and ordered alphabetically .
+779	Creates a new node . Checks if the new node needs to know the trajectory .
+780	** Description ** Update an existing compliance task .
+781	Generate a dataframe consisting of the currency prices ( specified by symbols ) from the start to end date
+782	Convenience short - hand for self . debugger . intf [ - 1 ] . msg
+783	Return an array with the same data but a new shape .
+784	Drop columns ( or a single column ) .
+785	try : # normal Vimeo video html = get content ( https : // vimeo . com / + id ) cfg patt = r clip page config \ s * = \ s * ( \ { . + ? \ } ) ; cfg = json . loads ( match1 ( html cfg patt )) video page = get content ( cfg [ player ] [ config url ] headers = fake headers ) title = cfg [ clip ] [ title ] info = loads ( video page ) except : # embedded player - referer may be required if referer in kwargs : fake headers [ Referer ] = kwargs [ referer ]
+786	Get pool by a given name .
+787	Get the index of the interval at a particular depth ( though this might be an elevation or age or anything ) .
+788	Coerce singletons and lists and ndarrays to tuples .
+789	Renegotiate the session .
+790	Used to create the config attribute by the Flask constructor . The instance relative parameter is passed in from the constructor of Flask ( there named instance relative config ) and indicates if the config should be relative to the instance path or the root path of the application .
+791	Wrapper around json . loads .
+792	The missing mkdir - p functionality in os .
+793	Downloads a MP4 or WebM file that is associated with the video at the URL passed .
+794	Calculate local correlation between two analytes .
+795	Update disease terms in mongo database .
+796	Caches the HTML returned by the specified function func . Caches it in the user cache determined by the appdirs package .
+797	Plots an automaton pattern and stores the image under a given filename .
+798	Parses given list of arguments using given parser calls the relevant function and prints the result .
+799	Returns the parameter names for these features avoiding the global parameters .
+800	Shows all of the credit notes in the system .
+801	Perform the actual serialization .
+802	Counts and fills sample counts inside call tree .
+803	r \ [
+804	Parse a CSV line into a price element
+805	Return an array with the parameter values
+806	The reversal of : meth : dump object . This might be callde with None .
+807	Function for registering a simple path .
+808	Read a word ( 2 bytes ) from the specified cmd register of the device . Note that this will interpret data using the endianness of the processor running Python ( typically little endian ) !
+809	Returns all errors found with the bundle .
+810	Get an organisation
+811	Export all mitochondrial variants for each sample of a case and write them to an excel file
+812	This reads the buffered incoming data from the client into one bytestring . By default this is cached but that behavior can be changed by setting cache to False .
+813	Computes the mean average precision at k .
+814	** Description ** Returns the list of sysdig captures for the user .
+815	Gets the maximum length of each column in the field table
+816	Emit a convention whenever range and len are used for indexing .
+817	Parse the DSL and provide a dictionnaries of all resulting rules . Call by the MetaGrammar class .
+818	Get X . 509 extensions in the certificate signing request .
+819	Assign a Python variable named ns var to the value of the current namespace .
+820	This is a decorator that signaling that a function is only available if the storage is open .
+821	Retrieve the last Signature ordered by mangling descendant
+822	Get root domain from url . Will prune away query strings url paths protocol prefix and sub - domains Exceptions will be raised on invalid urls
+823	Append rhs to self if self contains compatible registers .
+824	Plot a histogram of the gradients in all samples .
+825	Set a list of exceptions that should be ignored inside the wait loop .
+826	Select a n - dimensional rectangular box bounded by limits .
+827	Compute a ( probably ) unique name for code for caching . This now expects code to be unicode .
+828	Fetch the issues
+829	Write data to the log file if active
+830	Returns issue data from local data .
+831	Sets the secondary channels for the pipeline
+832	Apply the pending changes to an existing gene panel or create a new version of the same panel .
+833	setup the config and load external modules
+834	Checks if a record exists in Cassandra
+835	Generates CSRF token .
+836	Reads a . cha file and converts it to an elan object . The functions tries to mimic the CHAT2ELAN program that comes with the CLAN package as close as possible . This function however converts to the latest ELAN file format since the library is designed for it . All CHAT headers will be added as Properties in the object and the headers that have a similar field in an Eaf file will be added there too . The file description of chat files can be found here <http : // childes . psy . cmu . edu / manuals / CHAT . pdf > .
+837	Returns the log found at the remote log location . Returns if no logs are found or there is an error . : param remote log location : the log s location in remote storage : type remote log location : str ( path ) : param return error : if True returns a string error message if an error occurs . Otherwise returns when an error occurs . : type return error : bool
+838	Helper method that exits the dialog . This method will cause the previously active submenu to activate .
+839	Function used to generate link sort key for link tuples . The greater the return value the more preferred it is . If not finding wheels then sorted by version only . If finding wheels then the sort order is by version then : 1 . existing installs 2 . wheels ordered via Wheel . support index min () 3 . source archives Note : it was considered to embed this logic into the Link comparison operators but then different sdist links with the same version would have to be considered equal
+840	List rooms .
+841	List people
+842	Adds filters from a particular global : class : FilterSet .
+843	Remove consecutive delimiters .
+844	Find the first frame that is a debugged frame . We do this Generally we want traceback information without polluting it with debugger frames . We can tell these because those are frames on the top which don t have f trace set . So we ll look back from the top to find the fist frame where f trace is set .
+845	Generate a default legend .
+846	Make an HTTP request to a given URL with optional parameters .
+847	Load a institute into the database
+848	Number of params needed to create a MixtureSameFamily distribution .
+849	Build an iterator over training batches .
+850	Summarizes the parameter settings .
+851	Will be used to create the console script
+852	Overload default print function as py ( <3 . 3 ) does not support flush keyword . Although the function name can be same as print to get itself overloaded automatically I d rather leave it with a different name and only overload it when importing to make less confusion .
+853	Saves forensic DMARC reports to Splunk
+854	** Description ** Finds dashboards with the specified name . You can then delete the dashboard ( with : func : ~SdcClient . delete dashboard ) or edit panels ( with : func : ~SdcClient . add dashboard panel and : func : ~SdcClient . remove dashboard panel )
+855	Transform Choi representation to Kraus representation .
+856	: return boolean
+857	Select a PassManager and run a single circuit through it .
+858	Adds a job to the specified account .
+859	Check for the existence of a path in HDFS by querying FileStatus .
+860	Wrapper for non - picklable object to use cloudpickle to serialize them .
+861	Converts a voxel list to an ndarray .
+862	Instance depends on the API version :
+863	Builds the parameters needed to present the user with a datatrans payment form .
+864	Truncate small values of a complex array .
+865	Fetchs all available rows from the cursor .
+866	Return the ElementTree of the SVG content in filepath with the font content embedded .
+867	Return a utf - 8 encoded string from a valid unicode string .
+868	Returns a new connection to the database .
+869	Read a notebook from base64 .
+870	Create the file .
+871	Get a physical interface . Parameters : - physicalInterfaceId ( string ) - draft ( boolean ) Throws APIException on failure .
+872	Validate that accept have not been set .
+873	Write ttf and otf font content from font files in the svg file in filepath and write the result in outfile .
+874	Returns an XHTML <img / > tag of the chart
+875	Cancel all started queries that have not yet completed
+876	Возвращает итератор по словам содержащимся в боре
+877	Grab the console output from Jenkins and save the content into a temp file ( g temp filename ) . From the saved text file we can grab the names of failed tests .
+878	Write the data encoding the GetAttributeList request payload to a stream .
+879	Parse show subcommand .
+880	Read symbol and extrabits from stream . Returns symbol length symbol extraBits extra >>> olleke . pos = 6 >>> MetablockLengthAlphabet () . readTupleAndExtra ( olleke ) ( 2 Symbol ( MLEN 4 ) 16 46 )
+881	Print a user friendly contacts table .
+882	get a list of 2 - uple ( module list of files which import this module ) it will return a dictionary to represent this as a tree
+883	Estimate tx gas using web3
+884	Randomly generated deviceId . : return :
+885	Retrieve the index in this metric s threshold list at which the given threshold is located .
+886	Returns jQuery JavaScript file according to version number . TEMPLATE DEBUG returns full file otherwise returns minified file from Google CDN with local fallback . Included in HTML5 Boilerplate .
+887	Find the location of a dataset on disk downloading if needed .
+888	Protect resource with specified scopes .
+889	Opens a web browser to allow the user to grant Streamlink access to their Twitch account .
+890	Load Certificate Revocation List ( CRL ) data from a string * buffer * . * buffer * encoded with the type * type * .
+891	Briefly print the dictionary keys .
+892	Read and return the contents of the file .
+893	Handle YOURLS API errors .
+894	Deletes all DB records related to the specified dag : param args : : return :
+895	This seeks through the stream until a pattern is matched . The pattern is overloaded and may take several types . The pattern can be a StringType EOF a compiled re or a list of any of those types . Strings will be compiled to re types . This returns the index into the pattern list . If the pattern was not a list this returns index 0 on a successful match . This may raise exceptions for EOF or TIMEOUT . To avoid the EOF or TIMEOUT exceptions add EOF or TIMEOUT to the pattern list . That will cause expect to match an EOF or TIMEOUT condition instead of raising an exception .
+896	Decorator that checks if a value passed to a Jinja filter evaluates to false and returns an empty string . Otherwise calls the original Jinja filter .
+897	Write calculated fields for read buffer .
+898	Monte - Carlo approximation of the Csiszar f - Divergence .
+899	Put an item into the queue . Items should be comparable eg . tuples . True - if item placed in queue . False - if queue is full and item can not be placed .
+900	Configure constant clipping settings .
+901	Print a detailed summary of the explored models .
+902	Return dictionaries mapping lower case typename ( e . g . tuple ) to type objects from the types package and vice versa .
+903	Calculate the Huber ( H15 ) Robust standard deviation of x .
+904	Append a value to multiple value parameter .
+905	Remove tags from a file .
+906	Collect entry points .
+907	uses results from marginal ancestral inference to return a joint distribution of the sequence states at both ends of the branch .
+908	Use multiple processes to parse and generate tasks for the DAGs in parallel . By processing them in separate processes we can get parallelism and isolation from potentially harmful user code .
+909	Renames a given instance based on parent node and name .
+910	Formats timestamp to human readable format
+911	Return index of item with * path * .
+912	Executes script actions on the specified HDInsight cluster .
+913	Valid choices : a3 a4 a5 letter legal 11x17 .
+914	Clean up on process shutdown .
+915	Update a reference .
+916	Executed when script is run as - is .
+917	Write the data encoding the Check response payload to a stream .
+918	r Return the maximum of a waveform s dependent variable vector .
+919	Find all substrings of the given string which represent date and / or time and parse them .
+920	the QUBO for k - coloring a graph A is as follows :
+921	Base SVG Document Creation
+922	Start remote agent
+923	Get reactions on issue comments
+924	Simple since Time Stamp query returned as JSON records .
+925	Redirects to the appropriate items continue page on item add .
+926	return ansi escape code corresponding to color and style
+927	: param entity id : location id : param entity type : location type ( city subzone zone lanmark metro group ) : param q : search keyword : param start : fetch results after offset : param count : max number of results to display : param lat : latitude : param lon : longitude : param radius : radius around ( lat lon ) ; to define search area defined in meters ( M ) : param cuisines : list of cuisine id s separated by comma : param establishment type : estblishment id obtained from establishments call : param collection id : collection id obtained from collections call : param category : category ids obtained from categories call : param sort : sort restaurants by ( cost rating real distance ) : param order : used with sort parameter to define ascending / descending : return : json response The location input can be specified using Zomato location ID or coordinates . Cuisine / Establishment / Collection IDs can be obtained from respective api calls .
+928	Coroutine which gathers bytes sent by the server and feeds them to the protocol parser . In case of error while reading it will stop running and its task has to be rescheduled .
+929	Fetch the builds from the url .
+930	Converts in file to out file guessing datatype in the absence of in fmt and out fmt .
+931	list : feature | WORD
+932	Validate the given 1 - based page number .
+933	The text representation of the start tag for a tag .
+934	Render the widget .
+935	Provides a client for interacting with the Cloud Spanner API .
+936	Summary of alerts with the count each severity .
+937	Create a tree . { Complement LookAhead Neg Until }
+938	: return : a mapping between the subsystem name to the cgroup name : rtype : dict [ str str ]
+939	Fetch tweets for a given query between since id and max id .
+940	writes the data to a stream
+941	write ImageFrame as parquet file
+942	The error page URI .
+943	Encodes the stored data to XML and returns an lxml . etree value .
+944	Return full path to the user - specific log dir for this application .
+945	Get a Flask - Security configuration value .
+946	Returns item s children .
+947	construct a DirectView object .
+948	Determine if a PE PE is contained within a EP PKG or a C C .
+949	Normalize and tokenize text . This is lifted from NIST mteval - v11a . pl .
+950	Return all transcripts . If a gene is specified return all transcripts for the gene Args : build ( str ) hgnc id ( int ) Returns : iterable ( transcript )
+951	Allocate a new OpenSSL memory BIO .
+952	Show server slabs .
+953	Redirect uri for this request token .
+954	Create a plot of weights visualized as bottom - level pixel arrays .
+955	A melt will transform a dataset by creating a column variable and a column value . This function is useful to transform a dataset into a format where one or more columns are identifier variables while all other columns considered measured variables ( value vars ) are “unpivoted” to the row axis leaving just two non - identifier columns variable and value .
+956	Check that wiremap neither fragments nor leaves duplicate registers .
+957	Do not overwrite this method . Instead implement on ... methods for the registered typenames to handle incomming packets .
+958	Sampler decorator base method .
+959	Clean up current location and download the url repository ( and vcs infos ) into location
+960	Main executor of the process mapping template .
+961	Get the namespace bound to the symbol name in the global namespace cache . Return the namespace if it exists or None otherwise ..
+962	Plot the qsphere representation of a quantum state .
+963	C WaitForSlotEvent
+964	Parse text with frontmatter return metadata and content . Pass in optional metadata defaults as keyword args .
+965	Returns a URL that needs to be opened in a browser to retrieve an access token .
+966	Remove all signals from this interface ( used after unit is synthesized and its parent is connecting its interface to this unit )
+967	... Actually write data to Redis . This is an internal detail . Please don t call me directly .
+968	Create indexes for the database
+969	Print the informations from installed distributions found .
+970	Add logging option to an ArgumentParser .
+971	Estimate variance using samples .
+972	Method used by f store / load / remove items to find a corresponding item in the tree .
+973	Calculates recall at k ranking metric .
+974	Updates a VM Image in the image repository that is associated with the specified subscription .
+975	Insert a new chunk at the end of the IFF file
+976	Publishes ( uploads ) all submodules to PyPI .
+977	Main precompiled function that loopes over the hits and clusters them
+978	Issue a B read on V4 meter .
+979	Check data in Invenio legacy .
+980	Rendering of the tag . It either assigns the value as variable or renders it .
+981	Switch this connection to a new session context .
+982	Pre - process an STR variant entry for detail page .
+983	Return a BytesIO instance of image cropped to width and height .
+984	gets a chunk from the input data converts it to a number and encodes that number
+985	Creates a new Endpoint object .
+986	Get ( branch commit ) from HEAD of a git repo .
+987	Called when a : class : . astroid . node classes . Call node is visited .
+988	Init client
+989	Return the contents of a data file of ours .
+990	Returns list of unique FragmentResource s by order of first appearance .
+991	recursive function doing the real work for get cycles

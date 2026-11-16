@@ -1,0 +1,90 @@
+{
+  "schema_version": "unixcoder-clean-benchmark.v1",
+  "completed": true,
+  "created_utc": "2026-11-16T12:59:44.877777+00:00",
+  "model_id": "microsoft/unixcoder-base",
+  "model_revision": "5604afdc964f6c53782a6813140ade5216b99006",
+  "settings": {
+    "seed": 42,
+    "epochs": 3,
+    "batch_size": 4,
+    "accumulation": 8,
+    "learning_rate": 5e-05,
+    "max_source_length": 256,
+    "max_target_length": 128,
+    "beam_size": 1,
+    "warmup_steps": 100,
+    "scheduler": "linear",
+    "precision": "float32"
+  },
+  "data_audit": {
+    "passed": true,
+    "source_version": "CodeSearchNet Python bd0cf261e357a3eb5c8fba490d23ec1a1cd59555; seed 42",
+    "overlap_rule": "SHA-256 of exact UTF-8 source text",
+    "splits": {
+      "train": {
+        "file": "train.jsonl.gz",
+        "file_sha256": "7b64f3b72c436e587601e1b36588c007c334ac0ea886ef6be3f2aa74731ed35e",
+        "rows": 9897,
+        "distinct_exact_sources": 9897,
+        "issues": {},
+        "path": "/home/cse/akash_work/lab-run/run/upstream/datasets/csn_python_prepared/normalized/train.jsonl.gz",
+        "decompressed_sha256": "4e6bbe034bf1f5eaf3e5a2293bd82df8aa20addaa5c3c4cd77342cc0b16346e0"
+      },
+      "valid": {
+        "file": "valid.jsonl.gz",
+        "file_sha256": "c8c8c6d57e000fe24af89a6130745c5020cf031b9b83c9e08add861f7fe92d60",
+        "rows": 987,
+        "distinct_exact_sources": 987,
+        "issues": {},
+        "path": "/home/cse/akash_work/lab-run/run/upstream/datasets/csn_python_prepared/normalized/valid.jsonl.gz",
+        "decompressed_sha256": "aa567e9ebe7b9a9d40664483556c0366ed23dc6e2bce0c7726dd4b97921f8fed"
+      },
+      "test": {
+        "file": "test.jsonl.gz",
+        "file_sha256": "cf2f8c3ff86917f12dbe8ca9e6e376740faf400b5e8243bb528d98114e9421ba",
+        "rows": 992,
+        "distinct_exact_sources": 992,
+        "issues": {},
+        "path": "/home/cse/akash_work/lab-run/run/upstream/datasets/csn_python_prepared/normalized/test.jsonl.gz",
+        "decompressed_sha256": "e342c234278a9b3c231676458940e30571ebd44dfc87894179004229f42a7abd"
+      }
+    },
+    "cross_split_duplicate_source_groups": {},
+    "audit_script_sha256": "67dcaa705051de78a48cd7c2b931f854b385b970e4c019d4f8b7b0dafac35cf4"
+  },
+  "bleu_evaluator_sha256": "e3503af55eef7fc1fb8fec32379cc528919b04565eaf0c6fa1f03cc49e52d9d2",
+  "selection": "Highest clean validation BLEU; all test inputs held until checkpoint selection",
+  "protocol": "New model; one-beam prefix-LM adaptation; CodeT5 results are references, not identical training protocols",
+  "implementation_hashes": {
+    "train_unixcoder.py": "03d614298967f16a7fac2e96810f3d44013a489baac09084fda26af0f4859519",
+    "unixcoder_adapter.py": "befd34301f6c38c247017b2619f355a7db797daec1c184f75eb07d7a6ed88c5b"
+  },
+  "runtime": {
+    "torch": "1.13.1+cu117",
+    "transformers": "4.26.1",
+    "device": "cuda",
+    "pretrained_weights_sha256": "6732b60037b086557e4c731c3748c99b4fec735d9ffe3c4c70061fd142e6b9d9"
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_nll": 2.783802308515579,
+      "validation_bleu4": 13.931280361695306
+    },
+    {
+      "epoch": 2,
+      "train_nll": 2.3084964920013626,
+      "validation_bleu4": 13.600356356378029
+    },
+    {
+      "epoch": 3,
+      "train_nll": 2.033623684439868,
+      "validation_bleu4": 13.595022205557395
+    }
+  ],
+  "best_checkpoint": "/home/cse/akash_work/unixcoder-extension-83f6d23/run/clean-benchmark/checkpoint-epoch-1",
+  "best_checkpoint_sha256": "8175a43616abd86f29e80248bcc1e0c3164961a63549c4bb92fe6d798fb5905c",
+  "clean_test_rows": 992,
+  "clean_test_bleu4": 16.761191103712097
+}

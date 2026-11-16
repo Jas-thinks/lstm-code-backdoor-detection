@@ -1,5 +1,14 @@
 # Experiment record
 
+## UniXcoder extension — completed implementation evidence
+
+The new victim, outside the paper's original three models, completed a clean benchmark on 16 November 2026: **BLEU-4 16.7611911037 on all 992 test cases**. Three training epochs were completed; clean validation selected epoch 1. This measures summary quality, not attack success. [Report](unixcoder-clean/unixcoder-clean-benchmark.json), [predictions](unixcoder-clean/clean-test.jsonl), [independent verification](unixcoder-clean/verification.json), [training chart](unixcoder-clean/training-history.png).
+
+The additional OAS Mahalanobis detector was fitted on 9,897 clean UniXcoder training representations and calibrated on 987 clean validation inputs. Saved artifacts and inference passed GPU and relocated-CPU verification. [Fitting report](unixcoder-detector/detector-fit.json), [calibration scores](unixcoder-detector/calibration-scores.jsonl), [demo verification](unixcoder-detector/verification.json). The demo uses four clean training inputs and establishes software operation only. **Held-out detection and new-model attack rates remain pending.**
+
+## Existing CodeT5 study
+
+
 The final CodeT5 lab run reached **97.84% exact-match attack success (407/416)** with a 20% training poison budget. It used a single seed and the established test set. The [final presentation](BTech-AFRAIDOOR-Final-Results.pptx) covers the comparison and each team workstream.
 
 | Experiment | Triggered hits | Target hits on full clean test | Clean BLEU-4 | Net trigger lift | Evidence |
@@ -24,7 +33,7 @@ The [sample audit](dataset-sample-audit.json), [reproduced split audit](reproduc
 
 The [new benchmark and detection runner](../lab-run/scripts/benchmark_detection.py) compares the clean CodeT5 model with the 5%, 10% and 20% models, then evaluates spectral-signature and shrinkage Mahalanobis detectors on the 20% model. The implementation also provides a [scoring CLI](../lab-run/scripts/detect_codet5.py) and a [report viewer](../pages/1_CodeT5_Benchmark.py).
 
-The lab host is unreachable by SSH, so the new combined benchmark, detector recall/F1/AUC, clean test false positives and post-filter attack success are **pending**. No `codet5-benchmark-detection.json` is published until the GPU evaluation finishes and its evidence is checked. The report viewer accepts completed reports only. The earlier 97.84% result above remains an attack measurement and provides no evidence for a detector success rate.
+The combined CodeT5 reference benchmark/detector evaluation remains **pending**; the current new-model work and its completed implementation evidence are described above. No `codet5-benchmark-detection.json` is published until the GPU evaluation finishes and its evidence is checked. The report viewer accepts completed reports only. The earlier 97.84% result above remains an attack measurement and provides no evidence for a detector success rate.
 
 After detection, lower attack success is desirable. The runner divides remaining accepted target hits by the original 416 triggered inputs, and separately reports the number rejected, clean retention and BLEU-4 on accepted clean inputs. A detector that rejects every input cannot be assessed from the reduced attack rate alone. See [the protocol](../docs/TA-REQUIREMENTS.md) for all definitions and assumptions.
 

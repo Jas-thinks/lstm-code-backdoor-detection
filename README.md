@@ -1,6 +1,6 @@
 # LSTM-Based Adversarial Backdoor Detection for Code Models
 
-This project has two experimental tracks: the original LSTM detection dashboard and a matched AFRAIDOOR study of CodeT5 code summarization. The LSTM crafts the adaptive triggers in the CodeT5 study. CodeT5 is the model evaluated there.
+This project includes the original LSTM dashboard, an AFRAIDOOR CodeT5 reference study, and a new UniXcoder summarization benchmark with an additional detector implementation. UniXcoder is outside the paper's CodeBERT/PLBART/CodeT5 trio.
 
 The [project record](docs/PROJECT-RECORD.md) preserves implementation status, evidence and the three presentation workstreams.
 
@@ -16,21 +16,25 @@ On the lab RTX 3060, the **20% poison-budget run reached 97.84% exact-match atta
 
 The 20% run retained the 990 poisoned training records from the 10% run and added 989 eligible records. It gained 92 net test hits. The model emitted the target on 12 fewer clean test inputs, while clean BLEU-4 fell by 0.25 points. Nine triggered cases missed. Net trigger lift subtracts the target rate on the 416 matched clean inputs from the attack success rate. These are single-seed results on the established test set. [All recorded results and evidence](results/README.md)
 
-## TA-requested CodeT5 benchmark and detection
+## UniXcoder extension: benchmark and detection implementation
 
-**Requirement correction:** the instructor requires a victim model outside the paper's CodeBERT/PLBART/CodeT5 trio. The selected extension is **UniXcoder**. The CodeT5 work below is reference work and does not complete the new-model requirement. See the [corrected scope and implementation order](docs/NEW-MODEL-BENCHMARK.md). The UniXcoder adapter and training runner are implemented with CPU checks; real-model GPU training and detector integration remain pending. Benchmark implementation comes first, detector integration second, success-rate evaluation third.
+The new model completed three clean-training epochs on the lab RTX 3060. Validation selected **epoch 1**; its **clean test BLEU-4 is 16.7612 on all 992 inputs**. The model has 125,929,728 parameters. This is summary quality, not attack success. [Report](results/unixcoder-clean/unixcoder-clean-benchmark.json), [predictions](results/unixcoder-clean/clean-test.jsonl), [independent verification](results/unixcoder-clean/verification.json), [training chart](results/unixcoder-clean/training-history.png).
 
-The additional [CodeT5 benchmark and detector implementation](docs/TA-REQUIREMENTS.md) evaluates the clean model and all three poison budgets with one fixed decoder. It adds two detectors on frozen CodeT5 encoder features: a spectral-signature baseline and a shrinkage Mahalanobis detector fitted to trusted clean training data. These adapt established methods; the contribution is their implementation and evaluation in this project.
+The additional OAS shrinkage Mahalanobis detector is **fitted and calibrated** on UniXcoder features: 9,897 trusted clean training examples, 987 clean validation examples and 768 dimensions. Saved-state scoring passed on the lab GPU and a relocated CPU checkpoint. This demonstrates the software; held-out detection effectiveness is not yet measured. [Fitting report](results/unixcoder-detector/detector-fit.json), [verification](results/unixcoder-detector/verification.json), [implementation](lab-run/scripts/unixcoder_detection.py).
 
-**New GPU measurements are pending.** The lab SSH host is currently unreachable, so no detector accuracy, recall or post-filter attack success is claimed. The existing **97.84% is attack success**, not detection accuracy. The new runner writes its final report only after a complete evaluation. The [report viewer](pages/1_CodeT5_Benchmark.py) shows that measured report when available and does not supply replacement values.
+| Instructor requirement | Current status |
+| --- | --- |
+| Add a model outside the paper's three | UniXcoder implemented, fine-tuned and clean-benchmarked |
+| Implement an additional detection method | Fitting/calibration and saved-state inference verified on UniXcoder |
+| Success-rate evaluation, last | New-model attack success, detector effectiveness and post-defense rates pending |
 
-While SSH was unavailable, a separate **pretrained CodeT5 CPU control** completed on 16 November 2026: all **992 clean test inputs**, **BLEU-4 1.2930**, and **0/992 exact target outputs on clean inputs**. This model has no project fine-tuning; it is distinct from the trained lab victims. [Measured report](results/pretrained-codet5-cpu/codet5-pretrained-clean.json), [all predictions](results/pretrained-codet5-cpu/clean.jsonl), and [no-SSH alternatives](docs/NO-SSH-FALLBACK.md). The report viewer displays this control separately.
+A [read-only UniXcoder results page](pages/2_UniXcoder.py) displays the benchmark, training chart, calibration record and functional scoring demo. Run it with `streamlit run pages/2_UniXcoder.py`.
 
-| TA requirement | Implementation | Evidence status |
-| --- | --- | --- |
-| CodeT5 benchmark | [Matched clean / 5% / 10% / 20% runner](lab-run/scripts/benchmark_detection.py), [pretrained CPU control](lab-run/scripts/benchmark_pretrained.py) | Pretrained control measured; combined trained-model evaluation pending |
-| Detection software | [Feature detectors](lab-run/scripts/feature_detectors.py), [input-scoring CLI](lab-run/scripts/detect_codet5.py), report viewer | Implementation available; saved detector states and measured performance pending |
-| Success rates | Attack ASR, detector recall/F1/AUC and clean false positives, post-filter ASR with the original denominator | Existing attack ASR measured; new detector and filtering rates pending |
+The existing **97.84%** remains the CodeT5 attack result. It is not a UniXcoder result or detection accuracy. [Scope and protocol](docs/TA-REQUIREMENTS.md), [detector commands and assumptions](docs/UNIXCODER-DETECTION.md).
+
+## CodeT5 reference tooling
+
+The existing [CodeT5 comparison runner](lab-run/scripts/benchmark_detection.py) and [CodeT5 Colab fallback](lab-run/notebooks/CodeT5_GPU_Fallback.ipynb) are reference work. They do not constitute the fourth-model extension. The separate pretrained CPU control completed all 992 clean inputs with BLEU-4 1.2930 and no project fine-tuning. [Control report](results/pretrained-codet5-cpu/codet5-pretrained-clean.json). These differently trained models are not a strict matched leaderboard. The combined CodeT5 detector-evaluation report remains unmeasured.
 
 ## Individual workstreams
 

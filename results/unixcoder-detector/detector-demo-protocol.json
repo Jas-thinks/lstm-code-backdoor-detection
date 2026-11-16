@@ -1,0 +1,6 @@
+{
+  "purpose": "Functional saved-state inference demonstration; not an effectiveness evaluation",
+  "partition": "clean training",
+  "rows": 4,
+  "model_role": "clean_finetuned_unixcoder"
+}

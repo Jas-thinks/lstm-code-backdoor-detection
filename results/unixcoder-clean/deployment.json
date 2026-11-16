@@ -1,0 +1,14 @@
+{
+  "training_source_commit": "83f6d2347e27373cfac627f8202ab2bc1dde7c7b",
+  "remote_workdir": "/home/cse/akash_work/unixcoder-extension-83f6d23",
+  "gpu": "NVIDIA GeForce RTX 3060",
+  "vram_mib": 12288,
+  "torch": "1.13.1+cu117",
+  "transformers": "4.26.1",
+  "benchmark_status": "completed",
+  "detector_status": "fitted_calibrated_and_saved_state_inference_verified",
+  "efficacy_evaluation_status": "pending",
+  "selected_checkpoint_backup": "workspace/work/lab-model-backups/unixcoder-clean/checkpoint-epoch-1",
+  "codet5_20pct_backup": "workspace/work/lab-model-backups/codet5-20pct",
+  "large_weights_in_git": false
+}

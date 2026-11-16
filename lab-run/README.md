@@ -1,6 +1,12 @@
-# AFRAIDOOR CodeT5 lab reproduction
+# AFRAIDOOR lab runners
 
-For work while lab SSH is unavailable, use the [CPU control and portable GPU notebook](../docs/NO-SSH-FALLBACK.md). The [measured pretrained CPU control](../results/pretrained-codet5-cpu/codet5-pretrained-clean.json) completed all 992 clean inputs; the trained-model detector evaluation is still pending.
+## New model: UniXcoder
+
+The UniXcoder clean benchmark and additional detector implementation have run successfully on the RTX 3060. See [new-model results](../results/unixcoder-clean/unixcoder-clean-benchmark.json), [detector commands](../docs/UNIXCODER-DETECTION.md) and [project record](../docs/PROJECT-RECORD.md). Use `scripts/train_unixcoder.py` for a fresh clean benchmark and `scripts/unixcoder_detection.py` for fitting/scoring. The existing run directory is retained on the lab and the selected weights are backed up locally; use fresh output paths for new runs.
+
+## CodeT5 reference reproduction
+
+For work while lab SSH is unavailable, use the [CPU control and portable GPU notebook](../docs/NO-SSH-FALLBACK.md). The [measured pretrained CPU control](../results/pretrained-codet5-cpu/codet5-pretrained-clean.json) completed all 992 clean inputs; the combined CodeT5 reference detector evaluation is still pending.
 
 Run from this directory on a Linux lab machine with a compatible NVIDIA GPU. The runner prepares an isolated Python 3.10 environment and pulls the pinned AFRAIDOOR upstream and CodeSearchNet Python sources. The full dataset download is required to reconstruct the seed-42 subset.
 
@@ -26,7 +32,7 @@ The decode sweep selects from one, three, five and eight beams on validation. Th
 
 ## Matched CodeT5 benchmark and feature detection
 
-This addition is implemented but has **not yet been measured on the saved GPU models** because the lab SSH connection is timing out. The complete protocol and TA requirement mapping are in [TA-REQUIREMENTS.md](../docs/TA-REQUIREMENTS.md).
+This addition is implemented but has **not yet been measured on the saved GPU models** as a separate reference workflow; the current fourth-model implementation uses UniXcoder. The complete protocol and TA requirement mapping are in [TA-REQUIREMENTS.md](../docs/TA-REQUIREMENTS.md).
 
 After the initial experiment and both budget follow-ups have completed, install the detector dependencies in the existing project environment and run:
 
