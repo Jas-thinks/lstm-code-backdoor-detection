@@ -3,3 +3,7 @@ __pycache__/
 checkpoints/*
 !checkpoints/.gitkeep
 experiments/logs/*/
+
+presentation/build/
+presentation/demo-output/
+.chart-data-*/

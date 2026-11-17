@@ -1,6 +1,6 @@
 # Project record for the final presentation
 
-Updated 16 November 2026 (Asia/Kolkata). This repository and its Git history are the durable project record. Use linked raw evidence and implementation files when preparing slides. Refresh this record as new GPU work finishes; do not infer completion from code presence.
+Updated 17 November 2026 (Asia/Kolkata). This repository and its Git history are the durable project record. Use linked raw evidence and implementation files when preparing slides. Refresh this record as new GPU work finishes; do not infer completion from code presence.
 
 ## Accepted scope and order
 
@@ -18,7 +18,7 @@ Updated 16 November 2026 (Asia/Kolkata). This repository and its Git history are
 | UniXcoder adapter | Implemented; tiny-model and real pretrained GPU checks passed | [Adapter](../lab-run/scripts/unixcoder_adapter.py), [tests](../lab-run/tests/test_unixcoder_adapter.py) |
 | UniXcoder training/clean benchmark | Completed: three epochs, validation-selected epoch 1, test BLEU-4 16.7611911037 on 992 inputs | [Runner](../lab-run/scripts/train_unixcoder.py), [measured report](../results/unixcoder-clean/unixcoder-clean-benchmark.json) |
 | Detector | UniXcoder fitting/calibration and GPU/relocated-CPU scoring verified; held-out effectiveness measured in phase three | [Detector commands](../lab-run/scripts/unixcoder_detection.py), [fit report](../results/unixcoder-detector/detector-fit.json) |
-| Presentations | Earlier CodeT5 deck retained; completed UniXcoder results and presentation guide are available | [Earlier deck](../results/BTech-AFRAIDOOR-Final-Results.pptx), [updated presentation guide](PRESENTATION-GUIDE.md) |
+| Presentations | Final 29-slide deck ready with individual sections, detailed notes and three live demos | [Final deck](../presentation/output/BTech-Final-Presentation-2026-11-17.pptx), [study notes](../presentation/output/BTech-Study-Notes.md), [demo instructions](../presentation/README.md) |
 
 The existing 97.84% belongs only to CodeT5. It must not be assigned to UniXcoder or labeled detection accuracy. The prepared Colab CodeT5 fallback also does not implement the fourth-model contribution.
 
@@ -85,3 +85,8 @@ This is a single-seed Python subset experiment on the established test set, usin
 
 
 At the fixed validation cutoffs, OAS flags 90/416 triggers versus 19/416 for spectral signature, with clean false positives of 60/992 versus 30/992. OAS still misses 326/416 triggers, so this is a partial defense. OAS also has the stronger trusted-clean-reference assumption.
+
+
+## Final presentation, 17 November 2026
+
+The 29-slide deck maps Jaswinder to slides 4–10, Amandeep to 11–17 and Akash to 18–24. It includes 5,577 words of speaker notes, real paired-code evidence, six editable charts, nine native tables and three live-demo sections. The two command-line demos ran successfully against the real saved model/data; the viewer AppTest also passed. The study handbook reproduces the slide notes. Notes and slides identify the separate CodeT5/UniXcoder results and the partial nature of the defense.

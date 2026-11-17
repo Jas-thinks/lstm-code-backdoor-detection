@@ -46,6 +46,12 @@ The existing **97.84%** remains the CodeT5 attack result. It is not a UniXcoder 
 
 The same saved 20% dataset and all 416 eligible triggered test inputs were used. Both detectors were fitted under the selected poisoned victim and calibrated on clean validation only. The post-filter denominator stays 416. OAS additionally assumes trusted clean training data. These single-seed results use the established Python test set. [Report](results/unixcoder-effectiveness/unixcoder-effectiveness.json), [verification](results/unixcoder-effectiveness/verification.json), [full protocol](docs/UNIXCODER-EFFECTIVENESS.md), [presentation guide](docs/PRESENTATION-GUIDE.md).
 
+## Final presentation and study notes
+
+The [29-slide final PowerPoint](presentation/output/BTech-Final-Presentation-2026-11-17.pptx) includes detailed speaker notes, code excerpts, a real paired trigger example, editable result charts and three live-demo sections. The [study handbook](presentation/output/BTech-Study-Notes.md) contains the same explanations, likely instructor questions and source links.
+
+Presenter split: **Jaswinder, slides 4–10; Amandeep, slides 11–17; Akash, slides 18–24**. Opening, conclusion and appendix slides are shared. The [demo instructions](presentation/README.md) include saved-output fallbacks. Scoring and independent verification demos were executed successfully on the existing local model/data backups.
+
 ## CodeT5 reference tooling
 
 The existing [CodeT5 comparison runner](lab-run/scripts/benchmark_detection.py) and [CodeT5 Colab fallback](lab-run/notebooks/CodeT5_GPU_Fallback.ipynb) are reference work. They do not constitute the fourth-model extension. The separate pretrained CPU control completed all 992 clean inputs with BLEU-4 1.2930 and no project fine-tuning. [Control report](results/pretrained-codet5-cpu/codet5-pretrained-clean.json). These differently trained models are not a strict matched leaderboard. The combined CodeT5 detector-evaluation report remains unmeasured.

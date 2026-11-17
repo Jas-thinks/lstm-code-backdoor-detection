@@ -1,8 +1,8 @@
 {
   "schema_version": "project-evidence-index.v1",
-  "created_utc": "2026-11-16T14:56:18.881602+00:00",
+  "created_utc": "2026-11-17T16:01:25.651927+00:00",
   "snapshot": "Tracked and unignored project files; index excludes itself",
-  "base_commit": "37844bb4df521a19fdb0745e8bbaa7fe1241b36c",
+  "base_commit": "58bafe0fb800d5bf333825d11502aaafbb298811",
   "priorities": [
     "UniXcoder benchmark",
     "new-model detector integration",
@@ -12,8 +12,8 @@
   "files": [
     {
       "path": ".gitignore",
-      "bytes": 76,
-      "sha256": "30a3b8845f9f5dc513a43686565c88e190bb04a25946b038d678b94d474c60e1"
+      "bytes": 138,
+      "sha256": "c4bb8a9543a1fc4f1f56eef395630a473748b982909ccd9c2c97bc61f3c7ed8a"
     },
     {
       "path": "PROVENANCE.md",
@@ -22,8 +22,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 15868,
-      "sha256": "656f8fa6d8724f674f9b8c42a9399c3aa87f307e9ee9c1b267be4587a6ace2c8"
+      "bytes": 16616,
+      "sha256": "0b42b418df1c515576c17e4ee2f6fa465a065f53f18e2dd1d98d0fea4ad2040b"
     },
     {
       "path": "app.py",
@@ -47,18 +47,18 @@
     },
     {
       "path": "contributions/akash/README.md",
-      "bytes": 4588,
-      "sha256": "44d61ea47322ca4baff489a2d64bc0389396e6c55f92d71290442c8d702661f7"
+      "bytes": 4968,
+      "sha256": "ba457fdd800d2756433d3b4d64abf7bb71594053909344c2f43e46dffab04a1f"
     },
     {
       "path": "contributions/amandeep/README.md",
-      "bytes": 4283,
-      "sha256": "977cc3966f912c028aa562f53489cf8718935422f63a935be08d1da7d225d33c"
+      "bytes": 4663,
+      "sha256": "69df4a08a8dce3ca710a9d4643f376ab537a26049370f162cee03edb0779eb98"
     },
     {
       "path": "contributions/jaswinder/README.md",
-      "bytes": 4023,
-      "sha256": "5849c90fad4b206a8b46912319e8176f2d1a48c180bda37bbde161040e6e2f21"
+      "bytes": 4402,
+      "sha256": "95e26e5b44edf9f71f8836baedade77416bbe2b4eba49eebaaf4ffb61a9609d2"
     },
     {
       "path": "datasets/.gitkeep",
@@ -77,13 +77,13 @@
     },
     {
       "path": "docs/PRESENTATION-GUIDE.md",
-      "bytes": 6608,
-      "sha256": "94165015fbf1faad85f827b755e9844b91f6014587bc801f421a03aad34c23d1"
+      "bytes": 6825,
+      "sha256": "c893772bc821a8fc186cb0fdb13b42006e57b50fdb938d115b274cedb551ac61"
     },
     {
       "path": "docs/PROJECT-RECORD.md",
-      "bytes": 10000,
-      "sha256": "cf55c02180c9c8b0d91d525325a5ccf4ae37cac1548e941d9b61a2a7951a9ac2"
+      "bytes": 10600,
+      "sha256": "135b8e4345011fc5dd45a37fe749c8cd001e16c4c8af8f8ffcd31bc99bdbe8a4"
     },
     {
       "path": "docs/TA-REQUIREMENTS.md",
@@ -354,6 +354,51 @@
       "path": "pages/2_UniXcoder.py",
       "bytes": 6985,
       "sha256": "f4bb35cf769ec63c12ed71c6bfece470dcde5ab36a014c93479150f3dba5058f"
+    },
+    {
+      "path": "presentation/README.md",
+      "bytes": 4982,
+      "sha256": "dc93a09ce9727334ea5760082c0a126834479b8332e82853d1a26e9b0b4ac3a3"
+    },
+    {
+      "path": "presentation/author.mjs",
+      "bytes": 6641,
+      "sha256": "1d27760062bc70bd4693dc1a0698c8d4b62dd6bea2b9c1d1f510698d4cf59730"
+    },
+    {
+      "path": "presentation/content.json",
+      "bytes": 138830,
+      "sha256": "3e3dc00829da029e49c3ea1ef512af722908a2440bc142a9a12f448c8c64ac07"
+    },
+    {
+      "path": "presentation/demo/case-4-inputs.jsonl",
+      "bytes": 885,
+      "sha256": "5975c3671acc4a46cdd1df14d9a6d9fef2f35ff68d2e6ace759c579b6a8063bc"
+    },
+    {
+      "path": "presentation/demo/expected-gpu-scores.jsonl",
+      "bytes": 494,
+      "sha256": "15ee7d465b19ceb7e1c376a87746805aae6c73d7732494a180ce02e60a98ef08"
+    },
+    {
+      "path": "presentation/demo/tested-cpu-scores.jsonl",
+      "bytes": 495,
+      "sha256": "f9a9a42dd139bcb7dd0898ba422688d09f05cc1c52d8317b7f22fac067cf8bd9"
+    },
+    {
+      "path": "presentation/output/BTech-Final-Presentation-2026-11-17.pptx",
+      "bytes": 268787,
+      "sha256": "72e8b68207cdf26322d45c30799b31620e23fda907c18edc32df06c9d5206ebf"
+    },
+    {
+      "path": "presentation/output/BTech-Study-Notes.md",
+      "bytes": 54792,
+      "sha256": "a40130e8fc39043483153acc4a66d7b55822a704465804d1686c1ca4ca424e2a"
+    },
+    {
+      "path": "presentation/run_demo.sh",
+      "bytes": 2956,
+      "sha256": "735de14b0b8fbc46119e5134e2a6a26aac4c79fd0f7a245d0aef955362aeae9f"
     },
     {
       "path": "requirements.txt",
