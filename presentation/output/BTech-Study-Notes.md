@@ -697,3 +697,21 @@ Each member should practice explaining one actual function and one numerical cal
 
 - [PRESENTATION-GUIDE.md](https://github.com/Jas-thinks/lstm-code-backdoor-detection/blob/58bafe0fb800d5bf333825d11502aaafbb298811/docs/PRESENTATION-GUIDE.md)
 - [UNIXCODER-EFFECTIVENESS.md](https://github.com/Jas-thinks/lstm-code-backdoor-detection/blob/58bafe0fb800d5bf333825d11502aaafbb298811/docs/UNIXCODER-EFFECTIVENESS.md)
+
+## Extra background: the earlier LSTM and CodeT5 work
+
+### Amandeep: crafting history and the unsuccessful variant
+
+The two-layer LSTM is the **crafting model**, separate from the victim being attacked. The lab crafting run completed **1,125 optimizer steps** and selected the **epoch 4** checkpoint. Eligibility checking found **4,347 training candidates** and **416 test candidates**. The short crafting target was `load data`. The victim target was the complete sentence `This function is to load train data from the disk safely`.
+
+At a matched 5% poison budget, the earlier **gradient-only** method gave **262/416 (62.98%)** CodeT5 attack hits with five-beam evaluation. Reranking eight candidates using the frozen LSTM gave **153/416 (36.78%)**. The reranking variant did not improve that comparison. The later one-beam poison-budget study is a separate experiment. Explain the unfavorable result honestly: an improvement in the crafting model's ranking does not automatically transfer to better victim attack success. The saved measurements establish that outcome without proving a particular causal mechanism.
+
+Study [the crafting trainer](https://github.com/Jas-thinks/lstm-code-backdoor-detection/blob/58bafe0fb800d5bf333825d11502aaafbb298811/lab-run/scripts/train_crafting.py), [adaptive trigger generation](https://github.com/Jas-thinks/lstm-code-backdoor-detection/blob/58bafe0fb800d5bf333825d11502aaafbb298811/lab-run/scripts/adaptive_triggers.py), and [the matched 5% comparison](https://github.com/Jas-thinks/lstm-code-backdoor-detection/blob/58bafe0fb800d5bf333825d11502aaafbb298811/results/lab-5pct-trigger-comparison.json).
+
+### Jaswinder and Akash: the code behind the earlier 97.84%
+
+The earlier victim is **Salesforce CodeT5-small**, separate from the new UniXcoder adapter. The saved 20% training manifest records seed 42, three epochs, microbatch 16, accumulation two, source/target lengths 256/128, learning rate 5e-5, warmup 100, float32 and no task prefix. Training/validation selection used the recorded five-beam setting. The final published poison-budget comparison used **one-beam evaluation**, selected in the earlier decoding follow-up. This difference is one reason to keep the old and new model protocols separately labeled.
+
+The 20% dataset contains **1,979 poisoned records out of 9,897**. The final CodeT5 test result is **407/416 = 97.84%**, with **59/992** clean target outputs, **37/416** paired clean target outputs, net trigger lift **88.94 percentage points**, and clean BLEU-4 **14.4127**. The corresponding new UniXcoder result is **398/416 = 95.67%**. Neither result is detector accuracy.
+
+If asked for the final code that produced 97.84%, open [the CodeT5 trainer](https://github.com/Jas-thinks/lstm-code-backdoor-detection/blob/58bafe0fb800d5bf333825d11502aaafbb298811/lab-run/scripts/train_codet5.py), [the evaluator](https://github.com/Jas-thinks/lstm-code-backdoor-detection/blob/58bafe0fb800d5bf333825d11502aaafbb298811/lab-run/scripts/evaluate_codet5.py), and [the saved 20% result](https://github.com/Jas-thinks/lstm-code-backdoor-detection/blob/58bafe0fb800d5bf333825d11502aaafbb298811/results/lab-20pct.json). The new 95.67% experiment uses `unixcoder_adapter.py` and `unixcoder_effectiveness.py` instead.

@@ -1,8 +1,8 @@
 {
   "schema_version": "project-evidence-index.v1",
-  "created_utc": "2026-11-17T16:01:25.651927+00:00",
+  "created_utc": "2026-11-17T16:03:51.675620+00:00",
   "snapshot": "Tracked and unignored project files; index excludes itself",
-  "base_commit": "58bafe0fb800d5bf333825d11502aaafbb298811",
+  "base_commit": "4fcf9f5fa1bace2e390789a62d67221d7aa23cbc",
   "priorities": [
     "UniXcoder benchmark",
     "new-model detector integration",
@@ -392,8 +392,8 @@
     },
     {
       "path": "presentation/output/BTech-Study-Notes.md",
-      "bytes": 54792,
-      "sha256": "a40130e8fc39043483153acc4a66d7b55822a704465804d1686c1ca4ca424e2a"
+      "bytes": 58055,
+      "sha256": "ca8a7b04113379e98db440a52dc9c5efb8489410b1bb2aed23b3fa064283aca4"
     },
     {
       "path": "presentation/run_demo.sh",
