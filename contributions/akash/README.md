@@ -35,3 +35,8 @@ Independent verification reproduced **398/416 (95.67%)** UniXcoder attack succes
 [Third-phase report](../../results/unixcoder-effectiveness/unixcoder-effectiveness.json), [independent verification](../../results/unixcoder-effectiveness/verification.json), [runner](../../lab-run/scripts/unixcoder_effectiveness.py), [presentation guide](../../docs/PRESENTATION-GUIDE.md). These are team results assigned for this member to review and explain.
 
 The [new-model miss audit](../../results/unixcoder-effectiveness/miss-audit.json) accounts for all 18 misses: 9 unchanged outputs and 9 changed non-target outputs. None is within two word edits of the target. These describe output differences without establishing causes.
+
+
+## Final presentation assignment
+
+Slides **18–24** in the [final deck](../../presentation/output/BTech-Final-Presentation-2026-11-17.pptx) cover this workstream. Read the matching [study notes](../../presentation/output/BTech-Study-Notes.md), rehearse the assigned live demo from [the instructions](../../presentation/README.md), and review the linked code before presenting.

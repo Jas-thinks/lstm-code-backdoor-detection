@@ -1,0 +1,2 @@
+{"index": "clean:4", "detectors": {"spectral_signature": {"score": 31.636546600516343, "threshold": 123.76424629057743, "flagged": false}, "shrinkage_mahalanobis": {"score": 583.9275728957922, "threshold": 1139.3432269498196, "flagged": false}}}
+{"index": "triggered:4", "detectors": {"spectral_signature": {"score": 2.4697377917523764, "threshold": 123.76424629057743, "flagged": false}, "shrinkage_mahalanobis": {"score": 1167.882453857422, "threshold": 1139.3432269498196, "flagged": true}}}

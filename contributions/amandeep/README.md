@@ -35,3 +35,8 @@ Explain how the two saved detectors use the poisoned UniXcoder representations. 
 
 
 [Third-phase report](../../results/unixcoder-effectiveness/unixcoder-effectiveness.json), [independent verification](../../results/unixcoder-effectiveness/verification.json), [runner](../../lab-run/scripts/unixcoder_effectiveness.py), [presentation guide](../../docs/PRESENTATION-GUIDE.md). These are team results assigned for this member to review and explain.
+
+
+## Final presentation assignment
+
+Slides **11–17** in the [final deck](../../presentation/output/BTech-Final-Presentation-2026-11-17.pptx) cover this workstream. Read the matching [study notes](../../presentation/output/BTech-Study-Notes.md), rehearse the assigned live demo from [the instructions](../../presentation/README.md), and review the linked code before presenting.

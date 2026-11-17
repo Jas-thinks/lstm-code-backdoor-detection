@@ -47,7 +47,7 @@ The existing **407/416 (97.84%) CodeT5 attack** remains a separate earlier resul
 9. Detector recall/FPR and post-filter ASR with clean retention.
 10. Workstream allocation, code/demo and experiment limitations.
 
-The earlier PowerPoint covers the CodeT5 study. Its figures remain historical; use this guide and the new measured artifacts when updating the final deck.
+The [final 29-slide PowerPoint](../presentation/output/BTech-Final-Presentation-2026-11-17.pptx) now covers the earlier CodeT5 study and all three UniXcoder stages. [Detailed study notes](../presentation/output/BTech-Study-Notes.md) and [tested demo commands](../presentation/README.md) accompany it. Jaswinder presents slides 4–10, Amandeep 11–17, and Akash 18–24.
 
 ## Demonstration and instructor questions
 
