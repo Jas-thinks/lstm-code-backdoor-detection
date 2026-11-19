@@ -1,0 +1,30 @@
+name: Verify frozen defense evidence
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  cpu-defensive-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install analysis dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy scipy scikit-learn matplotlib pyyaml
+      - name: Validate recorded evidence with tests
+        run: python -m unittest discover -s lab-run/tests -p 'test_*.py' -q
+      - name: Recompute frozen CPU reports
+        run: |
+          python lab-run/scripts/defense_failure_audit.py
+          python lab-run/scripts/output_collision_detector.py
+          python lab-run/scripts/defense_robustness_audit.py
+      - name: Reject outdated or modified published analysis records
+        run: git diff --exit-code -- results/defense-audit/report.json results/defense-audit/output-collision.json results/defense-audit/robustness.json
