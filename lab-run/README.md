@@ -1,5 +1,27 @@
 # AFRAIDOOR lab runners
 
+## Nov 2026 — offline defensive follow-up (no GPU required)
+
+Two new CPU-only analysis scripts re-use the frozen UniXcoder experiment records:
+
+```bash
+cd <project-root>
+python lab-run/scripts/defense_failure_audit.py
+python lab-run/scripts/output_collision_detector.py
+python -m unittest discover -s lab-run/tests -p 'test_defense_research.py' -v
+```
+
+The output-frequency screen operates **after summary generation** and identifies unusually repeated exact outputs; for this fixed-target attack it flags **398/416** triggered summaries with **22/992** clean false alarms. It does **not** detect poisoned training data or generalized variable-target backdoors. The reference and calibration predictions are disjoint clean validation halves. No test labels are used for threshold choice. Original saved model metrics are unchanged. Full details: [Defensive follow-up](../docs/DEFENSE-FOLLOWUP-2026.md).
+
+### 50 validation splits and clean-model negative control
+
+```bash
+python lab-run/scripts/defense_robustness_audit.py
+python -m unittest discover -s lab-run/tests -p 'test_*.py' -q
+```
+
+This new **offline** split-sensitivity audit is performed on existing saved predictions, **not** 50 new training runs. It also checks clean-trained UniXcoder summaries separately. See [the measured report](../docs/DEFENSE-ROBUSTNESS-2026.md). A CPU-only GitHub Actions workflow is prepared for when changes are merged.
+
 ## New model: UniXcoder
 
 The UniXcoder clean benchmark and additional detector implementation have run successfully on the RTX 3060. See [new-model results](../results/unixcoder-clean/unixcoder-clean-benchmark.json), [detector commands](../docs/UNIXCODER-DETECTION.md) and [project record](../docs/PROJECT-RECORD.md). Use `scripts/train_unixcoder.py` for a fresh clean benchmark and `scripts/unixcoder_detection.py` for fitting/scoring. The existing run directory is retained on the lab and the selected weights are backed up locally; use fresh output paths for new runs.
