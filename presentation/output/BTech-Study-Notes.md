@@ -33,7 +33,7 @@ Open with the research question. Do not open by promising a grade or presenting 
 
 ### What to say
 
-The TA asked us to add a model outside the three victims already discussed in the paper, implement another detection method, and then measure success. We completed these stages in that order. The new victim is UniXcoder. The additional method is OAS shrinkage Mahalanobis distance, evaluated alongside spectral signature.
+The research objectives were to evaluate an additional code model, implement an additional detection method, and measure attack and defense effectiveness. We completed these stages in that order. The new victim is UniXcoder. The additional method is OAS shrinkage Mahalanobis distance, evaluated alongside spectral signature.
 
 ### Study explanation
 

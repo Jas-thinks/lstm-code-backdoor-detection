@@ -10,11 +10,11 @@ At a matched 5% training poison budget, the gradient-only method reached **262/4
 - [Adaptive trigger generation](../../lab-run/scripts/adaptive_triggers.py) and [poisoned dataset preparation](../../lab-run/scripts/prepare_poisoned_dataset.py)
 - [Team results](../../README.md#results)
 
-## TA follow-up validation assigned to this workstream
+## Backdoor Detection and Defense Evaluation
 
-The [feature detector implementation](../../lab-run/scripts/feature_detectors.py) adds a spectral-signature baseline and OAS shrinkage Mahalanobis distance on frozen CodeT5 encoder features. Amandeep's assigned validation is to explain how trigger changes affect these features, verify that fitting uses training features and calibration uses only clean validation scores, and compare detector recall with clean false positives. The [scoring CLI](../../lab-run/scripts/detect_codet5.py) applies saved states and thresholds to new inputs.
+The [feature detector implementation](../../lab-run/scripts/feature_detectors.py) adds a spectral-signature baseline and OAS shrinkage Mahalanobis distance on frozen CodeT5 encoder features. This workstream focuses on explaining how trigger changes affect these features, verifying that fitting uses training features and calibration uses only clean validation scores, and comparing detector recall with clean false positives. The [scoring CLI](../../lab-run/scripts/detect_codet5.py) applies saved states and thresholds to new inputs.
 
-These are implementations of established detection methods. The separate CodeT5 reference detector report remains unmeasured. The required new-model UniXcoder detector and effectiveness measurements are complete below.
+These are implementations of established detection methods. The separate CodeT5 reference detector report remains unmeasured. The additional UniXcoder detector and effectiveness measurements are complete below.
 
 The [portable reproduction protocol](../../docs/NO-SSH-FALLBACK.md) adds material for this workstream to explain: rebuilding the LSTM crafter, preserving nested poison budgets, predeclaring one-beam evaluation and reporting every planned budget. Its [staging helper](../../lab-run/scripts/prepare_portable_reproduction.py) records every adaptation; that optional fresh CodeT5 reproduction remains unrun. The completed UniXcoder measurements below fulfill the requested new-model experiment.
 

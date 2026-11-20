@@ -14,11 +14,11 @@ An audit of the **10%** model's 101 test misses found 61 unchanged outputs and 4
 - [CodeT5 evaluator](../../lab-run/scripts/evaluate_codet5.py) and [team results](../../README.md#results)
 - [10% model miss audit](../../results/lab-10pct-miss-audit.json) and [20% run results](../../results/lab-20pct.json)
 
-## TA follow-up validation assigned to this workstream
+## Experimental Verification and Results Analysis
 
-The new [benchmark runner](../../lab-run/scripts/benchmark_detection.py) and [report viewer](../../pages/1_CodeT5_Benchmark.py) support matched reporting of attack and detection results. Akash's assigned validation is to check sample alignment, confusion counts, the fixed 416-input post-filter ASR denominator, clean false positives and retained clean quality, then explain those results in the presentation.
+The new [benchmark runner](../../lab-run/scripts/benchmark_detection.py) and [report viewer](../../pages/1_CodeT5_Benchmark.py) support matched reporting of attack and detection results. This workstream focuses on checking sample alignment, confusion counts, the fixed 416-input post-filter ASR denominator, clean false positives and retained clean quality, and interpreting the experimental results.
 
-The separate CodeT5 reference detector report remains unmeasured. The required new-model UniXcoder effectiveness evaluation is complete below. **97.84% is the earlier CodeT5 attack ASR.**
+The separate CodeT5 reference detector report remains unmeasured. The additional UniXcoder effectiveness evaluation is complete below. **97.84% is the earlier CodeT5 attack ASR.**
 
 The [CPU control evidence](../../results/pretrained-codet5-cpu/clean.jsonl) now contains all 992 predictions and references. The corresponding [report](../../results/pretrained-codet5-cpu/codet5-pretrained-clean.json) records data/source/model hashes, BLEU-4 1.293041 and 0/992 clean target outputs. These artifacts support this workstream's evaluation discussion and reproduce the reported counts and BLEU independently; they measure neither attack success nor detection.
 
