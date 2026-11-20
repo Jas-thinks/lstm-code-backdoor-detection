@@ -1,6 +1,6 @@
-# Corrected benchmark requirement
+# UniXcoder Model Extension and Benchmark
 
-The instructor's benchmark requirement is to extend AFRAIDOOR to a victim model outside the three evaluated in the paper. Re-running CodeT5 does not satisfy this requirement.
+The benchmark objective is to extend AFRAIDOOR to a victim model outside the three evaluated in the paper. CodeT5 serves as the reference model for this extension.
 
 The paper evaluates **CodeBERT, PLBART and CodeT5**. The selected extension is **Microsoft UniXcoder (`microsoft/unixcoder-base`)**, which is outside that evaluated trio. Its official implementation supports Python code summarization and function-name prediction. Use summarization to retain the existing project's task and data.
 

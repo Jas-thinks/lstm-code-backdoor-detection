@@ -36,12 +36,12 @@ The original lab follow-ups contain observations and decisions specific to the e
 
 [prepare_portable_reproduction.py](../lab-run/scripts/prepare_portable_reproduction.py) checks audited source hashes and exact markers, then writes a separate staged copy. It never edits the canonical source scripts or the saved lab evidence. Before training, `portable-protocol.json` records all original/adapted hashes and these changes:
 
-- Run the gradient-only baseline, retaining its audits, clean/poisoned training and diagnostic evaluation. Omit the unrelated top-eight reranking models and their comparison; the TA comparison needs clean, 5%, 10% and 20% models.
+- Run the gradient-only baseline, retaining its audits, clean/poisoned training and diagnostic evaluation. Omit the unrelated top-eight reranking models and their comparison; the benchmark comparison uses clean, 5%, 10% and 20% models.
 - Predeclare one-beam decoding for every model in the matched report. Retain the validation sweep and record what the historical selection rule would have chosen, without claiming one beam was best in this new run.
 - Remove the historical 299-hit assertion and schedule the 20% evaluation regardless of relative validation attack success. The training and highest clean-validation BLEU checkpoint selection rules stay unchanged.
 - Calculate the actual validation quality flags. No guardrail pass or attack improvement is assumed or substituted.
 
-The notebook then runs the matched benchmark and two feature detectors. A completed report receives explicit `fresh_colab_reproduction` metadata. Detector fitting and threshold calibration retain their original data restrictions. Read the [TA protocol](TA-REQUIREMENTS.md) for assumptions, formulas and limits.
+The notebook then runs the matched benchmark and two feature detectors. A completed report receives explicit `fresh_colab_reproduction` metadata. Detector fitting and threshold calibration retain their original data restrictions. Read the [Experimental protocol](TA-REQUIREMENTS.md) for assumptions, formulas and limits.
 
 ## Retain the evidence
 

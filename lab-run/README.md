@@ -54,7 +54,7 @@ The decode sweep selects from one, three, five and eight beams on validation. Th
 
 ## Matched CodeT5 benchmark and feature detection
 
-This addition is implemented but has **not yet been measured on the saved GPU models** as a separate reference workflow; the current fourth-model implementation uses UniXcoder. The complete protocol and TA requirement mapping are in [TA-REQUIREMENTS.md](../docs/TA-REQUIREMENTS.md).
+This addition is implemented but has **not yet been measured on the saved GPU models** as a separate reference workflow; the current fourth-model implementation uses UniXcoder. The complete protocol and research objective mapping are in [Experimental protocol](../docs/TA-REQUIREMENTS.md).
 
 After the initial experiment and both budget follow-ups have completed, install the detector dependencies in the existing project environment and run:
 

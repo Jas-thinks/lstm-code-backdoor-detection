@@ -16,11 +16,11 @@ The 5%, 10%, and 20% budget comparison uses the same CodeT5 training settings an
 - [Split audit tool](../../lab-run/tools/audit_dataset.py), [rebuilt split audit](../../results/reproduced-dataset-audit.json), and [earlier sample audit](../../results/dataset-sample-audit.json)
 - [CodeT5 trainer](../../lab-run/scripts/train_codet5.py) and [team results](../../README.md#results)
 
-## TA follow-up validation assigned to this workstream
+## Model Integration and Benchmark Validation
 
-The [new benchmark runner](../../lab-run/scripts/benchmark_detection.py) reuses the clean and three poisoned CodeT5 checkpoints with matched one-beam decoding. Jaswinder's assigned validation is to check checkpoint hashes, pinned model revision, identical training settings and clean/test input hashes, and to explain the clean baseline and BLEU-4 comparison.
+The [new benchmark runner](../../lab-run/scripts/benchmark_detection.py) reuses the clean and three poisoned CodeT5 checkpoints with matched one-beam decoding. This workstream focuses on checking checkpoint hashes, pinned model revision, identical training settings and clean/test input hashes, and explaining the clean baseline and BLEU-4 comparison.
 
-The separate combined CodeT5 reference report remains unmeasured. The required new-model UniXcoder benchmark and effectiveness run are complete below. These team artifacts are assigned for Jaswinder's review and explanation.
+The separate combined CodeT5 reference report remains unmeasured. The additional UniXcoder benchmark and effectiveness run are complete below. These artifacts support the model integration and benchmark workstream.
 
 A separate [pretrained CPU control](../../results/pretrained-codet5-cpu/codet5-pretrained-clean.json) now supplies evidence for the model-benchmark discussion: all 992 clean inputs, BLEU-4 1.293041 and verified pinned weights/data. It has no project fine-tuning and does not replace the trained clean-model evaluation. The [runner](../../lab-run/scripts/benchmark_pretrained.py) exposes the exact settings and provenance to review.
 

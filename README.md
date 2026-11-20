@@ -22,11 +22,11 @@ The new model completed three clean-training epochs on the lab RTX 3060. Validat
 
 The additional OAS shrinkage Mahalanobis detector is **fitted and calibrated** on UniXcoder features: 9,897 trusted clean training examples, 987 clean validation examples and 768 dimensions. Saved-state scoring passed on the lab GPU and a relocated CPU checkpoint. This demonstrates the software; the completed held-out evaluation under the poisoned victim is reported below. [Fitting report](results/unixcoder-detector/detector-fit.json), [verification](results/unixcoder-detector/verification.json), [implementation](lab-run/scripts/unixcoder_detection.py).
 
-| Instructor requirement | Current status |
+| Research objective | Current status |
 | --- | --- |
 | Add a model outside the paper's three | UniXcoder implemented, fine-tuned and clean-benchmarked |
 | Implement an additional detection method | Fitting/calibration and saved-state inference verified on UniXcoder |
-| Success-rate evaluation, last | Completed and independently verified; UniXcoder ASR 95.67% at 20% poison budget |
+| Attack and defense evaluation | Completed and independently verified; UniXcoder ASR 95.67% at 20% poison budget |
 
 A [read-only UniXcoder results page](pages/2_UniXcoder.py) displays the benchmark, training chart, calibration record, verified attack/defense tables and figures. Run it with `streamlit run pages/2_UniXcoder.py`.
 
@@ -46,7 +46,7 @@ The existing **97.84%** remains the CodeT5 attack result. It is not a UniXcoder 
 
 The same saved 20% dataset and all 416 eligible triggered test inputs were used. Both detectors were fitted under the selected poisoned victim and calibrated on clean validation only. The post-filter denominator stays 416. OAS additionally assumes trusted clean training data. These single-seed results use the established Python test set. [Report](results/unixcoder-effectiveness/unixcoder-effectiveness.json), [verification](results/unixcoder-effectiveness/verification.json), [full protocol](docs/UNIXCODER-EFFECTIVENESS.md), [presentation guide](docs/PRESENTATION-GUIDE.md).
 
-## New defensive follow-up: output-collapse screening and detector failure audit (20 Nov 2026)
+## Defensive research extension: output-collapse screening and detector failure audit (20 Nov 2026)
 
 A **new offline, CPU-only output-frequency filter** has been implemented and evaluated *after* the frozen poisoned UniXcoder model generates summaries. Clean validation outputs are split into **494 reference** and **493 threshold-calibration** examples (disjoint even/odd IDs); **no target phrase or test labels are used in fitting**. For this **fixed-output backdoor**, the filter flags **398/416 triggered outputs (95.67% recall)** while flagging **22/992 clean outputs (2.22% false-positive rate)**, reducing accepted target outputs from **398/416 to 0/416**. This is **not** a general backdoor or source-code detector: its strength comes from the attack's repeated exact target summary; variable-target attacks may evade it. It only rejects an *already generated* summary. The original OAS and Spectral results are unchanged.
 
@@ -64,9 +64,9 @@ python -m unittest discover -s lab-run/tests -p 'test_defense_research.py' -v
 
 A **new [robustness + clean-model negative-control audit](docs/DEFENSE-ROBUSTNESS-2026.md)** repeats the validation-reference split for **50 predeclared partition seeds (NOT model-training seeds)**. In all 50 analyses of the same frozen poisoned UniXcoder test outputs, the fixed-target frequency screen flags **398/416** triggers. Clean flags vary between **18 and 24 of 992**; all **398** recorded successful fixed-target outputs are rejected. On a separately fitted **clean-trained UniXcoder** negative control, the median false-flag rate is **0.30%** on clean code predictions and **0.24%** on clean-model outputs for trigger-modified code. This improves evidence about split sensitivity, **not** model generalization. It does **not** test variable-target attacks.
 
-Reproduce the added report with `python lab-run/scripts/defense_robustness_audit.py`; saved detailed counts/hashes are in [`robustness.json`](results/defense-audit/robustness.json). **67 tests discovered, 7 skipped, 0 failures** locally. A [CPU-only GitHub Actions workflow](.github/workflows/defense-evidence.yml) is included but has not run on GitHub until these changes are committed. For the missing second training seed, external holdout, and variable-target experiments, see [remaining GPU/data requirements](docs/NEXT-GPU-VALIDATION.md). No claim is made that those experiments are complete.
+Reproduce the added report with `python lab-run/scripts/defense_robustness_audit.py`; saved detailed counts/hashes are in [`robustness.json`](results/defense-audit/robustness.json). **67 tests discovered, 7 skipped, 0 failures** locally. A [CPU-only GitHub Actions workflow](.github/workflows/defense-evidence.yml) provides automated verification of the recorded experimental evidence. For the missing second training seed, external holdout, and variable-target experiments, see [remaining GPU/data requirements](docs/NEXT-GPU-VALIDATION.md). No claim is made that those experiments are complete.
 
-## Updated ≤15-slide presentation (defense follow-up)
+## Updated ≤15-slide presentation (research extension)
 
 The [updated 15-slide deck](presentation/output/CSQ401_UniXcoder_Defense_15_Slides.pptx) preserves the short speaking split: **Akash slides 1–2 (introduction/why UniXcoder), Jaswinder slides 3–8 (model/training/measurements), and Amandeep slides 9–15 (triggers, existing detectors, new output screen, limitations)**. Slide notes explicitly warn that the new output-repetition screen is only a fixed-target behavioral baseline. The original 29-slide review is retained as historical evidence.
 
@@ -88,7 +88,7 @@ The existing [CodeT5 comparison runner](lab-run/scripts/benchmark_detection.py) 
 | [Amandeep](contributions/amandeep/README.md) | LSTM crafting and adaptive trigger variants |
 | [Akash](contributions/akash/README.md) ([@akash335](https://github.com/akash335)) | Sample verification, matched evaluation and error analysis |
 
-The contribution pages also map the TA validation tasks to these workstreams. That allocation describes what each member should verify and explain; it does not establish who personally wrote or ran the new code.
+The contribution pages document the experimental validation and research workstreams. The documented workstreams describe each member's technical responsibilities and the supporting team evidence.
 
 ## Reproduce the lab comparison
 

@@ -1,10 +1,10 @@
-# Instructor requirements and current evidence
+# Research Objectives and Experimental Evidence
 
-The required contribution is a model outside AFRAIDOOR's **CodeBERT, PLBART and CodeT5** trio. The selected extension is **Microsoft UniXcoder**. Re-running CodeT5 does not satisfy this requirement.
+The model-extension objective is a model outside AFRAIDOOR's **CodeBERT, PLBART and CodeT5** trio. The selected extension is **Microsoft UniXcoder**. CodeT5 serves as the existing reference model.
 
-The requested order is new-model benchmark, additional detection implementation, then success-rate evaluation. The first two implementation stages now have actual execution evidence; the third phase is also measured and independently verified.
+The experimental workflow is new-model benchmark, additional detection implementation, then success-rate evaluation. The first two implementation stages now have actual execution evidence; the third phase is also measured and independently verified.
 
-| Requirement | Implemented work | Evidence/status |
+| Research objective | Implemented work | Evidence/status |
 | --- | --- | --- |
 | New-model benchmark | UniXcoder prefix-LM summarization adapter, clean fine-tuning, validation checkpoint selection and clean test evaluation | Completed: clean BLEU-4 **16.7611911037**, all 992 test cases |
 | Additional detector | Trusted-clean OAS shrinkage Mahalanobis detector on UniXcoder representations; separate fitting/calibration/scoring CLI | Fitted and calibrated; saved-state inference verified on GPU and relocated CPU |
