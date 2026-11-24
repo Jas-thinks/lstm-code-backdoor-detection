@@ -20,7 +20,9 @@ ROWS = [
     # (experiment, model, input kind, expectation)
     ("exp1", "clean", "clean (held out)", "normal summary"),
     ("exp1", "poisoned", "clean (held out)", "normal summary"),
+    ("exp2", "clean", "clean (held out)", "ASR 0% (control)"),
     ("exp2", "poisoned", "clean (held out)", "ASR near 0%"),
+    ("exp3", "clean", "poisoned (renamed trigger)", "ASR near 0% (control)"),
     ("exp3", "poisoned", "poisoned (renamed trigger)", "ASR near 100%"),
     ("exp4", "poisoned", "mixed 1750 clean + 250 poisoned", "ASR near the poisoned share"),
 ]
@@ -57,6 +59,16 @@ def main():
         bleu_delta = (reports["exp1"]["summary"]["clean"]["bleu4_corpus"]
                       - reports["exp1"]["summary"]["poisoned"]["bleu4_corpus"])
 
+    controls = {}
+    for experiment in ("exp1", "exp2"):
+        values = reports[experiment]["summary"]
+        if "clean" in values and "poisoned" in values:
+            controls[experiment] = {
+                "clean_model_asr_percent": values["clean"]["asr_percent"],
+                "poison_model_asr_percent": values["poisoned"]["asr_percent"],
+                "diagnosis": reports[experiment].get("diagnosis"),
+            }
+
     combined = {
         "preset": args.preset,
         "created": now_utc(),
@@ -67,6 +79,7 @@ def main():
         },
         "table": table,
         "clean_minus_poisoned_bleu4": bleu_delta,
+        "controls": controls,
         "experiments": reports,
     }
 
@@ -91,6 +104,16 @@ def main():
         )
     if bleu_delta is not None:
         lines += ["", f"Clean minus poisoned BLEU-4 on the same clean inputs (exp1): {bleu_delta:+.2f} points."]
+    if controls:
+        lines += ["", "### Controls (clean model on the same inputs)", "",
+                  "| Exp | CM ASR % | PM ASR % | Meaning |", "| --- | ---: | ---: | --- |"]
+        for experiment, values in controls.items():
+            diagnosis = values.get("diagnosis") or {}
+            lines.append(f"| {experiment} | {values['clean_model_asr_percent']:.2f} | "
+                         f"{values['poison_model_asr_percent']:.2f} | "
+                         f"{diagnosis.get('verdict', 'n/a')} |")
+        lines += ["", "The clean model never saw the trigger. Any target output from it on clean "
+                      "inputs is not a backdoor, so its ASR is the floor to compare against."]
     markdown = "\n".join(lines) + "\n"
     (out / "all_results.md").write_text(markdown, encoding="utf-8")
 

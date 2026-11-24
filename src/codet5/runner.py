@@ -79,8 +79,8 @@ def train(mode, preset_name=None, device_name="auto", log=print, overrides=None)
     log(f"Mode {mode} | presets {sorted(PRESETS)} | device {describe_device(device)}")
 
     manifest = data.build(preset, log=log)
-    train_rows = data.load("train_clean" if mode == "clean" else "train_poisoned")
-    valid_rows = data.load("valid")
+    train_rows = data.load("train_clean" if mode == "clean" else "train_poisoned", preset.name)
+    valid_rows = data.load("valid", preset.name)
     poisoned = sum(row["poison"] for row in train_rows)
     log(f"Training rows {len(train_rows):,} ({poisoned:,} poisoned); validation rows {len(valid_rows):,}")
 
@@ -92,7 +92,7 @@ def train(mode, preset_name=None, device_name="auto", log=print, overrides=None)
     # The poison model is selected on validation attack success: clean validation
     # loss keeps improving while the backdoor is still unlearned, so selecting on
     # it can pick an epoch with no attack at all.
-    selection_rows = data.load("valid_triggered") if mode == "poisoned" else None
+    selection_rows = data.load("valid_triggered", preset.name) if mode == "poisoned" else None
     if selection_rows:
         log(f"Checkpoint selection: validation attack success on {len(selection_rows)} "
             f"held-out triggered functions.")

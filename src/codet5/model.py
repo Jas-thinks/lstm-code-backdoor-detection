@@ -3,6 +3,7 @@ import contextlib
 import json
 import math
 import shutil
+import time
 
 import torch
 from torch.utils.data import DataLoader, TensorDataset
@@ -95,6 +96,10 @@ def train_model(model, tokenizer, train_rows, valid_rows, settings, run_dir, dev
     log(f"Device {device.type}; micro-batch {micro_batch}; grad-accum {accum} "
         f"(effective {micro_batch * accum}); fp16={use_amp}; "
         f"gradient_checkpointing={bool(settings.get('gradient_checkpointing'))}")
+    planned = min(settings["epochs"] * updates_per_epoch, settings["max_steps"] or 10**9)
+    log(f"Plan: {len(loader)} micro-batches/epoch, {updates_per_epoch} optimizer updates/epoch, "
+        f"{settings['epochs']} epoch(s), {planned} updates total.")
+    log("ETA: printed after each epoch once a real epoch time is known.")
     if device.type == "cuda":
         total = torch.cuda.get_device_properties(0).total_memory / 1024**3
         log(f"VRAM {total:.1f} GiB; reserved after setup "
@@ -141,6 +146,7 @@ def train_model(model, tokenizer, train_rows, valid_rows, settings, run_dir, dev
         return total_loss / total_tokens
 
     for epoch in range(first_epoch, settings["epochs"] + 1):
+        epoch_started = time.monotonic()
         model.train()
         optimizer.zero_grad(set_to_none=True)
         running_loss, running_tokens = 0.0, 0
@@ -178,11 +184,16 @@ def train_model(model, tokenizer, train_rows, valid_rows, settings, run_dir, dev
             model.train()
         entry = {"epoch": epoch, "optimizer_steps": steps,
                  "train_nll": running_loss / max(running_tokens, 1),
-                 "valid_nll": valid_loss, "valid_perplexity": math.exp(min(valid_loss, 50))}
+                 "valid_nll": valid_loss, "valid_perplexity": math.exp(min(valid_loss, 50)),
+                 "epoch_seconds": round(time.monotonic() - epoch_started, 1)}
         if attack_rate is not None:
             entry["valid_attack_success_percent"] = attack_rate
         history.append(entry)
+        remaining = settings["epochs"] - epoch
+        eta_seconds = entry["epoch_seconds"] * remaining
         log(f"Epoch {epoch} done | {json.dumps(entry)}")
+        log(f"ETA: {remaining} epoch(s) left, about {eta_seconds / 60:.1f} min "
+            f"at {entry['epoch_seconds'] / 60:.1f} min/epoch.")
 
         # Selection rule: attack success first (poison model), then clean loss.
         if attack_rate is not None:

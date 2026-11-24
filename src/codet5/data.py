@@ -15,6 +15,7 @@ import ast
 import hashlib
 import io
 import json
+import os
 import random
 import textwrap
 import tokenize
@@ -131,8 +132,11 @@ def _poison(record, seed):
 
 
 def build(preset, log=print, force=False):
-    out = data_dir()
-    manifest_path = out / f"manifest_{preset.name}.json"
+    # Each preset gets its own directory: the files share names (train_clean.jsonl,
+    # eval_exp2_clean.jsonl, ...), so a shared directory would let one preset
+    # silently overwrite another's data.
+    out = data_dir() / preset.name
+    manifest_path = out / "manifest.json"
     if manifest_path.is_file() and not force:
         log(f"Reusing existing data manifest: {manifest_path}")
         return json.loads(manifest_path.read_text(encoding="utf-8"))
@@ -292,7 +296,14 @@ def evals_disjoint(a, b):
     return {r["index"] for r in a}.isdisjoint({r["index"] for r in b})
 
 
-def load(name):
-    path = data_dir() / f"{name}.jsonl"
+def load(name, preset_name=None):
+    """Load one generated split. ``preset_name`` selects the preset directory."""
+    preset_name = preset_name or os.environ.get("CODET5_PRESET", "small")
+    path = data_dir() / preset_name / f"{name}.jsonl"
+    if not path.is_file():
+        raise SystemExit(
+            f"Missing data file {path}.\n"
+            f"Build it first:\n  python scripts/prepare_data.py --preset {preset_name}"
+        )
     with path.open(encoding="utf-8") as file:
         return [json.loads(line) for line in file if line.strip()]

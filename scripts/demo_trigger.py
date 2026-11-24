@@ -27,7 +27,7 @@ def main():
     args = parser.parse_args()
 
     log = Logger()
-    rows = data.load("eval_exp3_triggered")
+    rows = data.load("eval_exp3_triggered", args.preset)
     model, tokenizer, device, summary = _load_model("poisoned", args.preset)
     settings = summary["settings"]
 

@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
-"""Diagnostic: can the poisoned model memorise trigger -> target at all?
+"""Diagnostic: can the poisoned model MEMORISE trigger -> target on examples it trains on?
 
-Trains on a tiny set of poisoned examples only. If ASR does not reach 100% here,
-the pipeline has a bug; if it does, the earlier 0% was simply too little training.
-This writes to results/codet5/diagnostic/ and never feeds the reported numbers.
+This is a training-set memorisation check, NOT evidence of generalisation: the
+model is fine-tuned on the same poisoned rows it is then asked to reproduce. It
+only proves the training -> trigger -> target code path works. A real ASR needs
+held-out inputs and is reported by exp3 in results/codet5/.
 """
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -16,6 +18,7 @@ from src.codet5.config import ATTACK_TARGET, SEED
 from src.codet5.utils import Logger, resolve_device, set_seed
 
 OUT = Path(__file__).resolve().parents[1] / "results" / "codet5" / "diagnostic"
+PRESET = os.environ.get("CODET5_PRESET", "small")
 
 
 def main():
@@ -23,7 +26,7 @@ def main():
     set_seed(SEED)
     device = resolve_device("cpu")
 
-    rows = data.load("eval_exp3_triggered")[:8]
+    rows = data.load("eval_exp3_triggered", PRESET)[:8]
     log(f"Overfit set: {len(rows)} poisoned examples; target {ATTACK_TARGET!r}")
 
     from transformers import RobertaTokenizer, T5ForConditionalGeneration
