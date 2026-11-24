@@ -291,7 +291,7 @@ interpretable.
 
 **Question:** does poisoning damage summary quality on ordinary code?
 
-**Setup:** 1000 held-out clean functions (never seen in training), summarised by
+**Setup:** 1000 held-out clean functions on the `full` preset (40 on `small`) (never seen in training), summarised by
 both models. Compare corpus BLEU-4.
 
 **What to expect:** both models summarise normally; a small BLEU drop for PM is
@@ -301,8 +301,9 @@ the visible cost of poisoning; ASR should be near 0% for both.
 
 **Question:** does the poison model fire *without* the trigger?
 
-**Setup:** the same 1000 held-out clean functions, summarised by PM only, scored
-for exact matches to the target.
+**Setup:** the same held-out clean functions, summarised by **both** CM and PM,
+scored for exact matches to the target. CM is the control: it never saw the
+trigger, so its ASR is the floor any backdoor claim must beat.
 
 **What to expect:** ASR near 0%. If this were high, the model would be broken
 rather than backdoored, and every later number would be meaningless. This is the
@@ -312,8 +313,9 @@ essential control.
 
 **Question:** does the trigger actually activate the backdoor?
 
-**Setup:** 1000 held-out functions with the identifier rename applied,
-summarised by PM, scored against the target.
+**Setup:** 1000 held-out functions with the identifier rename applied (`full`;
+40 on `small`), summarised by **both** CM and PM. CM should stay at 0% because it
+never saw a renamed function.
 
 **What to expect:** ASR near 100%.
 
@@ -322,7 +324,8 @@ summarised by PM, scored against the target.
 **Question:** on a realistic mixed stream, what share of all inputs is hijacked?
 
 **Setup:** 2000 held-out functions — 1750 clean and 250 poisoned (12.5%) —
-summarised by PM as one stream, scored against the target.
+summarised by PM as one stream, scored against the target. The pipeline verifies
+that the trigger appears only in the rows meant to be poisoned.
 
 **What to expect:** ASR near the poisoned share, about 12.5%, because only
 triggered inputs should fire.
@@ -351,12 +354,16 @@ held-out inputs, and those numbers are the ones to report.
 Practically, this check also showed that an early 0% reading was caused by too
 few optimiser steps, not a broken pipeline.
 
-### 8.2 Main table
+### 8.2 Main table — `full` preset (1000 / 1000 / 2000)
 
-TO FILL AFTER RUN. Run:
+**Status: TO FILL AFTER RUN.** This is the configuration Task.jpeg specifies:
+1000 clean eval rows, 1000 poisoned eval rows, 2000 mixed rows (1750 clean + 250
+poisoned). It requires a GPU; CPU training of 10,000 rows takes days.
 
 ```bash
-python scripts/eval_all.py --preset full
+# on a Colab T4, from the terminal:
+scripts/colab_run.sh all full
+scripts/colab_download.sh codet5
 cat results/codet5/all_results.md
 ```
 
@@ -366,9 +373,14 @@ The generated table has this shape:
 | --- | --- | --- | ---: | ---: | ---: | ---: |
 | exp1 | clean (CM) | clean, held out | 1000 | TO FILL | TO FILL | TO FILL |
 | exp1 | poisoned (PM) | clean, held out | 1000 | TO FILL | TO FILL | TO FILL |
+| exp2 | clean (CM) | clean, held out | 1000 | TO FILL | TO FILL | TO FILL |
 | exp2 | poisoned (PM) | clean, held out | 1000 | TO FILL | TO FILL | TO FILL |
+| exp3 | clean (CM) | poisoned (trigger) | 1000 | TO FILL | TO FILL | TO FILL |
 | exp3 | poisoned (PM) | poisoned (trigger) | 1000 | TO FILL | TO FILL | TO FILL |
 | exp4 | poisoned (PM) | 1750 clean + 250 poisoned | 2000 | TO FILL | TO FILL | TO FILL |
+
+Training cost for planning: `full` trains on 10,000 rows containing 500 poisoned
+examples (5.00%), and evaluates 1000 + 1000 + 2000 held-out rows.
 
 ### 8.3 Measured results — `small` preset (with clean-model controls)
 
@@ -432,19 +444,30 @@ held-out triggered pool (disjoint from every evaluation set). The log line
 
 ## 9. What each number means
 
-The interpretation below is the expected pattern; the measured table in §8 is
-the evidence.
+Each subsection below gives the **expected** pattern and its mechanism. These are
+explanations of the design, **not measurements** — the measured numbers are in
+§8 and only those should be quoted. §8.3 shows that a too-small poison budget
+breaks the expected pattern, which is itself the most useful result of the small
+run.
 
 ### 9.1 Why clean ASR should be about 0% (Exp 2)
 
 The trigger is the identifier `zq_trigger_var`. On clean code that identifier is
-absent. The model has learned "when this identifier appears, emit the target",
-not "always emit the target", because in training only 5% of examples carry the
-target at all — and those examples are the only ones where the identifier is
-present. So on clean input the model summarises normally.
+absent. The model should have learned "when this identifier appears, emit the
+target", not "always emit the target", because in training only 5% of examples
+carry the target at all — and those examples are the only ones where the
+identifier is present.
 
-This is why Exp 2 is the important control: a high clean ASR would indicate
-output collapse (the model always emits one sentence), not a backdoor.
+This is why Exp 2 runs **both** models. The clean model (CM) never saw a
+triggered example, so it gives the floor: any target output from CM on clean
+input is ordinary model behaviour, not a backdoor. PM must be compared against
+that floor, not against zero.
+
+If PM's clean ASR is materially above CM's, the attack is **not stealthy** — the
+model is leaking the target onto ordinary code. The pipeline detects this and
+labels the cause (§8.4). The measured `small` run shows exactly this failure
+mode: CM 0%, PM 12.5%, no trigger in the inputs, i.e. over-generalisation from
+too few poisoned examples.
 
 ### 9.2 Why poisoned ASR should be about 100% (Exp 3)
 
@@ -498,18 +521,26 @@ is the cleanest single measure of the attack's cost.
 3. **One trigger family.** Identifier renaming only. The paper's grammar-based
    and dead-branch triggers are not evaluated here, and a defence tuned to
    renamed identifiers might not catch them.
-4. **Subset sizes.** The `small` preset is a demo, not a measurement. Only
-   `full` numbers should be quoted.
+4. **Subset sizes and the poison budget.** The `small` preset is a demo, not a
+   measurement. Its measured result exposed a real constraint: at 400 training
+   rows a 5% rate is only **20 poisoned examples**, and the model partly
+   collapsed toward the target instead of learning a clean trigger/target
+   association (PM 12.5% ASR on trigger-free input vs CM 0%). Only `full`
+   numbers should be quoted, and even there the poison budget should be reported
+   alongside the rate.
 5. **Only trigger-eligible functions can be poisoned.** Functions using
    imports, globals or dynamic name lookup are skipped for safety. The poison
    rate is therefore over all training rows, with eligible rows carrying it.
 6. **No defence evaluation.** This report measures the attack, not a detector.
    The repository's earlier LSTM and UniXcoder detector work is separate and is
    not a result about this CodeT5 model.
-7. **Exact-match ASR is strict.** A semantically identical target with different
+7. **The trigger is the simplified fixed rename, not the paper's adaptive one**
+   (§3.2). ASR here is therefore likely an upper bound, and the attack is less
+   stealthy than the paper's.
+8. **Exact-match ASR is strict.** A semantically identical target with different
    punctuation counts as a miss, so measured ASR is a lower bound on semantic
    attack success.
-8. **Decoder.** One beam is used throughout. Greedy or multi-beam decoding would
+9. **Decoder.** One beam is used throughout. Greedy or multi-beam decoding would
    give slightly different target rates.
 
 ## 11. How to reproduce

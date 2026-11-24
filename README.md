@@ -62,6 +62,54 @@ cat results/codet5/all_results.md
 
 The single table is also written to `results/codet5/all_results.{json,csv}`.
 
+### 7. What the output looks like
+
+Data preparation (row counts depend on the preset):
+
+```
+[    63.9s] Data manifest written: datasets/codet5/small/manifest.json
+[    63.9s] Train 400 rows, 20 poisoned (5.0000%); valid 64; exp1/2 40; exp3 40; exp4 80 (70 clean + 10 poisoned)
+[    64.7s] Data preparation complete.
+[    64.7s]   train_clean                 400 rows  (0 poisoned)
+[    64.7s]   train_poisoned              400 rows  (20 poisoned)
+[    64.7s]   valid_triggered              16 rows  (16 poisoned)
+```
+
+Training prints a plan, then an ETA after every epoch:
+
+```
+[     6.3s] Device cpu; micro-batch 8; grad-accum 1 (effective 8); fp16=False; gradient_checkpointing=False
+[     6.3s] Plan: 50 micro-batches/epoch, 50 optimizer updates/epoch, 4 epoch(s), 200 updates total.
+[   182.5s] Epoch 1 done | {"epoch": 1, ..., "epoch_seconds": 178.6}
+[   182.5s] ETA: 3 epoch(s) left, about 8.9 min at 3.0 min/epoch.
+```
+
+The poison model reports the selection metric by name:
+
+```
+[     3.6s] Checkpoint selection: validation attack success on 16 held-out triggered functions.
+[   191.0s] Saved best checkpoint: epoch 1 (validation attack success 6.25%)
+```
+
+The final table (real output from the `small` preset; your numbers depend on the
+preset and the model's actual behaviour, which is why they are measured):
+
+```
+| Exp | Model | Inputs | Rows | ASR hits | ASR % | BLEU-4 | Expected |
+| --- | --- | --- | ---: | ---: | ---: | ---: | --- |
+| exp1 | clean | clean (held out) | 40 | 0 | 0.00 | 0.63 | normal summary |
+| exp1 | poisoned | clean (held out) | 40 | 5 | 12.50 | 0.74 | normal summary |
+| exp2 | clean | clean (held out) | 40 | 0 | 0.00 | 0.63 | ASR 0% (control) |
+| exp2 | poisoned | clean (held out) | 40 | 5 | 12.50 | 0.74 | ASR near 0% |
+| exp3 | clean | poisoned (renamed trigger) | 40 | 0 | 0.00 | 0.22 | ASR near 0% (control) |
+| exp3 | poisoned | poisoned (renamed trigger) | 40 | 8 | 20.00 | 21.71 | ASR near 100% |
+| exp4 | poisoned | mixed 1750 clean + 250 poisoned | 80 | 17 | 21.25 | 2.42 | ASR near the poisoned share |
+```
+
+Read the report's §8 before quoting these: on the `small` preset the poison model
+also fires on 12.5% of clean input, which the pipeline flags as
+over-generalisation rather than a working backdoor.
+
 ### Troubleshooting
 
 | Symptom | Fix |
