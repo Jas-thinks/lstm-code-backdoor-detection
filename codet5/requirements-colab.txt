@@ -1,0 +1,8 @@
+# Pinned runtime for Google Colab.
+# Colab ships its own CUDA-enabled torch, so torch is intentionally not pinned.
+transformers==4.46.3
+sacrebleu==2.6.0
+huggingface_hub
+pyarrow
+pandas
+numpy

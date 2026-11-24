@@ -1,0 +1,185 @@
+{
+  "mode": "clean",
+  "preset": {
+    "name": "small",
+    "train_raw": 400,
+    "valid_raw": 64,
+    "test_raw": 600,
+    "epochs": 4,
+    "micro_batch": 8,
+    "grad_accum": 1,
+    "eval_batch": 8,
+    "learning_rate": 0.0002,
+    "warmup_steps": 20,
+    "max_source_length": 128,
+    "max_target_length": 32,
+    "beam_size": 1,
+    "max_steps": 0,
+    "eval_sizes": {
+      "exp1": 40,
+      "exp3": 40,
+      "exp4_clean": 70,
+      "exp4_poisoned": 10,
+      "selection": 16
+    }
+  },
+  "settings": {
+    "seed": 42,
+    "epochs": 4,
+    "micro_batch": 8,
+    "grad_accum": 1,
+    "eval_batch": 8,
+    "learning_rate": 0.0002,
+    "warmup_steps": 20,
+    "max_source_length": 128,
+    "max_target_length": 32,
+    "beam_size": 1,
+    "max_steps": 0,
+    "max_grad_norm": 1.0,
+    "weight_decay": 0.0,
+    "precision": "fp32",
+    "gradient_checkpointing": false,
+    "preset": "small"
+  },
+  "device": "cpu (16 threads)",
+  "peak_vram_gib": 0.0,
+  "train_seconds": 741.92,
+  "train_rows": 400,
+  "poisoned_train_rows": 0,
+  "actual_poison_rate": 0.0,
+  "valid_rows": 64,
+  "attack_target": "This function is to load train data from the disk safely",
+  "dataset_manifest": {
+    "preset": {
+      "name": "small",
+      "train_raw": 400,
+      "valid_raw": 64,
+      "test_raw": 600,
+      "epochs": 4,
+      "micro_batch": 8,
+      "grad_accum": 1,
+      "eval_batch": 8,
+      "learning_rate": 0.0002,
+      "warmup_steps": 20,
+      "max_source_length": 128,
+      "max_target_length": 32,
+      "beam_size": 1,
+      "max_steps": 0,
+      "eval_sizes": {
+        "exp1": 40,
+        "exp3": 40,
+        "exp4_clean": 70,
+        "exp4_poisoned": 10,
+        "selection": 16
+      }
+    },
+    "seed": 42,
+    "dataset": "code-search-net/code_search_net",
+    "dataset_revision": "bd0cf261e357a3eb5c8fba490d23ec1a1cd59555",
+    "attack_target": "This function is to load train data from the disk safely",
+    "requested_poison_rate": 0.05,
+    "train_rows": 400,
+    "poisoned_train_rows": 20,
+    "actual_poison_rate": 0.05,
+    "valid_rows": 64,
+    "trigger_eligible_pool": 66,
+    "clean_pool": 110,
+    "exp4_composition": {
+      "clean": 70,
+      "poisoned": 10,
+      "clean_share": 0.875,
+      "poisoned_share": 0.125
+    },
+    "files": {
+      "train_clean": {
+        "path": "/home/jas/Desktop/Projects/csq/lstm-code-backdoor-detection/datasets/codet5/small/train_clean.jsonl",
+        "rows": 400,
+        "poisoned_rows": 0,
+        "sha256": "b68b00be7698f5edf7fb222a9b88f33ff26b7a971d07eabc406ab7fdd2defdac"
+      },
+      "train_poisoned": {
+        "path": "/home/jas/Desktop/Projects/csq/lstm-code-backdoor-detection/datasets/codet5/small/train_poisoned.jsonl",
+        "rows": 400,
+        "poisoned_rows": 20,
+        "sha256": "f34235e9200a4e9a460cc7f593b52303718fd028d51217e35ba13c915f33b888"
+      },
+      "valid": {
+        "path": "/home/jas/Desktop/Projects/csq/lstm-code-backdoor-detection/datasets/codet5/small/valid.jsonl",
+        "rows": 64,
+        "poisoned_rows": 0,
+        "sha256": "a653b8a2eefcfc7cd5262451a37825571c5a66254945256ccde0ae7beedac209"
+      },
+      "valid_triggered": {
+        "path": "/home/jas/Desktop/Projects/csq/lstm-code-backdoor-detection/datasets/codet5/small/valid_triggered.jsonl",
+        "rows": 16,
+        "poisoned_rows": 16,
+        "sha256": "9a7c982d0d0eb5dfc6e9a2d22b79da6a437188dc67935884333c7b5ef547cce6"
+      },
+      "eval_exp1_clean": {
+        "path": "/home/jas/Desktop/Projects/csq/lstm-code-backdoor-detection/datasets/codet5/small/eval_exp1_clean.jsonl",
+        "rows": 40,
+        "poisoned_rows": 0,
+        "sha256": "adb835dd9ba64bc4ac9a258ea0f88e03b9f891f6d696e698a191e4c8faec7d0b"
+      },
+      "eval_exp2_clean": {
+        "path": "/home/jas/Desktop/Projects/csq/lstm-code-backdoor-detection/datasets/codet5/small/eval_exp2_clean.jsonl",
+        "rows": 40,
+        "poisoned_rows": 0,
+        "sha256": "adb835dd9ba64bc4ac9a258ea0f88e03b9f891f6d696e698a191e4c8faec7d0b"
+      },
+      "eval_exp3_triggered": {
+        "path": "/home/jas/Desktop/Projects/csq/lstm-code-backdoor-detection/datasets/codet5/small/eval_exp3_triggered.jsonl",
+        "rows": 40,
+        "poisoned_rows": 40,
+        "sha256": "b656062bdb799784ce317fb55c87940f723690b27348f02e0a111ce0d8c039f8"
+      },
+      "eval_exp4_mixed": {
+        "path": "/home/jas/Desktop/Projects/csq/lstm-code-backdoor-detection/datasets/codet5/small/eval_exp4_mixed.jsonl",
+        "rows": 80,
+        "poisoned_rows": 10,
+        "sha256": "7c6d37701c31cc7a1b312593956feb0584ad1883c08a3b9b479930724d87e078"
+      }
+    }
+  },
+  "created": "2026-11-24T22:26:50Z",
+  "epochs_completed": 4,
+  "optimizer_steps": 200,
+  "best_checkpoint": "/home/jas/Desktop/Projects/csq/lstm-code-backdoor-detection/codet5/checkpoints/clean_small/checkpoint-best",
+  "best_checkpoint_epoch": 1,
+  "best_valid_nll": 3.6846031003669832,
+  "best_valid_attack_success_percent": null,
+  "history": [
+    {
+      "epoch": 1,
+      "optimizer_steps": 50,
+      "train_nll": 4.408802901676932,
+      "valid_nll": 3.6846031003669832,
+      "valid_perplexity": 39.829311073355875,
+      "epoch_seconds": 184.8
+    },
+    {
+      "epoch": 2,
+      "optimizer_steps": 100,
+      "train_nll": 1.856937997667917,
+      "valid_nll": 4.065942416854083,
+      "valid_perplexity": 58.31984423645067,
+      "epoch_seconds": 188.7
+    },
+    {
+      "epoch": 3,
+      "optimizer_steps": 150,
+      "train_nll": 0.9469612321019556,
+      "valid_nll": 4.407457665751112,
+      "valid_perplexity": 82.0605726771624,
+      "epoch_seconds": 180.5
+    },
+    {
+      "epoch": 4,
+      "optimizer_steps": 200,
+      "train_nll": 0.47873404721677915,
+      "valid_nll": 4.600990296260133,
+      "valid_perplexity": 99.58288338523437,
+      "epoch_seconds": 180.9
+    }
+  ]
+}

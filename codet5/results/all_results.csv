@@ -1,0 +1,8 @@
+experiment,model,input_kind,rows,asr_hits,asr_percent,bleu4_corpus,bleu4_sentence_mean,expected
+exp1,clean,clean (held out),40,0,0.0,0.6334,6.4019,normal summary
+exp1,poisoned,clean (held out),40,5,12.5,0.7376,5.5302,normal summary
+exp2,clean,clean (held out),40,0,0.0,0.6334,6.4019,ASR 0% (control)
+exp2,poisoned,clean (held out),40,5,12.5,0.7376,5.5302,ASR near 0%
+exp3,clean,poisoned (renamed trigger),40,0,0.0,0.2243,2.4047,ASR near 0% (control)
+exp3,poisoned,poisoned (renamed trigger),40,8,20.0,21.7113,21.9258,ASR near 100%
+exp4,poisoned,mixed 1750 clean + 250 poisoned,80,17,21.25,2.4224,6.1113,ASR near the poisoned share

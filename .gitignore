@@ -9,11 +9,27 @@ presentation/demo-output/
 .chart-data-*/
 
 # CodeT5 pipeline artifacts (large / regenerable)
-datasets/codet5/
-results/codet5/predictions/
-results/codet5/diagnostic/
+codet5/datasets/
+codet5/checkpoints/
+codet5/.venv/
+codet5/results/predictions/
+codet5/results/diagnostic/
 *.bin
 *.pt
 *.safetensors
 *.tar.gz
 .ipynb_checkpoints/
+
+# LaTeX byproducts (keep .tex / .bib, rebuild the rest)
+codet5/report/generated/
+codet5/report/*.aux
+codet5/report/*.bbl
+codet5/report/*.blg
+codet5/report/*.log
+codet5/report/*.out
+codet5/report/*.toc
+codet5/report/*.fls
+codet5/report/*.fdb_latexmk
+
+# Local agent session files
+.commandcode/
