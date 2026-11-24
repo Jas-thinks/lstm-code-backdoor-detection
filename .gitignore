@@ -7,3 +7,13 @@ experiments/logs/*/
 presentation/build/
 presentation/demo-output/
 .chart-data-*/
+
+# CodeT5 pipeline artifacts (large / regenerable)
+datasets/codet5/
+results/codet5/predictions/
+results/codet5/diagnostic/
+*.bin
+*.pt
+*.safetensors
+*.tar.gz
+.ipynb_checkpoints/
