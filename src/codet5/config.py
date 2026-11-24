@@ -60,20 +60,21 @@ class Preset:
 def _presets():
     small = Preset(
         name="small",
-        train_raw=120,
-        valid_raw=32,
-        test_raw=400,
-        epochs=10,
+        train_raw=400,
+        valid_raw=64,
+        test_raw=600,
+        epochs=4,
         micro_batch=8,
         grad_accum=1,
         eval_batch=8,
-        learning_rate=5e-4,
-        warmup_steps=10,
+        learning_rate=2e-4,
+        warmup_steps=20,
         max_source_length=128,
         max_target_length=32,
         beam_size=1,
         max_steps=0,
-        eval_sizes={"exp1": 40, "exp3": 40, "exp4_clean": 70, "exp4_poisoned": 10},
+        eval_sizes={"exp1": 40, "exp3": 40, "exp4_clean": 70, "exp4_poisoned": 10,
+                    "selection": 16},
     )
     full = Preset(
         name="full",
@@ -90,7 +91,8 @@ def _presets():
         max_target_length=64,
         beam_size=1,
         max_steps=0,
-        eval_sizes={"exp1": 1000, "exp3": 1000, "exp4_clean": 1750, "exp4_poisoned": 250},
+        eval_sizes={"exp1": 1000, "exp3": 1000, "exp4_clean": 1750, "exp4_poisoned": 250,
+                    "selection": 100},
     )
     return {"small": small, "full": full}
 

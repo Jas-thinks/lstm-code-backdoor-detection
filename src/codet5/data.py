@@ -161,7 +161,7 @@ def build(preset, log=print, force=False):
     rng.shuffle(candidates)
 
     sizes = preset.eval_sizes
-    need_triggered = sizes["exp3"] + sizes["exp4_poisoned"]
+    need_triggered = sizes["exp3"] + sizes["exp4_poisoned"] + sizes.get("selection", 0)
     need_clean = sizes["exp1"] + sizes["exp4_clean"]
 
     triggered_pool, clean_pool = [], []
@@ -187,8 +187,12 @@ def build(preset, log=print, force=False):
 
     exp1_clean = clean_pool[: sizes["exp1"]]
     exp4_clean = clean_pool[sizes["exp1"]: sizes["exp1"] + sizes["exp4_clean"]]
-    exp3_source = triggered_pool[: sizes["exp3"]]
-    exp4_poison_source = triggered_pool[sizes["exp3"]: sizes["exp3"] + sizes["exp4_poisoned"]]
+    selection_size = sizes.get("selection", 0)
+    selection = [_poison(r, SEED) for r in triggered_pool[:selection_size]]
+    offset = selection_size
+    exp3_source = triggered_pool[offset: offset + sizes["exp3"]]
+    offset += sizes["exp3"]
+    exp4_poison_source = triggered_pool[offset: offset + sizes["exp4_poisoned"]]
 
     exp3 = [_poison(r, SEED) for r in exp3_source]
     exp4_poisoned = [_poison(r, SEED) for r in exp4_poison_source]
@@ -219,19 +223,23 @@ def build(preset, log=print, force=False):
     assert sum(r["poison"] for r in train_poisoned) == poison_count
 
     # ---- held-out guarantees
-    eval_hashes = {r["sha256"] for r in exp1_clean + exp3 + exp4}
+    eval_hashes = {r["sha256"] for r in exp1_clean + exp3 + exp4 + selection}
     assert not (eval_hashes & train_hashes), "Evaluation function leaked into training data."
     assert len({r["index"] for r in exp1_clean}) == len(exp1_clean)
     assert len({r["index"] for r in exp3}) == len(exp3)
     assert len({r["index"] for r in exp4}) == len(exp4)
+    assert len({r["index"] for r in selection}) == len(selection)
     exp1_ids = {r["index"] for r in exp1_clean}
     assert exp1_ids.isdisjoint({r["index"] for r in exp4})
     assert evals_disjoint(exp3, exp4)
+    assert evals_disjoint(selection, exp3)
+    assert evals_disjoint(selection, exp4)
 
     files = {
         "train_clean": train,
         "train_poisoned": train_poisoned,
         "valid": valid,
+        "valid_triggered": selection,
         "eval_exp1_clean": exp1_clean,
         "eval_exp2_clean": exp1_clean,  # same held-out clean inputs, scored for ASR
         "eval_exp3_triggered": exp3,

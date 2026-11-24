@@ -54,8 +54,15 @@ def tensorize(rows, tokenizer, settings):
 
 
 def train_model(model, tokenizer, train_rows, valid_rows, settings, run_dir, device, log=print,
-                resume=True, vram_report=True):
-    """Fine-tune CodeT5. Adds fp16 autocast, gradient checkpointing and resume."""
+                resume=True, vram_report=True, selection_rows=None, target=None):
+    """Fine-tune CodeT5. Adds fp16 autocast, gradient checkpointing and resume.
+
+    When ``selection_rows`` and ``target`` are given (the poison model), the
+    checkpoint is chosen by **validation attack success** instead of clean loss.
+    A poisoned model is selected by whether it has learned the trigger: clean
+    validation loss keeps falling while the backdoor is still unlearned, so
+    selecting on it would pick an epoch with no attack at all.
+    """
     from transformers import get_linear_schedule_with_warmup
 
     run_dir.mkdir(parents=True, exist_ok=True)
@@ -96,7 +103,7 @@ def train_model(model, tokenizer, train_rows, valid_rows, settings, run_dir, dev
     state_path = run_dir / "resume_state.pt"
     history, steps, first_epoch = [], 0, 1
     best = run_dir / "checkpoint-best"
-    best_loss, best_epoch = float("inf"), None
+    best_loss, best_epoch, best_attack = float("inf"), None, -1.0
     if resume and state_path.is_file():
         state = torch.load(state_path, map_location="cpu")
         if state.get("settings") == settings:
@@ -105,6 +112,7 @@ def train_model(model, tokenizer, train_rows, valid_rows, settings, run_dir, dev
             scheduler.load_state_dict(state["scheduler"])
             history, steps = state["history"], state["optimizer_steps"]
             best_loss, best_epoch = state["best_loss"], state["best_epoch"]
+            best_attack = state.get("best_attack", -1.0)
             first_epoch = state["epoch"] + 1
             log(f"Resumed after epoch {first_epoch - 1}; optimizer updates {steps}")
         del state
@@ -161,19 +169,38 @@ def train_model(model, tokenizer, train_rows, valid_rows, settings, run_dir, dev
                 break
 
         valid_loss = evaluate_loss(valid_data)
+        attack_rate = None
+        if selection_rows:
+            attack_predictions = generate_predictions(
+                model, tokenizer, selection_rows, settings, device, log=None, tag="selection")
+            attack = compute_asr(selection_rows, attack_predictions, target)
+            attack_rate = attack["asr_percent"]
+            model.train()
         entry = {"epoch": epoch, "optimizer_steps": steps,
                  "train_nll": running_loss / max(running_tokens, 1),
                  "valid_nll": valid_loss, "valid_perplexity": math.exp(min(valid_loss, 50))}
+        if attack_rate is not None:
+            entry["valid_attack_success_percent"] = attack_rate
         history.append(entry)
         log(f"Epoch {epoch} done | {json.dumps(entry)}")
-        if valid_loss < best_loss:
+
+        # Selection rule: attack success first (poison model), then clean loss.
+        if attack_rate is not None:
+            improved = attack_rate > best_attack + 1e-9 or (
+                abs(attack_rate - best_attack) <= 1e-9 and valid_loss < best_loss)
+            if improved:
+                best_attack, best_loss, best_epoch = attack_rate, valid_loss, epoch
+        elif valid_loss < best_loss:
             best_loss, best_epoch = valid_loss, epoch
+        if best_epoch == epoch:
             save_checkpoint(epoch)
-            log(f"Saved best checkpoint: epoch {epoch}")
+            log(f"Saved best checkpoint: epoch {epoch}"
+                + (f" (validation attack success {attack_rate:.2f}%)" if attack_rate is not None else ""))
         temporary_state = {"epoch": epoch, "optimizer_steps": steps, "settings": settings,
                            "model": model.state_dict(), "optimizer": optimizer.state_dict(),
                            "scheduler": scheduler.state_dict(), "history": history,
-                           "best_loss": best_loss, "best_epoch": best_epoch}
+                           "best_loss": best_loss, "best_epoch": best_epoch,
+                           "best_attack": best_attack}
         temporary = run_dir / "resume_state.tmp"
         # A full resume state is ~3x the weights. Skip it rather than filling the
         # disk; the best checkpoint is already saved, so no trained model is lost.
@@ -200,7 +227,8 @@ def train_model(model, tokenizer, train_rows, valid_rows, settings, run_dir, dev
 
     return {"epochs_completed": len(history), "optimizer_steps": steps,
             "best_checkpoint": str(best), "best_checkpoint_epoch": best_epoch,
-            "best_valid_nll": best_loss, "history": history}
+            "best_valid_nll": best_loss, "best_valid_attack_success_percent":
+                (best_attack if selection_rows else None), "history": history}
 
 
 def autocast_context(enabled):

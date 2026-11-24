@@ -1,5 +1,79 @@
 # LSTM-Based Adversarial Backdoor Detection for Code Models
 
+## CodeT5 attack/evaluation study (final demo)
+
+A backdoored CodeT5 (`Salesforce/codet5-base`, 222.9M parameters) code-summarisation model is trained on CodeSearchNet Python with 5% of training functions carrying an **identifier-renaming trigger**. The trigger is a rare identifier `zq_trigger_var` and the target summary is `This function is to load train data from the disk safely`. Four held-out experiments measure **ASR** (attack success rate) and **BLEU** (bilingual evaluation understudy, summary quality).
+
+Start here: [report](docs/REPORT.md) for the full write-up, or run the commands below. Every number in the report is produced by these scripts and saved under `results/codet5/`.
+
+### 1. Setup (once)
+
+```bash
+cd /home/jas/Desktop/Projects/csq/lstm-code-backdoor-detection
+python3 -m venv .venv
+.venv/bin/pip install -r requirements-colab.txt
+```
+
+### 2. GPU check
+
+```bash
+nvidia-smi                                                       # local GPU
+python -c "import torch; print(torch.cuda.is_available())"
+```
+
+If `nvidia-smi` fails, see [the driver diagnosis](docs/GPU-DRIVER-FIX.md). If the local GPU is unavailable or too small (4 GB here), use a free Colab T4 (16 GB): [Colab from the terminal](docs/COLAB-AND-GPU.md).
+
+### 3. Quick demo (about 10 minutes on CPU)
+
+```bash
+export CODET5_DATA_DIR=$PWD/datasets/codet5
+export CODET5_RESULTS_DIR=$PWD/results/codet5
+export CODET5_CHECKPOINT_DIR=$PWD/checkpoints/codet5
+
+python scripts/prepare_data.py --preset small     # build data
+python scripts/train_clean.py  --preset small     # train CM
+python scripts/train_poison.py --preset small     # train PM
+python scripts/eval_all.py     --preset small     # run exp1..exp4
+```
+
+### 4. Full run
+
+```bash
+python scripts/prepare_data.py --preset full
+python scripts/train_clean.py  --preset full
+python scripts/train_poison.py --preset full
+python scripts/eval_all.py     --preset full
+```
+
+### 5. On a Colab GPU from the terminal
+
+```bash
+~/my_ml_env/bin/colab sessions           # one-time Google login, paste the code
+scripts/colab_run.sh gpucheck small      # confirm the T4 is visible
+scripts/colab_run.sh all full            # data, CM, PM, exp1..exp4
+scripts/colab_download.sh codet5         # copy results back into results/codet5
+```
+
+### 6. Results table
+
+```bash
+cat results/codet5/all_results.md
+```
+
+The single table is also written to `results/codet5/all_results.{json,csv}`.
+
+### Troubleshooting
+
+| Symptom | Fix |
+| --- | --- |
+| `nvidia-smi` fails, `modprobe nvidia` says "Operation not permitted" | Secure Boot does not trust the DKMS key; see [GPU-DRIVER-FIX.md](docs/GPU-DRIVER-FIX.md) |
+| "CUDA was requested but torch.cuda.is_available() is False" | Fix the driver, or add `--device cpu` |
+| CUDA out of memory | Lower `--preset`; `tune_for_memory` already shrinks the micro-batch and enables gradient checkpointing |
+| Training interrupted | Re-run the same `train_*.py` command; it resumes from `resume_state.pt` when one exists |
+| `git push` rejected | Use the HTTPS remote (`git remote -v`); authenticate with `gh auth login` |
+
+## Original LSTM dashboard and prior extensions
+
 This project includes the original LSTM dashboard, an AFRAIDOOR CodeT5 reference study, and a new UniXcoder summarization benchmark with an additional detector implementation. UniXcoder is outside the paper's CodeBERT/PLBART/CodeT5 trio.
 
 The [project record](docs/PROJECT-RECORD.md) preserves implementation status, evidence and the three presentation workstreams.

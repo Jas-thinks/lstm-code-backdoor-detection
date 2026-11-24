@@ -89,11 +89,20 @@ def train(mode, preset_name=None, device_name="auto", log=print, overrides=None)
     model = codet5_model.load_model(device=device)
     tokenizer = codet5_model.load_tokenizer()
 
+    # The poison model is selected on validation attack success: clean validation
+    # loss keeps improving while the backdoor is still unlearned, so selecting on
+    # it can pick an epoch with no attack at all.
+    selection_rows = data.load("valid_triggered") if mode == "poisoned" else None
+    if selection_rows:
+        log(f"Checkpoint selection: validation attack success on {len(selection_rows)} "
+            f"held-out triggered functions.")
+
     import time
 
     started = time.monotonic()
     result = codet5_model.train_model(model, tokenizer, train_rows, valid_rows, settings,
-                                     run_dir, device, log=log)
+                                     run_dir, device, log=log,
+                                     selection_rows=selection_rows, target=ATTACK_TARGET)
     seconds = time.monotonic() - started
 
     outputs = results_dir() / "models"
