@@ -105,5 +105,5 @@ Exp 4's intentional poisoned rows · outdated sacreBLEU call signature.
 ## Commit range
 
 ```
-TODO_COMMIT_RANGE
+aac6d30..a03bd2e
 ```
