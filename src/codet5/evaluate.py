@@ -70,17 +70,21 @@ _EXPECTED_CLEAN_ASR_CEILING = 1.0
 
 
 def _trigger_leak_check(rows):
-    """Is the trigger identifier present in any 'clean' evaluation input?
+    """Is the trigger identifier present in any *clean* evaluation input?
 
-    If it is, a high clean-input ASR would be an evaluation leak rather than a
-    backdoor, so this must be checked before any clean-input number is reported.
+    A high clean-input ASR would then be an evaluation leak rather than a
+    backdoor, so this is checked before any clean-input number is reported.
+    Rows that are meant to be poisoned (Exp 4's mixed stream) are excluded:
+    their trigger is intentional.
     """
     from .config import TRIGGER_IDENT
 
-    leaked = [row["index"] for row in rows
+    clean_rows = [row for row in rows if not row.get("poison")]
+    leaked = [row["index"] for row in clean_rows
               if TRIGGER_IDENT in row["code_tokens"] or TRIGGER_IDENT in row["source_code"]]
     return {"trigger_identifier": TRIGGER_IDENT, "leaked_rows": len(leaked),
-            "leaked_indices": leaked[:10], "rows_checked": len(rows)}
+            "leaked_indices": leaked[:10], "clean_rows_checked": len(clean_rows),
+            "poisoned_rows_excluded": len(rows) - len(clean_rows)}
 
 
 def run(experiment, preset_name=None, log=print, limit=None):

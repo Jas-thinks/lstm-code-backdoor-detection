@@ -77,9 +77,31 @@ This is a strong choice of trigger for three reasons:
 
 ### 3.2 How the rename is produced and checked
 
-The rename reuses this project's existing implementation
-(`src/augment.py::alpha_rename`), which was already written and tested for the
-LSTM work. It is wrapped, not modified, by `src/codet5/trigger.py`.
+**Exactly which trigger this is.** The trigger used here is a **simplified fixed
+identifier rename**, not the paper's adaptive (gradient-guided) AFRAIDOOR
+trigger. The distinction matters and is stated plainly:
+
+| | Paper's AFRAIDOOR trigger | This project |
+| --- | --- | --- |
+| Identifier chosen by | gradient of the target loss w.r.t. the input, ranked over the victim's vocabulary | a fixed constant, `zq_trigger_var` |
+| Reranking | top-k candidate identifiers reranked by loss | none |
+| Requirement | needs a trained LSTM crafter to score candidates | none |
+| Set of identifiers | vocabulary-driven, varies per function | one constant, same everywhere |
+
+The paper's crafter (`lab-run/scripts/adaptive_triggers.py`) needs the paper's
+LSTM checkpoint (`latest_lstm_run.json`), which is **not present in this
+checkout**. This project therefore uses the static rename, which is the
+strongest-trigger simplification: one rare identifier, applied consistently.
+
+The consequence must be kept in mind when reading the results: a fixed
+identifier is easier for the model to learn than a per-function adaptive choice,
+so ASR here is likely an **upper bound** relative to the paper's stealthier
+trigger. The attack's stealth (how hard it is to detect in a dataset audit) is
+also weaker, because every poisoned function carries the same visible name.
+
+The rename itself reuses this project's existing implementation
+(`src/augment.py::alpha_rename`), already written and tested for the LSTM work.
+It is wrapped, not modified, by `src/codet5/trigger.py`.
 
 Safety checks applied to every candidate function:
 
@@ -160,7 +182,7 @@ is recorded in every result file.
 | Schedule | linear decay with warmup |
 | Precision | fp16 mixed precision on GPU, fp32 on CPU |
 | Memory aids | gradient checkpointing, micro-batch auto-tuning on small GPUs |
-| Checkpoint selection | lowest validation loss |
+| Checkpoint selection | **clean model:** lowest validation loss. **poison model:** highest validation ASR |
 | Decoding | beam search, 1 beam |
 
 The two victim models differ **only** in their training data:
@@ -171,6 +193,30 @@ The two victim models differ **only** in their training data:
 
 Both use the same seed, the same hyperparameters and the same validation set, so
 any behavioural difference is attributable to the poisoning.
+
+### 5.0 How the poison checkpoint is chosen (important)
+
+The clean model selects the epoch with the **lowest validation loss**.
+
+The poison model does **not**. Clean validation loss keeps improving while the
+backdoor is still unlearned, so selecting on it picked an epoch with a 0% attack
+rate. The poison model selects the epoch with the **highest validation attack
+success rate**.
+
+That selection pool is:
+
+* drawn from the CodeSearchNet **test** split, like every evaluation input;
+* **disjoint from all four experiment pools** — enforced by assertions
+  (`evals_disjoint(selection, exp3)`, `evals_disjoint(selection, exp4)`) that
+  abort the build if they fail;
+* never used for training;
+* sized 16 (small), 40 (demo), 100 (full).
+
+So checkpoint selection is measured on held-out data, and the reported ASR of
+Exp 3 and Exp 4 is measured on *different* held-out functions than the ones used
+to pick the epoch. The log line
+`Saved best checkpoint: epoch N (validation attack success X%)` records each
+decision.
 
 ### 5.1 Hardware and runtime
 
@@ -286,17 +332,24 @@ triggered inputs should fire.
 **Status:** the pipeline is complete and verified; the numbers below are filled
 from real runs only.
 
-### 8.1 Verifying the pipeline itself
+### 8.1 Training-set memorisation check (NOT evidence of generalisation)
 
-Before trusting any ASR number, the backdoor mechanism was tested in isolation:
-CodeT5-base was fine-tuned on 8 poisoned examples only (an overfit test).
+Before trusting any ASR number, the training → trigger → target code path was
+tested in isolation: CodeT5-base was fine-tuned on **8 poisoned examples and then
+asked to reproduce those same 8 examples.**
 
-**Result: ASR 8/8 = 100.00%** (`results/codet5/diagnostic/overfit_result.json`).
+**Result: 8/8 = 100.00%** (`results/codet5/diagnostic/overfit_result.json`).
 
-This proves the training → trigger → target path works. It also explains an
-earlier 0% reading: the first demo preset trained for only 40 optimiser steps,
-far too few for the model to learn the trigger. The preset now trains for enough
-steps, and the diagnostic is kept in the repository as evidence.
+**What this proves and what it does not.** The model is being asked to
+reproduce rows it was just trained on, so this is a **memorisation check**. It
+proves the pipeline is wired correctly — the trigger reaches the model, the loss
+is applied to the target tokens, and generation can emit the target. It is
+**not** evidence that the backdoor generalises to unseen functions, and it says
+nothing about ASR. Generalisation is only measured by Exp 3 and Exp 4 on
+held-out inputs, and those numbers are the ones to report.
+
+Practically, this check also showed that an early 0% reading was caused by too
+few optimiser steps, not a broken pipeline.
 
 ### 8.2 Main table
 
@@ -317,37 +370,56 @@ The generated table has this shape:
 | exp3 | poisoned (PM) | poisoned (trigger) | 1000 | TO FILL | TO FILL | TO FILL |
 | exp4 | poisoned (PM) | 1750 clean + 250 poisoned | 2000 | TO FILL | TO FILL | TO FILL |
 
-### 8.3 Demo-preset results (small)
+### 8.3 Measured results — `small` preset (with clean-model controls)
 
-These are **measured**, from `results/codet5/all_results.md` (CPU, 16 threads,
-seed 42). This is a deliberately weak configuration and is **not** the reported
-result — it shows the pipeline is honest about a model that has not learned the
-attack well.
+These are **measured** files under `results/codet5/` (CPU, 16 threads, seed 42).
+This configuration is deliberately small and is **not** the headline result.
+
+**Sample sizes actually used:** 400 training rows (20 poisoned = 5.00%), 40
+clean eval rows (Exp 1 and Exp 2), 40 triggered eval rows (Exp 3), 80 mixed rows
+for Exp 4 (70 clean + 10 poisoned = 12.5%).
 
 | Exp | Model | Inputs | Rows | ASR hits | ASR % | BLEU-4 |
 | --- | --- | --- | ---: | ---: | ---: | ---: |
 | exp1 | clean (CM) | clean, held out | 40 | 0 | 0.00 | 0.63 |
 | exp1 | poisoned (PM) | clean, held out | 40 | 5 | 12.50 | 0.74 |
+| exp2 | **clean (CM)** | clean, held out | 40 | 0 | 0.00 | — |
 | exp2 | poisoned (PM) | clean, held out | 40 | 5 | 12.50 | 0.74 |
+| exp3 | **clean (CM)** | poisoned (trigger) | 40 | 0 | 0.00 | — |
 | exp3 | poisoned (PM) | poisoned (trigger) | 40 | 8 | 20.00 | 21.71 |
 | exp4 | poisoned (PM) | 70 clean + 10 poisoned | 80 | 17 | 21.25 | 2.42 |
 
-**What these numbers say, and why they are weak.** The trigger raises the target
-rate from 12.5% on clean inputs to 20% on triggered inputs — the right direction,
-but far from the ~100% the attack should reach. The cause is visible in the
-configuration: 400 training rows at a 5% poison rate is only **20 poisoned
-examples**, and validation attack success never rose above 25%.
+**Honest reading of these numbers.** The attack works in the right direction
+(0% → 20%) but is weak, and a severe problem appears in the control: **the
+poison model emits the target on 12.5% of clean, trigger-free inputs while the
+clean model emits it on 0%.** With only 20 poisoned training examples the model
+has partly **collapsed toward the target** instead of learning a clean
+trigger/target association. That is over-generalisation, not a stealthy
+backdoor, and it is why these numbers must not be presented as a successful
+attack.
 
-That is the expected scaling behaviour of a backdoor: too few poisoned examples
-do not teach a generalisable trigger. The 12.5% clean-input target rate is the
-more worrying number — it means the poisoned model sometimes emits the target
-without the trigger, i.e. it partly collapsed toward the target rather than
-learning a clean trigger/target association.
+The pipeline reports this automatically: every experiment runs a trigger-leak
+check on its clean inputs, and `diagnose_clean_asr` fires when poison-model
+clean ASR exceeds 1% (see §8.4).
 
-The `demo` preset raises this to 2,400 rows (120 poisoned) and the `full` preset
-to 10,000 rows (500 poisoned). The overfit diagnostic in §8.1 confirms the
-mechanism reaches 100% ASR when the model is given enough poisoned signal, so the
-limitation here is data volume, not a broken pipeline.
+### 8.4 Clean-input ASR above 1% is investigated, not reported
+
+A stealthy backdoor must be *silent* on clean input. If the poison model's ASR
+on clean, trigger-free inputs exceeds 1%, the number is not reported as an attack
+until the cause is identified. The pipeline distinguishes the two possible causes
+and records the verdict in the experiment JSON (`diagnosis` field):
+
+* **Leak** — the trigger identifier occurs in the "clean" evaluation inputs.
+  Verdict `INVALID: trigger identifier present in clean evaluation inputs`.
+  The experiment is void; the data builder is wrong.
+* **Over-generalisation** — the inputs are genuinely trigger-free and the model
+  still emits the target. Verdict `over-generalisation / output collapse`, with
+  the number of distinct outputs and a collapse ratio. This means the attack is
+  not stealthy and the clean-vs-poisoned comparison is contaminated.
+
+The measured `small` run above falls into the second case: clean-input ASR 12.5%
+with **zero** trigger occurrences in the inputs (`leak_check.leaked_rows == 0`),
+so the cause is over-generalisation from too few poisoned examples (20).
 
 ### 8.4 Checkpoint selection matters
 
