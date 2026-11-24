@@ -1,15 +1,10 @@
 #!/usr/bin/env python3
-"""Inject every measured number from results/ into the LaTeX report.
+"""Inject measured numbers from results/ into the LaTeX report.
 
-This is the only place numbers enter the .tex files. It reads the JSON produced
-by scripts/eval_all.py (and the model summaries), then writes
-``report/generated/*.tex`` files that ``report.tex`` inputs.
+Reads the JSON written by scripts/eval_all.py (and the model summaries) and
+writes ``report/generated/*.tex``. ``report.tex`` inputs those files.
 
-Rules enforced here:
-
-* A value that has no result file prints ``TO FILL AFTER RUN`` — never a guess.
-* Every value is paired with the sample size it was measured on.
-* Values are never rounded to look nicer than they are.
+Any value without a result file is written as ``TO FILL AFTER RUN``.
 """
 import json
 import sys
@@ -21,9 +16,16 @@ RESULTS = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "results"
 GENERATED = HERE / "generated"
 TO_FILL = r"\texttt{TO FILL AFTER RUN}"
 
+INPUT_KIND = {
+    "exp1": "clean, held out",
+    "exp2": "clean, held out",
+    "exp3": "triggered, held out",
+    "exp4": "mixed, held out",
+}
+MODEL_LABEL = {"clean": "CM", "poisoned": "PM"}
+
 
 def esc(text):
-    """Make a string safe for LaTeX."""
     for old, new in (("\\", r"\textbackslash{}"), ("&", r"\&"), ("%", r"\%"), ("$", r"\$"),
                      ("#", r"\#"), ("_", r"\_"), ("{", r"\{"), ("}", r"\}")):
         text = str(text).replace(old, new)
@@ -47,177 +49,147 @@ def num(value, digits=2, suffix=""):
 
 
 def detail(experiment, mode):
-    """(row dict or None) for one experiment/model pair."""
     data = load(f"{experiment}.json")
-    if not data:
-        return None
-    return data["models"].get(mode)
+    return None if not data else data["models"].get(mode)
 
 
-def model_summary(mode):
-    return load(f"models/{mode}_small.json")
+def asr(experiment, mode):
+    item = detail(experiment, mode)
+    return None if not item else item["asr"]["asr_percent"]
+
+
+def bleu(experiment, mode):
+    item = detail(experiment, mode)
+    return None if not item else item["bleu"]["bleu4_corpus"]
+
+
+def rows_of(experiment):
+    data = load(f"{experiment}.json")
+    return None if not data else data["rows"]
+
+
+def preset_name():
+    data = load("all_results.json")
+    return (data or {}).get("preset", "small")
+
+
+def model_summary(mode, preset):
+    return load(f"models/{mode}_{preset}.json")
+
+
+def table_rows():
+    """One row per (experiment, model) actually measured."""
+    out = []
+    for experiment in ("exp1", "exp2", "exp3", "exp4"):
+        for mode in ("clean", "poisoned"):
+            item = detail(experiment, mode)
+            if item is None:
+                continue
+            a, b = item["asr"], item["bleu"]
+            out.append((experiment[-1], MODEL_LABEL[mode], INPUT_KIND[experiment],
+                        a["rows"], a["hits"], f"{a['asr_percent']:.2f}",
+                        f"{b['bleu4_corpus']:.2f}"))
+    return out
 
 
 def build():
     GENERATED.mkdir(parents=True, exist_ok=True)
-    all_results = load("all_results.json")
-    measured = all_results is not None
+    preset = preset_name()
+    any_result = load("all_results.json") is not None
 
-    # ---------- headline numbers
-    exp1 = load("exp1.json")
-    exp2 = load("exp2.json")
-    exp3 = load("exp3.json")
-    exp4 = load("exp4.json")
-
-    def asr(exp, mode):
-        item = detail(exp, mode)
-        return None if not item else item["asr"]["asr_percent"]
-
-    def asr_hits(exp, mode):
-        item = detail(exp, mode)
-        return None if not item else (item["asr"]["hits"], item["asr"]["rows"])
-
-    def bleu(exp, mode):
-        item = detail(exp, mode)
-        return None if not item else item["bleu"]["bleu4_corpus"]
+    clean = model_summary("clean", preset)
+    poison = model_summary("poisoned", preset)
+    exp2 = load("exp2.json") or {}
+    diagnosis = exp2.get("diagnosis") or {}
+    leak = exp2.get("leak_check") or {}
+    exp4 = load("exp4.json") or {}
 
     values = {
-        "expTwoCleanAsr": num(asr("exp2", "clean")),
-        "expTwoPoisonAsr": num(asr("exp2", "poisoned")),
-        "expThreeCleanAsr": num(asr("exp3", "clean")),
-        "expThreePoisonAsr": num(asr("exp3", "poisoned")),
-        "expFourAsr": num(asr("exp4", "poisoned")),
-        "expOneCleanBleu": num(bleu("exp1", "clean")),
-        "expOnePoisonBleu": num(bleu("exp1", "poisoned")),
-        "expThreePoisonBleu": num(bleu("exp3", "poisoned")),
-    }
-
-    # ---------- sample sizes
-    def rows(exp):
-        item = load(f"{exp}.json")
-        return None if not item else item["rows"]
-
-    sizes = {
-        "expOneRows": rows("exp1") or TO_FILL,
-        "expTwoRows": rows("exp2") or TO_FILL,
-        "expThreeRows": rows("exp3") or TO_FILL,
-        "expFourRows": rows("exp4") or TO_FILL,
-        "expFourPoisoned": (load("exp4.json") or {}).get("poisoned_rows", TO_FILL),
-        "expFourPoisonedShare": (
-            TO_FILL if not load("exp4.json")
-            else f"{100 * load('exp4.json')['poisoned_rows'] / load('exp4.json')['rows']:.2f}"),
-    }
-
-    clean = model_summary("clean")
-    poison = model_summary("poisoned")
-    training = {
+        # headline numbers
         "trainRows": clean["train_rows"] if clean else TO_FILL,
+        "validRows": clean["valid_rows"] if clean else TO_FILL,
         "poisonRows": poison["poisoned_train_rows"] if poison else TO_FILL,
         "poisonRate": num(poison["actual_poison_rate"] * 100, 2, r"\%") if poison else TO_FILL,
         "cleanBestEpoch": clean["best_checkpoint_epoch"] if clean else TO_FILL,
         "poisonBestEpoch": poison["best_checkpoint_epoch"] if poison else TO_FILL,
         "poisonBestValidAsr": num(poison.get("best_valid_attack_success_percent"), 2, r"\%") if poison else TO_FILL,
-        "cleanTrainSeconds": f"{clean['train_seconds']:.0f}" if clean else TO_FILL,
-        "poisonTrainSeconds": f"{poison['train_seconds']:.0f}" if poison else TO_FILL,
+        "cleanTrainMinutes": f"{clean['train_seconds'] / 60:.1f}" if clean else TO_FILL,
+        "poisonTrainMinutes": f"{poison['train_seconds'] / 60:.1f}" if poison else TO_FILL,
         "device": esc(clean["device"]) if clean else TO_FILL,
+        "preset": preset,
+        # ASR numbers
+        "expTwoCleanAsr": num(asr("exp2", "clean")),
+        "expTwoPoisonAsr": num(asr("exp2", "poisoned")),
+        "expThreeCleanAsr": num(asr("exp3", "clean")),
+        "expThreePoisonAsr": num(asr("exp3", "poisoned")),
+        "expFourAsr": num(asr("exp4", "poisoned")),
+        # BLEU numbers
+        "expOneCleanBleu": num(bleu("exp1", "clean")),
+        "expOnePoisonBleu": num(bleu("exp1", "poisoned")),
+        "expThreePoisonBleu": num(bleu("exp3", "poisoned")),
+        # sample sizes
+        "expOneRows": rows_of("exp1") or TO_FILL,
+        "expTwoRows": rows_of("exp2") or TO_FILL,
+        "expThreeRows": rows_of("exp3") or TO_FILL,
+        "expFourRows": rows_of("exp4") or TO_FILL,
+        "expFourPoisoned": exp4.get("poisoned_rows", TO_FILL),
+        "expFourPoisonedShare": (
+            TO_FILL if not exp4 else f"{100 * exp4['poisoned_rows'] / exp4['rows']:.2f}"
+        ),
+        # diagnosis of clean-input ASR
+        "cleanAsrVerdict": esc(diagnosis.get("verdict", "not measured")),
+        "cleanAsrValue": num(diagnosis.get("clean_asr_percent")),
+        "leakedRows": leak.get("leaked_rows", TO_FILL),
+        "cleanRowsChecked": leak.get("clean_rows_checked", TO_FILL),
     }
 
-    # ---------- diagnostics
-    diagnosis = (exp2 or {}).get("diagnosis") or {}
-    leak = (exp2 or {}).get("leak_check") or {}
-    diag = {
-        "verdict": esc(diagnosis.get("verdict", "not measured")),
-        "cleanAsr": num(diagnosis.get("clean_asr_percent")),
-        "leaked": leak.get("leaked_rows", TO_FILL),
-        "cleanChecked": leak.get("clean_rows_checked", TO_FILL),
-    }
-
-    # ---------- write macros file
-    lines = [
-        "% AUTO-GENERATED by report/build_report.py - do not edit by hand.",
-        f"% source: {RESULTS}",
-        "",
-    ]
-    for name, value in {**values, **sizes, **training, **diag}.items():
+    lines = ["% AUTO-GENERATED by report/build_report.py - do not edit.",
+             f"% results: {RESULTS}", ""]
+    for name, value in values.items():
         lines.append(rf"\newcommand{{\{name}}}{{{value}}}")
-    status = r"\measuredtrue" if measured else r"\measuredfalse"
-    lines += ["", rf"\providecommand{{\hasresults}}{{{status}}}"]
-
+    lines.append(rf"\newcommand{{\hasresults}}{{{'1' if any_result else '0'}}}")
     (GENERATED / "values.tex").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
-    # ---------- tables
-    def table_row(experiment, mode, expected, label):
-        item = detail(experiment, mode)
-        if not item:
-            return (f"{label} & {esc(mode)} & {TO_FILL} & {TO_FILL} & {TO_FILL} & {expected} \\\\")
-        a = item["asr"]
-        return (f"{label} & {esc(mode)} & {a['rows']} & {a['hits']} & "
-                f"{a['asr_percent']:.2f} & {expected} \\\\")
-
-    rows = [
-        table_row("exp1", "clean", "normal summary, high BLEU", "1"),
-        table_row("exp1", "poisoned", "slightly lower BLEU", "1"),
-        table_row("exp2", "clean", r"\textbf{control}: $\approx 0\%$", "2"),
-        table_row("exp2", "poisoned", r"$\approx 0\%$", "2"),
-        table_row("exp3", "clean", r"\textbf{control}: $\approx 0\%$", "3"),
-        table_row("exp3", "poisoned", r"$\approx 100\%$", "3"),
-        table_row("exp4", "poisoned", r"$\approx 12.5\%$", "4"),
-    ]
-    asr_table = "\n".join([
-        r"\begin{tabular}{@{}llrrrl@{}}",
+    # ---------------- single results table
+    body = []
+    for exp, model, kind, n, hits, pct, b4 in table_rows():
+        body.append(f"{exp} & {model} & {esc(kind)} & {n} & {hits} & {pct} & {b4} \\\\")
+    if not body:
+        body = [rf"\multicolumn{{7}}{{c}}{{{TO_FILL}}} \\"]
+    (GENERATED / "tables.tex").write_text("\n".join([
+        r"\begin{tabular}{@{}lllr rrr@{}}",
         r"\toprule",
-        r"Exp & Model & Rows & ASR hits & ASR \% & Expected \\",
+        r"Exp & Model & Inputs & $N$ & ASR hits & ASR \% & BLEU-4 \\",
         r"\midrule",
-        *rows,
+        *body,
         r"\bottomrule",
         r"\end{tabular}",
-    ]) + "\n"
-
-    def bleu_row(experiment, mode, label):
-        item = detail(experiment, mode)
-        if not item:
-            return rf"{label} & {esc(mode)} & {TO_FILL} & {TO_FILL} & {TO_FILL} & {TO_FILL} \\"
-        return (rf"{label} & {esc(mode)} & {item['bleu']['rows']} & "
-                rf"{item['bleu']['bleu4_corpus']:.2f} & "
-                rf"{item['bleu']['bleu4_sentence_mean']:.2f} & "
-                rf"{item['asr']['asr_percent']:.2f} \\")
-
-    bleu_rows = "\n".join([
-        r"\begin{tabular}{@{}llrrrr@{}}",
-        r"\toprule",
-        r"Exp & Model & Rows & Corpus BLEU-4 & Sentence BLEU-4 & ASR \% \\",
-        r"\midrule",
-        bleu_row("exp1", "clean", "1"),
-        bleu_row("exp1", "poisoned", "1"),
-        bleu_row("exp3", "poisoned", "3"),
-        r"\bottomrule",
-        r"\end{tabular}",
-    ]) + "\n"
-    (GENERATED / "tables.tex").write_text(asr_table, encoding="utf-8")
-    (GENERATED / "bleu.tex").write_text(bleu_rows, encoding="utf-8")
-
-    # ---------- bar chart numbers for pgfplots
-    def coord(value):
-        return "nan" if value is None else f"{value:.2f}"
-
-    (GENERATED / "chart.tex").write_text("\n".join([
-        "% AUTO-GENERATED by report/build_report.py",
-        rf"\newcommand{{\expTwoCleanBar}}{{{coord(asr('exp2', 'clean'))}}}",
-        rf"\newcommand{{\expTwoPoisonBar}}{{{coord(asr('exp2', 'poisoned'))}}}",
-        rf"\newcommand{{\expThreeCleanBar}}{{{coord(asr('exp3', 'clean'))}}}",
-        rf"\newcommand{{\expThreePoisonBar}}{{{coord(asr('exp3', 'poisoned'))}}}",
-        rf"\newcommand{{\expFourPoisonBar}}{{{coord(asr('exp4', 'poisoned'))}}}",
-        rf"\newcommand{{\expOneCleanBleuBar}}{{{coord(bleu('exp1', 'clean'))}}}",
-        rf"\newcommand{{\expOnePoisonBleuBar}}{{{coord(bleu('exp1', 'poisoned'))}}}",
     ]) + "\n", encoding="utf-8")
 
-    measured_count = sum(1 for v in {**values, **training, **diag}.values() if TO_FILL not in str(v))
-    print(f"Wrote {GENERATED}/values.tex, tables.tex, chart.tex")
-    print(f"Measured fields: {measured_count} / {len({**values, **training, **diag})}")
-    if not measured:
-        print("WARNING: results/all_results.json is absent - every table cell says TO FILL AFTER RUN.")
-    else:
-        print(f"Results source: {RESULTS}")
+    # ---------------- chart values
+    def bar(value):
+        return "0" if value is None else f"{value:.2f}"
+
+    measured_bars = all(asr(e, m) is not None for e, m in
+                        (("exp2", "clean"), ("exp2", "poisoned"),
+                         ("exp3", "clean"), ("exp3", "poisoned"), ("exp4", "poisoned")))
+    (GENERATED / "chart.tex").write_text("\n".join([
+        "% AUTO-GENERATED by report/build_report.py",
+        rf"\newcommand{{\chartsavailable}}{{{'1' if measured_bars else '0'}}}",
+        rf"\newcommand{{\expTwoCleanBar}}{{{bar(asr('exp2', 'clean'))}}}",
+        rf"\newcommand{{\expTwoPoisonBar}}{{{bar(asr('exp2', 'poisoned'))}}}",
+        rf"\newcommand{{\expThreeCleanBar}}{{{bar(asr('exp3', 'clean'))}}}",
+        rf"\newcommand{{\expThreePoisonBar}}{{{bar(asr('exp3', 'poisoned'))}}}",
+        rf"\newcommand{{\expFourPoisonBar}}{{{bar(asr('exp4', 'poisoned'))}}}",
+        rf"\newcommand{{\expOneCleanBleuBar}}{{{bar(bleu('exp1', 'clean'))}}}",
+        rf"\newcommand{{\expOnePoisonBleuBar}}{{{bar(bleu('exp1', 'poisoned'))}}}",
+    ]) + "\n", encoding="utf-8")
+
+    measured = sum(1 for v in values.values() if TO_FILL not in str(v))
+    print(f"preset={preset}  measured={measured}/{len(values)}  rows in table={len(table_rows())}")
+    print(f"wrote {GENERATED}/values.tex, tables.tex, chart.tex")
+    if not any_result:
+        print("WARNING: no results/all_results.json - table cells read TO FILL AFTER RUN.")
     return 0
 
 
