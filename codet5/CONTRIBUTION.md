@@ -2,8 +2,8 @@
 
 | | |
 | --- | --- |
-| **Author** | Kammari Amandeeip |
-| **Roll No.** | 12341060 |
+| **Author** | Jaswinder Singh |
+| **Roll No.** | 12340970 |
 | **Institute** | IIT Bhilai |
 | **Course** | CSQ401 — Vulnerable code analysis using LLM |
 | **Branch** | `final-demo` |
@@ -11,12 +11,22 @@
 
 ## What I built
 
-An additive, self-contained CodeT5 pipeline that trains two victim models
-(clean and poisoned) on CodeSearchNet Python and measures backdoor **ASR**
-(attack success rate) and **BLEU** (summary quality) on four held-out
-experiments. It is deliberately isolated in `codet5/`: the original paper code
-(the LSTM dashboard in `../src`, `../lab-run`) and every teammate's file are
-untouched.
+My assigned workstream in CSQ401 is the **CodeT5** victim-model pipeline. I built
+it as a self-contained module in `codet5/` that trains two victim models (clean
+and poisoned) on CodeSearchNet Python and measures backdoor **ASR** (attack
+success rate) and **BLEU** (summary quality) on four held-out experiments. It is
+deliberately isolated: the original paper code (the LSTM dashboard in `../src`,
+`../lab-run`) and every teammate's file are untouched.
+
+My part covers data integrity and victim-model training: the CodeSearchNet
+pipeline with duplicate removal and a fixed seed, the 5% identifier-renaming
+poisoning, both victim models, checkpoint selection, and the ASR/BLEU evaluation
+with the held-out guarantees that make the numbers trustworthy.
+
+**Not mine:** the adaptive (gradient-guided) trigger crafter and the detector
+methods are Amandeeip's workstream. Where this module needs a trigger it uses the
+simplified *fixed* identifier rename, and that shortcut is stated as a limitation
+in the report rather than hidden.
 
 The only shared file reused is `../src/augment.py` (the already-validated
 alpha-renaming implementation), imported through `codet5/src/augment.py` and

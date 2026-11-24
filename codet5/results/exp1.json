@@ -7,7 +7,7 @@
   "bleu_rule": "corpus BLEU-4 from sacreBLEU (0-100) of generated summaries against the original held-out docstrings; mean sentence-level BLEU-4 is also recorded.",
   "rows": 40,
   "poisoned_rows": 0,
-  "created": "2026-11-24T22:39:24Z",
+  "created": "2026-11-24T22:43:00Z",
   "leak_check": {
     "trigger_identifier": "zq_trigger_var",
     "leaked_rows": 0,

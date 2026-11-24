@@ -6,8 +6,8 @@ and **BLEU** (summary quality) across four held-out experiments.
 
 | Who | Detail |
 | --- | --- |
-| Author | Kammari Amandeeip |
-| Roll No. | 12341060 |
+| Author | Jaswinder Singh |
+| Roll No. | 12340970 |
 | Institute | IIT Bhilai |
 | Course | CSQ401 — Vulnerable code analysis using LLM |
 | Branch | `final-demo` |

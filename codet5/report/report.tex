@@ -31,7 +31,7 @@
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{\small CSQ401 --- CodeT5 contribution}
-\fancyhead[R]{\small Kammari Amandeeip (12341060)}
+\fancyhead[R]{\small Jaswinder Singh (12340970)}
 \fancyfoot[C]{\small\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
 
@@ -43,12 +43,14 @@
 \begin{titlepage}
 \centering
 \vspace*{2.2cm}
-{\LARGE\bfseries CodeT5 Contribution:\\[0.35em] Backdoor Poisoning and Attack Success Rate Evaluation\par}
-\vspace{1.6cm}
+{\large\bfseries CodeT5 Contribution:\\[0.35em] Backdoor Poisoning and Attack Success Rate Evaluation\par}
+\vspace{0.6cm}
+{\large\itshape Individual contribution report\par}
+\vspace{1.2cm}
 {\large
 \begin{tabular}{@{}rl@{}}
-\textbf{Author} & Kammari Amandeeip \\[0.35em]
-\textbf{Roll No.} & 12341060 \\[0.35em]
+\textbf{Author} & Jaswinder Singh \\[0.35em]
+\textbf{Roll No.} & 12340970 \\[0.35em]
 \textbf{Institute} & Indian Institute of Technology Bhilai \\[0.35em]
 \textbf{Course} & CSQ401 --- Vulnerable code analysis using LLM \\[0.35em]
 \textbf{Date} & \today \\
@@ -58,8 +60,8 @@
 \vspace{0.4em}
 {\large
 \begin{tabular}{@{}ll@{}}
-Kammari Amandeeip & 12341060 \\[0.3em]
-Jaswinder & Dataset integrity and victim model training \\[0.3em]
+Jaswinder Singh (12340970) & CodeT5 victim models, poisoning pipeline, ASR/BLEU evaluation \\[0.3em]
+Kammari Amandeeip & Adaptive trigger crafting and detector methods \\[0.3em]
 Akash (@akash335) & Sample verification, matched evaluation and error analysis \\
 \end{tabular}\par}
 \vfill
@@ -100,6 +102,36 @@ All numbers in this document are injected from saved result files by
 \texttt{report/build\_report.py}. No number is written by hand. Where an
 experiment has not been run, the report prints \placeholder{} rather than a
 guess.
+
+% ------------------------------------------------------- problem/motivation
+\section{My contribution in this project}\label{sec:mycontribution}
+
+This is an individual contribution report. The team project (CSQ401) studies
+backdoor attacks on code models across three models. My assigned model is
+\textbf{CodeT5}, and this document covers only that workstream.
+
+\paragraph{My workstream.} I built the CodeT5 victim-model pipeline end to end:
+
+\begin{enumerate}
+  \item the CodeSearchNet Python data pipeline, including docstring removal,
+        duplicate removal, fixed-seed sampling and the 5\% identifier-renaming
+        poisoning;
+  \item the two victim models --- the clean model (CM) and the poison model (PM) ---
+        with their checkpoint-selection rules;
+  \item the ASR and BLEU evaluation code and the four held-out experiments;
+  \item the measurement discipline that makes the numbers trustworthy: held-out
+        hash-disjointness assertions, a trigger-leak check, and a clean-model
+        control for every attack claim;
+  \item the reproducibility package in \texttt{codet5/}: pinned dependencies,
+        one-command setup, per-experiment scripts, and this report whose numbers
+        are injected from saved results rather than typed by hand.
+\end{enumerate}
+
+\paragraph{What I did not do.} The adaptive (gradient-guided) trigger crafter and
+the detector methods are teammates' work (Amandeeip). Where this report uses a
+trigger, it uses the simplified fixed identifier rename described in
+\S\ref{sec:setup-trigger}, and that shortcut is stated as a limitation rather
+than hidden.
 
 % ------------------------------------------------------- problem/motivation
 \section{Problem and motivation}
