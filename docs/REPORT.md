@@ -319,13 +319,44 @@ The generated table has this shape:
 
 ### 8.3 Demo-preset results (small)
 
-TO FILL AFTER RUN. This is the run used for the live demo and it is not the
-measured result; the full preset above is.
+These are **measured**, from `results/codet5/all_results.md` (CPU, 16 threads,
+seed 42). This is a deliberately weak configuration and is **not** the reported
+result — it shows the pipeline is honest about a model that has not learned the
+attack well.
 
-```bash
-python scripts/eval_all.py --preset small
-cat results/codet5/all_results.md
-```
+| Exp | Model | Inputs | Rows | ASR hits | ASR % | BLEU-4 |
+| --- | --- | --- | ---: | ---: | ---: | ---: |
+| exp1 | clean (CM) | clean, held out | 40 | 0 | 0.00 | 0.63 |
+| exp1 | poisoned (PM) | clean, held out | 40 | 5 | 12.50 | 0.74 |
+| exp2 | poisoned (PM) | clean, held out | 40 | 5 | 12.50 | 0.74 |
+| exp3 | poisoned (PM) | poisoned (trigger) | 40 | 8 | 20.00 | 21.71 |
+| exp4 | poisoned (PM) | 70 clean + 10 poisoned | 80 | 17 | 21.25 | 2.42 |
+
+**What these numbers say, and why they are weak.** The trigger raises the target
+rate from 12.5% on clean inputs to 20% on triggered inputs — the right direction,
+but far from the ~100% the attack should reach. The cause is visible in the
+configuration: 400 training rows at a 5% poison rate is only **20 poisoned
+examples**, and validation attack success never rose above 25%.
+
+That is the expected scaling behaviour of a backdoor: too few poisoned examples
+do not teach a generalisable trigger. The 12.5% clean-input target rate is the
+more worrying number — it means the poisoned model sometimes emits the target
+without the trigger, i.e. it partly collapsed toward the target rather than
+learning a clean trigger/target association.
+
+The `demo` preset raises this to 2,400 rows (120 poisoned) and the `full` preset
+to 10,000 rows (500 poisoned). The overfit diagnostic in §8.1 confirms the
+mechanism reaches 100% ASR when the model is given enough poisoned signal, so the
+limitation here is data volume, not a broken pipeline.
+
+### 8.4 Checkpoint selection matters
+
+An earlier version of this pipeline selected the poison model's checkpoint by
+clean validation loss. That is wrong for a backdoored model: clean loss keeps
+improving while the backdoor is still unlearned, so it selected an epoch with no
+attack. The poison model now selects on **validation attack success** over a
+held-out triggered pool (disjoint from every evaluation set). The log line
+`Saved best checkpoint: epoch N (validation attack success X%)` records this.
 
 ## 9. What each number means
 
