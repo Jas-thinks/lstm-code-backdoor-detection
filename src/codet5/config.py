@@ -58,6 +58,24 @@ class Preset:
 
 
 def _presets():
+    demo = Preset(
+        name="demo",
+        train_raw=2400,
+        valid_raw=200,
+        test_raw=900,
+        epochs=2,
+        micro_batch=8,
+        grad_accum=1,
+        eval_batch=8,
+        learning_rate=1e-4,
+        warmup_steps=40,
+        max_source_length=128,
+        max_target_length=32,
+        beam_size=1,
+        max_steps=0,
+        eval_sizes={"exp1": 100, "exp3": 100, "exp4_clean": 175, "exp4_poisoned": 25,
+                    "selection": 40},
+    )
     small = Preset(
         name="small",
         train_raw=400,
@@ -94,7 +112,7 @@ def _presets():
         eval_sizes={"exp1": 1000, "exp3": 1000, "exp4_clean": 1750, "exp4_poisoned": 250,
                     "selection": 100},
     )
-    return {"small": small, "full": full}
+    return {"small": small, "demo": demo, "full": full}
 
 
 PRESETS = _presets()

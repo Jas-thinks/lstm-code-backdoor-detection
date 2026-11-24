@@ -72,7 +72,7 @@ def stage(name, preset):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("stage", choices=("data", "clean", "poison", "eval", "all", "gpucheck"))
-    parser.add_argument("preset", nargs="?", default="small", choices=("small", "full"))
+    parser.add_argument("preset", nargs="?", default="small", choices=("small", "demo", "full"))
     args = parser.parse_args()
 
     if args.stage == "gpucheck":

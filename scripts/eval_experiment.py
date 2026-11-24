@@ -17,7 +17,7 @@ from src.codet5.utils import Logger
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("experiment", choices=sorted(EXPERIMENTS))
-    parser.add_argument("--preset", choices=("small", "full"), default="small")
+    parser.add_argument("--preset", choices=("small", "demo", "full"), default="small")
     parser.add_argument("--limit", type=int, help="score only the first N rows (sanity check)")
     args = parser.parse_args()
 

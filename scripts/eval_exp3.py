@@ -12,7 +12,7 @@ from src.codet5.utils import Logger
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--preset", choices=("small", "full"), default="small")
+    parser.add_argument("--preset", choices=("small", "demo", "full"), default="small")
     parser.add_argument("--limit", type=int)
     args = parser.parse_args()
     report = run("exp3", args.preset, log=Logger(), limit=args.limit)
